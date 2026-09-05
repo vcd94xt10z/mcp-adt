@@ -60,7 +60,7 @@ class RequestsPage {
             return (!number || itemNumber.includes(number))
                 && (!description || itemDescription.includes(description))
                 && (!type || itemType === type)
-                && (!target || itemTarget === target)
+                && (!target || (target === 'LOCAL CHANGE REQUESTS' ? (!itemTarget || itemTarget === 'LOCAL CHANGE REQUESTS') : itemTarget === target))
                 && (!owner || itemOwner.includes(owner));
         }).slice(0, max);
 
@@ -229,12 +229,22 @@ class RequestsPage {
         }
     }
 
-    // Carrega os targets disponíveis no ambiente SAP para o filtro e inclui a opção Todos.
+    // Carrega os targets disponíveis no ambiente SAP para o filtro e trata Local Change Requests como target vazio.
     async populateTargetFilter() {
         const currentValue = String($('#requestFilterTarget').val() || '').trim();
         try {
             const options = await this.app.loadEnvironmentOptions();
-            this.app.setSelectOptions('#requestFilterTarget', options.targets, 'Todos', currentValue);
+            const targetOptions = Array.isArray(options.targets) ? [...options.targets] : [];
+            const hasLocalChangeRequests = targetOptions.some(target =>
+                String(target || '').trim().toUpperCase() === 'LOCAL CHANGE REQUESTS'
+            );
+
+            if (!hasLocalChangeRequests) {
+                targetOptions.push('Local Change Requests');
+            }
+
+            this.app.setSelectOptions('#requestFilterTarget', targetOptions, 'Todos', currentValue);
+            $('#requestFilterTarget').val(currentValue || '');
         } catch (error) {
             this.app.setSelectOptions('#requestFilterTarget', [], 'Todos');
             throw error;
