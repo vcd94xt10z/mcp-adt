@@ -2,6 +2,7 @@ class RequestsPage {
     constructor(app) {
         this.app = app;
         this.editingNumber = null;
+        this.pendingDeleteNumber = null;
         this.bound = false;
     }
 
@@ -18,7 +19,8 @@ class RequestsPage {
         $('#requestSearch').on('click', () => this.search());
         $('#newRequest').on('click', () => this.openNew());
         $('#requestForm').on('submit', event => this.submit(event));
-        $('#requestFilterNumber, #requestFilterDescription, #requestFilterMax').on('keydown', event => {
+        $('#requestDeleteConfirm').on('click', () => this.confirmDelete());
+        $('#requestFilterNumber, #requestFilterDescription, #requestFilterType, #requestFilterTarget, #requestFilterOwner, #requestFilterMax').on('keydown', event => {
             if (event.key === 'Enter') {
                 event.preventDefault();
                 this.search();
@@ -44,11 +46,21 @@ class RequestsPage {
     renderResults(items) {
         const number = String($('#requestFilterNumber').val() || '').trim().toUpperCase();
         const description = String($('#requestFilterDescription').val() || '').trim().toUpperCase();
+        const type = this.normalizeCategory($('#requestFilterType').val());
+        const target = String($('#requestFilterTarget').val() || '').trim().toUpperCase();
+        const owner = String($('#requestFilterOwner').val() || '').trim().toUpperCase();
         const max = Math.max(1, Math.min(500, Number($('#requestFilterMax').val()) || 100));
         const filtered = items.filter(item => {
             const itemNumber = String(item.number || '').toUpperCase();
             const itemDescription = String(item.description || '').toUpperCase();
-            return (!number || itemNumber.includes(number)) && (!description || itemDescription.includes(description));
+            const itemTarget = String(item.target || '').toUpperCase();
+            const itemOwner = String(item.owner || '').toUpperCase();
+            const itemType = this.normalizeCategory(item.category || item.type);
+            return (!number || itemNumber.includes(number))
+                && (!description || itemDescription.includes(description))
+                && (!type || itemType === type)
+                && (!target || itemTarget.includes(target))
+                && (!owner || itemOwner.includes(owner));
         }).slice(0, max);
 
         if (!filtered.length) {
@@ -152,13 +164,38 @@ class RequestsPage {
                 await this.openEdit(request);
                 return;
             }
-            if (window.confirm(`Deletar o request '${number}'?`)) {
-                await this.execute('request_delete', { number });
-                this.app.showToast('Request excluída', `O request '${number}' foi excluído.`);
-                await this.search();
-            }
+            this.openDeleteConfirm(number);
         } catch (error) {
             this.app.showError(error.data || { ok: false, error: error.message });
+        }
+    }
+
+
+    // Abre o modal Bootstrap para confirmar a exclusão da request selecionada.
+    openDeleteConfirm(number) {
+        this.pendingDeleteNumber = number;
+        $('#requestDeleteNumber').text(number);
+        this.modal('requestDeleteModal').show();
+    }
+
+    // Confirma a exclusão da request após a confirmação no modal Bootstrap.
+    async confirmDelete() {
+        const number = this.pendingDeleteNumber;
+        if (!number) return;
+
+        const button = $('#requestDeleteConfirm');
+        button.prop('disabled', true);
+
+        try {
+            await this.execute('request_delete', { number });
+            this.modal('requestDeleteModal').hide();
+            this.app.showToast('Request excluída', `O request '${number}' foi excluído.`);
+            this.pendingDeleteNumber = null;
+            await this.search();
+        } catch (error) {
+            this.app.showError(error.data || { ok: false, error: error.message });
+        } finally {
+            button.prop('disabled', false);
         }
     }
 

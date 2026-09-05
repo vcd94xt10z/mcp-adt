@@ -15,6 +15,9 @@
                     <div class="row g-3 align-items-end">
                         <div class="col-md-4"><label for="requestFilterNumber" class="form-label">Número</label><input id="requestFilterNumber" class="form-control" placeholder="DEVK9XXXXXX"></div>
                         <div class="col-md-4"><label for="requestFilterDescription" class="form-label">Descrição</label><input id="requestFilterDescription" class="form-control" placeholder="Texto da descrição"></div>
+                        <div class="col-md-4"><label for="requestFilterType" class="form-label">Tipo</label><select id="requestFilterType" class="form-select"><option value="">Todos</option><option value="K">Workbench</option><option value="W">Customizing</option></select></div>
+                        <div class="col-md-4"><label for="requestFilterTarget" class="form-label">Target</label><input id="requestFilterTarget" class="form-control" placeholder="Target"></div>
+                        <div class="col-md-4"><label for="requestFilterOwner" class="form-label">Owner</label><input id="requestFilterOwner" class="form-control" placeholder="Usuário proprietário"></div>
                         <div class="col-md-2"><label for="requestFilterMax" class="form-label">Máx. resultados</label><input id="requestFilterMax" class="form-control" type="number" min="1" max="500" value="100"></div>
                         <div class="col-md-2 d-grid"><button id="requestSearch" class="btn btn-primary" type="button">Pesquisar</button></div>
                     </div>
@@ -59,6 +62,24 @@
                     <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Cancelar</button>
                 </div>
             </form>
+        </div>
+    </div>
+
+    <div class="modal fade" id="requestDeleteModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Excluir request</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div class="modal-body">
+                    Deseja realmente excluir o request <strong id="requestDeleteNumber"></strong>?
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Cancelar</button>
+                    <button id="requestDeleteConfirm" class="btn btn-danger" type="button">Excluir</button>
+                </div>
+            </div>
         </div>
     </div>
 
