@@ -184,18 +184,48 @@ class AppShell {
         bootstrap.Modal.getOrCreateInstance(document.getElementById('errorLogModal')).show();
     }
 
-    // Extrai uma mensagem amigável dos erros retornados pela camada ADT.
+    // Extrai uma mensagem amigável dos erros de conexão sem exibir o retorno técnico do SAP.
     connectionErrorReason(error) {
         const data = error?.data;
         const response = data?.error?.response;
-        const body = response?.body || '';
-        const xmlMessage = body.match(/<message[^>]*>([^<]+)<\/message>/i)?.[1]?.trim();
-        if (xmlMessage) return xmlMessage;
-        const message = data?.error?.message || error?.message || 'Erro desconhecido';
-        return String(message)
-            .replace(/^ADT (network )?request failed:\s*/i, '')
-            .replace(/^ADT request failed:\s*\d+[^-]*-\s*/i, '')
-            .trim();
+        const status = Number(response?.status ?? error?.status ?? 0);
+        const body = String(response?.body ?? '');
+        const message = String(data?.error?.message ?? error?.message ?? '');
+        const source = `${message} ${body}`.toLowerCase();
+
+        if (status === 0 || /fetch failed|enotfound|econnrefused|etimedout|ehostunreach|network request/i.test(source)) {
+            return 'Host inacessível ou não foi possível conectar ao SAP.';
+        }
+
+        if (status === 401 || /logon failed|invalid user|unknown user|user .*not found/i.test(source)) {
+            return 'Usuário ou senha incorretos.';
+        }
+
+        if (/client .*not found|client .*does not exist|invalid client|mandante .*inv[aá]lido/i.test(source)) {
+            return 'Mandante inválido.';
+        }
+
+        if (/invalid password|incorrect password|password .*invalid|senha .*inv[aá]lida/i.test(source)) {
+            return 'Senha inválida.';
+        }
+
+        if (status === 403) {
+            return 'Usuário sem autorização para acessar o SAP.';
+        }
+
+        if (status === 404) {
+            return 'Endpoint do SAP não encontrado. Verifique a URL da conexão.';
+        }
+
+        if (status === 408 || /timeout|timed out/i.test(source)) {
+            return 'Tempo limite excedido ao conectar ao SAP.';
+        }
+
+        if (status >= 500) {
+            return 'O SAP está indisponível ou retornou um erro interno.';
+        }
+
+        return 'Não foi possível estabelecer a conexão com o SAP. Verifique os dados da conexão.';
     }
 
     // Exibe uma notificação curta de sucesso ou erro para o usuário.
@@ -210,7 +240,8 @@ class AppShell {
             </div>
         `);
         toast.find('.toast-body').text(message);
-        if (!ok) toast.addClass('border border-danger');
+        toast.addClass(ok ? 'border border-success' : 'border border-danger');
+        if (ok) toast.find('.toast-header strong').addClass('text-success');
         $('#toastContainer').append(toast);
         const instance = bootstrap.Toast.getOrCreateInstance(toast[0], { delay: 5000 });
         instance.show();

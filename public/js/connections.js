@@ -111,7 +111,7 @@ class ConnectionsPage {
         }
     }
 
-    // Testa uma conexão SAP através da API web.
+    // Testa uma conexão SAP e apresenta somente uma mensagem amigável ao usuário.
     async test(name) {
         try {
             await this.app.api(`/api/connections/${encodeURIComponent(name)}/test`, { method: 'POST' });
