@@ -20,6 +20,7 @@ class LogPage {
         $('#logEnabled').on('change', () => this.setEnabled());
         $('#logRefresh').on('click', () => this.refresh());
         $('#logClear').on('click', () => this.clear());
+        $('#confirmLogClear').on('click', () => this.confirmClear());
         $('#logFilter').on('click', () => this.applyFilters());
         $('#logDate, #logMethod, #logStatus').on('keydown', event => {
             if (event.key === 'Enter') {
@@ -152,9 +153,14 @@ class LogPage {
         }
     }
 
-    // Apaga o arquivo de log após confirmação do usuário.
-    async clear() {
-        if (!window.confirm('Deseja apagar o arquivo mcp.log?')) return;
+    // Abre o modal Bootstrap para confirmar a limpeza do arquivo de log.
+    clear() {
+        bootstrap.Modal.getOrCreateInstance(document.getElementById('logClearModal')).show();
+    }
+
+    // Apaga o arquivo de log após a confirmação no modal Bootstrap.
+    async confirmClear() {
+        bootstrap.Modal.getOrCreateInstance(document.getElementById('logClearModal')).hide();
         try {
             await this.app.api('/api/log', { method: 'DELETE' });
             this.entries = [];
