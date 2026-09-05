@@ -4,3 +4,7 @@
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+
+.log-filters .form-label {
+    margin-bottom: 0.35rem;
+}

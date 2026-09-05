@@ -13,6 +13,36 @@
                 </div>
             </div>
             <div class="alert alert-info">Quando habilitado, cada chamada HTTP para o SAP é registrada em <strong>mcp.log</strong> na raiz do projeto.</div>
+
+            <div class="row g-2 align-items-end mb-3 log-filters">
+                <div class="col-md-4 col-lg-3">
+                    <label for="logDate" class="form-label">Data</label>
+                    <input id="logDate" class="form-control" type="date">
+                </div>
+                <div class="col-md-4 col-lg-3">
+                    <label for="logMethod" class="form-label">Método HTTP</label>
+                    <select id="logMethod" class="form-select">
+                        <option value="">Todos</option>
+                        <option value="GET">GET</option>
+                        <option value="POST">POST</option>
+                        <option value="PUT">PUT</option>
+                        <option value="PATCH">PATCH</option>
+                        <option value="DELETE">DELETE</option>
+                        <option value="HEAD">HEAD</option>
+                        <option value="OPTIONS">OPTIONS</option>
+                    </select>
+                </div>
+                <div class="col-md-4 col-lg-3">
+                    <label for="logStatus" class="form-label">Status HTTP</label>
+                    <select id="logStatus" class="form-select">
+                        <option value="">Todos</option>
+                    </select>
+                </div>
+                <div class="col-md-auto">
+                    <button id="logFilter" class="btn btn-primary" type="button">Filtrar</button>
+                </div>
+            </div>
+
             <div id="logResults" class="table-responsive"><div class="alert alert-secondary">Clique em Atualizar para carregar o log.</div></div>
         </div>
     </div>
@@ -25,7 +55,10 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
                 </div>
                 <div class="modal-body"><textarea id="logViewContent" class="form-control font-monospace" rows="25" readonly spellcheck="false"></textarea></div>
-                <div class="modal-footer"><button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Fechar</button></div>
+                <div class="modal-footer">
+                    <button id="copyLogJson" class="btn btn-primary" type="button">Copiar JSON</button>
+                    <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Fechar</button>
+                </div>
             </div>
         </div>
     </div>
