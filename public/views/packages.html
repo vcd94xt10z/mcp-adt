@@ -1,0 +1,125 @@
+<section id="packagesPage" class="app-page d-none">
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+                <div>
+                    <h2 class="h5 mb-1">Pacotes</h2>
+                    <p class="text-secondary mb-0">Pesquise, crie, altere e exclua pacotes ABAP.</p>
+                </div>
+                <button id="newPackage" class="btn btn-primary" type="button">Novo pacote</button>
+            </div>
+
+            <div class="card bg-body-tertiary border mb-3">
+                <div class="card-body">
+                    <h3 class="h6">Pesquisa de pacotes</h3>
+                    <div class="row g-3 align-items-end">
+                        <div class="col-md-5"><label for="packageSearchQuery" class="form-label">Padrão do nome</label><input id="packageSearchQuery" class="form-control" value="Z*" placeholder="Z*"></div>
+                        <div class="col-md-4"><label for="packageSearchSuper" class="form-label">Superpackage</label><input id="packageSearchSuper" class="form-control" placeholder="Opcional"></div>
+                        <div class="col-md-1"><label for="packageSearchMax" class="form-label">Máx.</label><input id="packageSearchMax" class="form-control" type="number" min="1" max="500" value="100"></div>
+                        <div class="col-md-2 d-grid"><button id="packageSearch" class="btn btn-primary" type="button">Pesquisar</button></div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="packageResults" class="table-responsive">
+                <div class="alert alert-secondary">Informe o padrão e clique em Pesquisar.</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="packageModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+            <form id="packageForm" class="modal-content">
+                <div class="modal-header">
+                    <h5 id="packageFormTitle" class="modal-title">Novo pacote</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label for="packageName" class="form-label">Nome do pacote *</label>
+                            <input id="packageName" class="form-control" placeholder="ZT4" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="packageDescription" class="form-label">Descrição *</label>
+                            <input id="packageDescription" class="form-control" placeholder="Descrição do pacote" required>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="packageLanguage" class="form-label">Idioma original *</label>
+                            <select id="packageLanguage" class="form-select" required></select>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="packageType" class="form-label">Tipo</label>
+                            <select id="packageType" class="form-select">
+                                <option value="development">Development</option>
+                                <option value="structure">Structure</option>
+                                <option value="main">Main</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="packageSuper" class="form-label">Superpackage</label>
+                            <input id="packageSuper" class="form-control" placeholder="Opcional">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="packageSoftware" class="form-label">Software Component *</label>
+                            <select id="packageSoftware" class="form-select" required></select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="packageLayer" class="form-label">Transport Layer *</label>
+                            <select id="packageLayer" class="form-select" required></select>
+                        </div>
+                        <div class="col-md-6 package-edit-readonly-field">
+                            <label class="form-label">Record object changes</label>
+                            <div class="form-check form-switch pt-2">
+                                <input id="packageRecordChanges" class="form-check-input" type="checkbox">
+                                <label for="packageRecordChanges" class="form-check-label">Registrar alterações em requests</label>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <label for="packageTransport" class="form-label">Request Workbench para a operação</label>
+                            <select id="packageTransport" class="form-select"></select>
+                            <div class="form-text">A request é apenas o contexto de transporte da operação; ela não altera os dados do pacote.</div>
+                        </div>
+                    </div>
+                    <div id="packageModeHint" class="alert alert-info mt-3 mb-0"></div>
+                </div>
+                <div class="modal-footer">
+                    <button id="packageSubmit" class="btn btn-primary" type="submit">Criar</button>
+                    <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal fade" id="packageViewModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Visualizar pacote <span class="badge text-bg-secondary">somente leitura</span></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div class="modal-body"><div id="packageViewFields" class="row g-3"></div></div>
+                <div class="modal-footer"><button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Fechar</button></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="packageTransportModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 id="transportFormTitle" class="modal-title">Selecionar request Workbench</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="transportModalText" class="alert alert-info"></div>
+                    <div id="transportRequestList"></div>
+                </div>
+                <div class="modal-footer">
+                    <button id="transportSubmit" class="btn btn-danger" type="button" disabled>Excluir</button>
+                    <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

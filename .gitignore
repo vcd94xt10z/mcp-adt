@@ -1,0 +1,5 @@
+node_modules/
+dist/
+*.log
+connections.json
+mcp.log

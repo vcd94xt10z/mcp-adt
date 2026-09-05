@@ -1,0 +1,78 @@
+body {
+    min-height: 100vh;
+    background: #f8f9fa;
+}
+
+.app-connection-select {
+    min-width: 150px;
+}
+
+.app-nav {
+    padding-top: .5rem;
+}
+
+.app-page {
+    max-width: 1600px;
+    margin: 0 auto;
+}
+
+.table-responsive {
+    max-height: 65vh;
+}
+
+.table th {
+    white-space: nowrap;
+}
+
+.table-actions {
+    white-space: nowrap;
+}
+
+.form-label {
+    font-weight: 500;
+}
+
+.modal-value {
+    min-height: 38px;
+    padding: .5rem .75rem;
+    border: 1px solid var(--bs-border-color);
+    border-radius: var(--bs-border-radius);
+    background: var(--bs-tertiary-bg);
+    word-break: break-word;
+}
+
+.readonly-field {
+    background-color: var(--bs-secondary-bg) !important;
+}
+
+.app-loader {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, .35);
+}
+
+.app-loader[hidden] {
+    display: none;
+}
+
+.app-loader-box {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    padding: 1rem 1.25rem;
+    background: var(--bs-body-bg);
+    border: 1px solid var(--bs-border-color);
+    border-radius: var(--bs-border-radius-lg);
+    box-shadow: var(--bs-box-shadow);
+}
+
+.log-uri {
+    max-width: 520px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

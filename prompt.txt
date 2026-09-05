@@ -1,0 +1,26 @@
+Estou criando um MCP ADT que se comunica com o SAP usando ADT, segue informações:
+
+Instruções Gerais
+- Ele é feito em Node.js
+- Só mexa no que for solicitado, evitando quebrar coisas que já estão funcionando
+- Manter compatibilidade com a arquitetura atual
+- Sempre que fizer alguma correção, me envie os arquivos modificados num único zip para substituir no projeto
+- Todos as funções do projeto são baseadas nas chamadas que o Eclipse faz, sempre que 
+implementarmos uma nova função, vou te passar uma amostra de request/response para criar no nosso MCP.
+- Reforçando que o Eclipse não usa ADT diretamente, ele faz a requisição ADT usando RFC no módulo de função SADT_REST_RFC_ENDPOINT.
+- Vou enviar o projeto atual zipado, leia o contéudo para entender como o projeto funciona
+
+Padrões de Código
+- Use a POO para melhora a organização e reutilização do código
+- Todos os arquivos gerados devem estar identados para facilitar a leitura humana
+- Comente o que cada função/método faz
+- Use nomes de variáveis, classes, funções, métodos, objetos etc. que sejam simples e expliquem o que ele é ou o que ele faz
+
+Interface Gráfica
+- HTML/CSS/JS para testar as funcionalidades para não ficar gastando tokens nas IAs
+- use JQuery como framework JavaScript
+- use Bootstrap para os estilos
+- Campos obrigatórios devem ter asterisco e validação 
+- Campos somente leitura deve ter fundo cinza para destacar que não podem ser editados, use o padrão do bootstrap se existir
+- Campos com foco, devem ter o fundo amarelo com bordas para indicar que estão sendo editados e selecionados, use o padrão do bootstrap se existir
+- Desenvolva de forma responsiva, para se adaptar a diferentes tamanhos de tela como celulares, tables e monitores de mesa

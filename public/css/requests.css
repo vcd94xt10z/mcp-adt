@@ -1,0 +1,7 @@
+#requestResults .table-actions {
+    min-width: 210px;
+}
+
+#requestCategory:disabled {
+    opacity: 1;
+}

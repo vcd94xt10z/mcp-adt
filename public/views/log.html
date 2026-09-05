@@ -1,0 +1,32 @@
+<section id="logPage" class="app-page d-none">
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+                <div>
+                    <h2 class="h5 mb-1">Log de comunicação com o SAP</h2>
+                    <p class="text-secondary mb-0">Consulte as chamadas HTTP registradas pelo cliente ADT.</p>
+                </div>
+                <div class="d-flex align-items-center gap-3">
+                    <div class="form-check form-switch mb-0"><input id="logEnabled" class="form-check-input" type="checkbox"><label for="logEnabled" class="form-check-label">Habilitar log</label></div>
+                    <button id="logRefresh" class="btn btn-outline-secondary" type="button">Atualizar</button>
+                    <button id="logClear" class="btn btn-outline-danger" type="button">Limpar log</button>
+                </div>
+            </div>
+            <div class="alert alert-info">Quando habilitado, cada chamada HTTP para o SAP é registrada em <strong>mcp.log</strong> na raiz do projeto.</div>
+            <div id="logResults" class="table-responsive"><div class="alert alert-secondary">Clique em Atualizar para carregar o log.</div></div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="logViewModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Detalhes do log</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div class="modal-body"><textarea id="logViewContent" class="form-control font-monospace" rows="25" readonly spellcheck="false"></textarea></div>
+                <div class="modal-footer"><button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Fechar</button></div>
+            </div>
+        </div>
+    </div>
+</section>

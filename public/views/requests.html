@@ -1,0 +1,79 @@
+<section id="requestsPage" class="app-page d-none">
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+                <div>
+                    <h2 class="h5 mb-1">Requests</h2>
+                    <p class="text-secondary mb-0">Pesquise e gerencie transport requests do SAP.</p>
+                </div>
+                <button id="newRequest" class="btn btn-primary" type="button">Criar Request</button>
+            </div>
+
+            <div class="card bg-body-tertiary border mb-3">
+                <div class="card-body">
+                    <h3 class="h6">Pesquisa de requests</h3>
+                    <div class="row g-3 align-items-end">
+                        <div class="col-md-4"><label for="requestFilterNumber" class="form-label">Número</label><input id="requestFilterNumber" class="form-control" placeholder="DEVK9XXXXXX"></div>
+                        <div class="col-md-4"><label for="requestFilterDescription" class="form-label">Descrição</label><input id="requestFilterDescription" class="form-control" placeholder="Texto da descrição"></div>
+                        <div class="col-md-2"><label for="requestFilterMax" class="form-label">Máx. resultados</label><input id="requestFilterMax" class="form-control" type="number" min="1" max="500" value="100"></div>
+                        <div class="col-md-2 d-grid"><button id="requestSearch" class="btn btn-primary" type="button">Pesquisar</button></div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="requestResults" class="table-responsive">
+                <div class="alert alert-secondary">Informe os filtros e clique em Pesquisar.</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="requestModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <form id="requestForm" class="modal-content">
+                <div class="modal-header">
+                    <h5 id="requestFormTitle" class="modal-title">Criar Request</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label for="requestCategory" class="form-label">Tipo</label>
+                            <select id="requestCategory" class="form-select">
+                                <option value="K">Workbench</option>
+                                <option value="W">Customizing</option>
+                            </select>
+                            <div id="requestCategoryHelp" class="form-text"></div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="requestTarget" class="form-label">Target</label>
+                            <select id="requestTarget" class="form-select"></select>
+                        </div>
+                        <div class="col-12">
+                            <label for="requestDescription" class="form-label">Descrição *</label>
+                            <input id="requestDescription" class="form-control" placeholder="Descrição do request" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="requestSubmit" class="btn btn-primary" type="submit">Criar</button>
+                    <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal fade" id="requestViewModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Visualizar request <span class="badge text-bg-secondary">somente leitura</span></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="requestViewFields" class="row g-3"></div>
+                </div>
+                <div class="modal-footer"><button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Fechar</button></div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,18 @@
+{
+  "name": "mcp-adt",
+  "version": "0.1.0",
+  "private": true,
+  "description": "MCP server for SAP ABAP Development Tools (ADT).",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node src/index.js",
+    "web": "node src/web/index.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/server": "^2.0.0",
+    "zod": "^4.0.0"
+  }
+}

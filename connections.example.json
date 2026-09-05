@@ -1,0 +1,12 @@
+{
+  "connections": {
+    "DEV": {
+      "url": "https://sap.example.com",
+      "client": "100",
+      "user": "DEVELOPER",
+      "password": "sua-senha",
+      "language": "EN",
+      "rejectUnauthorized": true
+    }
+  }
+}

@@ -1,0 +1,15 @@
+#packageResults .table-actions {
+    min-width: 210px;
+}
+
+#packageRecordChanges:disabled {
+    opacity: 1;
+}
+
+.selectable-row {
+    cursor: pointer;
+}
+
+.selectable-row.selected > td {
+    background-color: var(--bs-primary-bg-subtle);
+}
