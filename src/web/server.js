@@ -27,7 +27,6 @@ export function createWebServer(connections, host = "127.0.0.1", port = 3100) {
                 const config = connectionFromPayload(payload);
                 validateConnection(config);
                 connections[name] = config;
-                clients.delete(name);
                 await persistConnections();
                 return json(res, 201, { ok: true, name, connection: { name, ...config, password: undefined } });
             }
@@ -156,7 +155,7 @@ async function execute(res, connections, clients, payload) {
     let result;
     switch (operation) {
         case "package_list":
-            result = await new PackageApi(client).list({ query: optional(input, "query") ?? "Z*", superPackage: optional(input, "superPackage"), maxResults: Number(input.maxResults) || 100 });
+            result = await new PackageApi(client).list({ query: optional(input, "query") ?? "Z*", description: optional(input, "description"), superPackage: optional(input, "superPackage"), maxResults: Number(input.maxResults) || 100 });
             break;
         case "package_get":
             result = await new PackageApi(client).get(required(input, "name"));

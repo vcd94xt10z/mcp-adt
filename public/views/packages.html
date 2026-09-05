@@ -13,10 +13,11 @@
                 <div class="card-body">
                     <h3 class="h6">Pesquisa de pacotes</h3>
                     <div class="row g-3 align-items-end">
-                        <div class="col-md-5"><label for="packageSearchQuery" class="form-label">Padrão do nome</label><input id="packageSearchQuery" class="form-control" value="Z*" placeholder="Z*"></div>
-                        <div class="col-md-4"><label for="packageSearchSuper" class="form-label">Superpackage</label><input id="packageSearchSuper" class="form-control" placeholder="Opcional"></div>
+                        <div class="col-md-4"><label for="packageSearchQuery" class="form-label">Padrão do nome</label><input id="packageSearchQuery" class="form-control" value="Z*" placeholder="Z*"></div>
+                        <div class="col-md-3"><label for="packageSearchDescription" class="form-label">Descrição</label><input id="packageSearchDescription" class="form-control" placeholder="Texto da descrição"></div>
+                        <div class="col-md-3"><label for="packageSearchSuper" class="form-label">Superpackage</label><input id="packageSearchSuper" class="form-control" placeholder="Opcional"></div>
                         <div class="col-md-1"><label for="packageSearchMax" class="form-label">Máx.</label><input id="packageSearchMax" class="form-control" type="number" min="1" max="500" value="100"></div>
-                        <div class="col-md-2 d-grid"><button id="packageSearch" class="btn btn-primary" type="button">Pesquisar</button></div>
+                        <div class="col-md-1 d-grid"><button id="packageSearch" class="btn btn-primary" type="button">Pesquisar</button></div>
                     </div>
                 </div>
             </div>
@@ -88,6 +89,22 @@
                     <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Cancelar</button>
                 </div>
             </form>
+        </div>
+    </div>
+
+    <div class="modal fade" id="packageDeleteModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirmar exclusão</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div class="modal-body"><p id="packageDeleteText" class="mb-0"></p></div>
+                <div class="modal-footer">
+                    <button id="packageDeleteConfirm" class="btn btn-danger" type="button">Excluir</button>
+                    <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
         </div>
     </div>
 

@@ -3,6 +3,7 @@ class PackagesPage {
         this.app = app;
         this.editingName = null;
         this.pendingDelete = null;
+        this.pendingDeleteTransport = '';
         this.bound = false;
     }
 
@@ -24,7 +25,8 @@ class PackagesPage {
             this.updateMode();
         });
         $('#transportSubmit').on('click', () => this.confirmDelete());
-        $('#packageSearchQuery, #packageSearchSuper, #packageSearchMax').on('keydown', event => {
+        $('#packageDeleteConfirm').on('click', () => this.confirmDeleteAction());
+        $('#packageSearchQuery, #packageSearchDescription, #packageSearchSuper, #packageSearchMax').on('keydown', event => {
             if (event.key === 'Enter') {
                 event.preventDefault();
                 this.search();
@@ -37,10 +39,11 @@ class PackagesPage {
         const box = $('#packageResults');
         box.html('<div class="alert alert-info">Pesquisando…</div>');
         const query = String($('#packageSearchQuery').val() || '').trim() || 'Z*';
+        const description = String($('#packageSearchDescription').val() || '').trim();
         const superPackage = String($('#packageSearchSuper').val() || '').trim();
         const maxResults = Math.max(1, Math.min(500, Number($('#packageSearchMax').val()) || 100));
         try {
-            const data = await this.execute('package_list', { query, maxResults, superPackage });
+            const data = await this.execute('package_list', { query, description, maxResults, superPackage });
             this.renderResults(data.result?.items || []);
         } catch (error) {
             box.html('<div class="alert alert-danger">Erro na pesquisa.</div>');
@@ -50,10 +53,13 @@ class PackagesPage {
 
     // Renderiza os pacotes encontrados e associa as ações de cada linha.
     renderResults(items) {
+        const descriptionFilter = String($('#packageSearchDescription').val() || '').trim().toUpperCase();
         const superFilter = String($('#packageSearchSuper').val() || '').trim().toUpperCase();
-        const filtered = superFilter
-            ? items.filter(item => String(item.superPackage || '').toUpperCase() === superFilter)
-            : items;
+        const filtered = items.filter(item => {
+            const matchesDescription = !descriptionFilter || String(item.description || '').toUpperCase().includes(descriptionFilter);
+            const matchesSuperPackage = !superFilter || String(item.superPackage || '').toUpperCase() === superFilter;
+            return matchesDescription && matchesSuperPackage;
+        });
 
         if (!filtered.length) {
             $('#packageResults').html('<div class="alert alert-secondary">Nenhum pacote encontrado.</div>');
@@ -265,17 +271,28 @@ class PackagesPage {
     // Abre o fluxo de exclusão solicitando uma request Workbench para pacotes não locais.
     async delete(name) {
         const normalized = String(name || '').toUpperCase();
+        this.pendingDelete = normalized;
+        this.pendingDeleteTransport = '';
         if (normalized.startsWith('$')) {
-            if (window.confirm(`Deletar o pacote '${normalized}'?`)) await this.executeDelete(normalized);
+            this.openDeleteConfirmation(normalized, '');
             return;
         }
-        this.pendingDelete = normalized;
         $('#transportFormTitle').text('Selecionar request Workbench');
         $('#transportModalText').text(`O pacote '${normalized}' não é local. Selecione uma request Workbench modificável para registrar a exclusão.`);
         $('#transportSubmit').prop('disabled', true);
         await this.populateTransportRequests();
         this.modal('packageTransportModal').show();
         this.renderTransportSelection();
+    }
+
+    // Abre o modal Bootstrap de confirmação final da exclusão do pacote.
+    openDeleteConfirmation(name, transport) {
+        this.pendingDelete = name;
+        this.pendingDeleteTransport = transport || '';
+        const suffix = transport ? ` usando a request '${transport}'` : '';
+        $('#packageDeleteText').text(`Deseja realmente excluir o pacote '${name}'${suffix}?`);
+        $('#packageDeleteConfirm').prop('disabled', false);
+        this.modal('packageDeleteModal').show();
     }
 
     // Habilita a confirmação quando uma request Workbench é selecionada para exclusão.
@@ -308,9 +325,20 @@ class PackagesPage {
         const transport = $('input[name="packageTransportSelect"]:checked').val();
         if (!transport || !this.pendingDelete) return;
         const name = this.pendingDelete;
-        this.pendingDelete = null;
+        this.pendingDeleteTransport = transport;
         this.modal('packageTransportModal').hide();
-        if (!window.confirm(`Deletar o pacote '${name}' usando a request '${transport}'?`)) return;
+        this.openDeleteConfirmation(name, transport);
+    }
+
+    // Executa a exclusão depois da confirmação no modal Bootstrap.
+    async confirmDeleteAction() {
+        if (!this.pendingDelete) return;
+        const name = this.pendingDelete;
+        const transport = this.pendingDeleteTransport || '';
+        this.pendingDelete = null;
+        this.pendingDeleteTransport = '';
+        $('#packageDeleteConfirm').prop('disabled', true);
+        this.modal('packageDeleteModal').hide();
         await this.executeDelete(name, transport);
     }
 
