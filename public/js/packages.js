@@ -38,7 +38,7 @@ class PackagesPage {
     async search() {
         const box = $('#packageResults');
         box.html('<div class="alert alert-info">Pesquisando…</div>');
-        const query = String($('#packageSearchQuery').val() || '').trim() || 'Z*';
+        const query = String($('#packageSearchQuery').val() || '').trim() || '*';
         const description = String($('#packageSearchDescription').val() || '').trim();
         const superPackage = String($('#packageSearchSuper').val() || '').trim();
         const maxResults = Math.max(1, Math.min(500, Number($('#packageSearchMax').val()) || 100));
@@ -125,7 +125,7 @@ class PackagesPage {
             await this.populateEditTransportLayers(packageData.transportLayer || '');
             $('#packageTransport').empty();
             $('#packageModeHint').removeClass('alert-info').addClass('alert-secondary').text('Em edição, somente Descrição e Transport Layer alteram os dados do pacote. A request Workbench é apenas o contexto de transporte da operação.');
-            await this.populateTransportRequests();
+            await this.populateTransportRequests(this.editingName);
             this.modal('packageModal').show();
             $('#packageDescription').trigger('focus');
         } catch (error) {
@@ -151,10 +151,20 @@ class PackagesPage {
     }
 
     // Carrega requests Workbench modificáveis para fornecer o contexto da alteração.
-    async populateTransportRequests() {
+    async populateTransportRequests(selectedPackage = '') {
         const options = await this.app.loadEnvironmentOptions(true);
         $('#packageTransport').empty().append($('<option>', { value: '', text: 'Selecione uma request Workbench' }));
-        (options.modifiableWorkbenchRequests || []).forEach(item => $('#packageTransport').append($('<option>', { value: item.number, text: `${item.number} — ${item.description || ''}` })));
+        const requests = options.modifiableWorkbenchRequests || [];
+        requests.forEach(item => $('#packageTransport').append($('<option>', { value: item.number, text: `${item.number} — ${item.description || ''}` })));
+        const packageName = String(selectedPackage || '').trim().toUpperCase();
+        if (packageName) {
+            const linkedRequest = requests.find(item => {
+                const packages = Array.isArray(item.packages) ? item.packages : [];
+                return String(item.package || '').trim().toUpperCase() === packageName
+                    || packages.some(value => String(value || '').trim().toUpperCase() === packageName);
+            });
+            $('#packageTransport').val(linkedRequest?.number || '');
+        }
     }
 
     // Atualiza o comportamento de transporte de acordo com o nome do pacote.

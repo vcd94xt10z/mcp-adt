@@ -4,7 +4,7 @@ Instruções Gerais
 - Ele é feito em Node.js
 - Só mexa no que for solicitado, evitando quebrar coisas que já estão funcionando
 - Manter compatibilidade com a arquitetura atual
-- Sempre que fizer alguma correção, me envie os arquivos modificados num único zip para substituir no projeto
+- Sempre que fizer alguma correção, me envie os arquivos modificados já na pasta correta em um único zip para substituir no projeto
 - Todos as funções do projeto são baseadas nas chamadas que o Eclipse faz, sempre que 
 implementarmos uma nova função, vou te passar uma amostra de request/response para criar no nosso MCP.
 - Reforçando que o Eclipse não usa ADT diretamente, ele faz a requisição ADT usando RFC no módulo de função SADT_REST_RFC_ENDPOINT.

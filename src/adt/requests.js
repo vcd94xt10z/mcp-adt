@@ -165,7 +165,25 @@ export function parseTransportRequestTree(xml) {
                 const workbench = context.includes('workbench');
                 const customizing = context.includes('customizing');
                 const modifiable = context.includes('modifiable') || /^(d|modifiable)$/i.test(status);
-                items.push({ number, description, owner, status: status || (modifiable ? 'modifiable' : ''), package: pkg, target, category: workbench ? 'K' : customizing ? 'W' : '', workbench, customizing, modifiable });
+                items.push({ number, description, owner, status: status || (modifiable ? 'modifiable' : ''), package: pkg, packages: pkg ? [pkg] : [], target, category: workbench ? 'K' : customizing ? 'W' : '', workbench, customizing, modifiable });
+            }
+        }
+
+        if (lower === 'abap_object') {
+            const pgmid = firstAttr(attrs, ['pgmid', 'programid']);
+            const type = firstAttr(attrs, ['type', 'object']);
+            const wbtype = firstAttr(attrs, ['wbtype', 'objecttype']);
+            const nameValue = firstAttr(attrs, ['name', 'obj_name', 'objectname']);
+            const isPackage = pgmid.toUpperCase() === 'R3TR'
+                && (type.toUpperCase() === 'DEVC' || wbtype.toUpperCase().startsWith('DEVC/'));
+            const requestContext = [...stack].reverse().find(node => node.name === 'request');
+            const requestNumber = firstAttr(requestContext?.attrs ?? {}, ['number', 'trkorr', 'trnumber', 'id']);
+            if (isPackage && nameValue && requestNumber) {
+                const request = items.find(item => item.number === requestNumber);
+                if (request) {
+                    request.packages ??= [];
+                    if (!request.packages.some(value => value.toUpperCase() === nameValue.toUpperCase())) request.packages.push(nameValue);
+                }
             }
         }
         if (!/\/\s*>$/.test(full)) stack.push({ name: lower, attrs });
