@@ -12,6 +12,7 @@ class RequestsPage {
             this.bindEvents();
             this.bound = true;
         }
+        await this.populateTargetFilter();
     }
 
     // Registra os eventos dos filtros, formulário e ações da tabela.
@@ -59,7 +60,7 @@ class RequestsPage {
             return (!number || itemNumber.includes(number))
                 && (!description || itemDescription.includes(description))
                 && (!type || itemType === type)
-                && (!target || itemTarget.includes(target))
+                && (!target || itemTarget === target)
                 && (!owner || itemOwner.includes(owner));
         }).slice(0, max);
 
@@ -225,6 +226,18 @@ class RequestsPage {
             await this.search();
         } catch (error) {
             this.app.showError(error.data || { ok: false, error: error.message });
+        }
+    }
+
+    // Carrega os targets disponíveis no ambiente SAP para o filtro e inclui a opção Todos.
+    async populateTargetFilter() {
+        const currentValue = String($('#requestFilterTarget').val() || '').trim();
+        try {
+            const options = await this.app.loadEnvironmentOptions();
+            this.app.setSelectOptions('#requestFilterTarget', options.targets, 'Todos', currentValue);
+        } catch (error) {
+            this.app.setSelectOptions('#requestFilterTarget', [], 'Todos');
+            throw error;
         }
     }
 
