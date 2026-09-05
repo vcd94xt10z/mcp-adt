@@ -193,6 +193,10 @@ class AppShell {
         const message = String(data?.error?.message ?? error?.message ?? '');
         const source = `${message} ${body}`.toLowerCase();
 
+        if (/self[- ]signed certificate|unable to verify|certificate|err_tls|depth_zero_self_signed|tls/i.test(source)) {
+            return "Certificado TLS inválido ou não confiável. Desmarque 'Rejeitar certificados TLS inválidos' para ignorá-lo.";
+        }
+
         if (status === 0 || /fetch failed|enotfound|econnrefused|etimedout|ehostunreach|network request/i.test(source)) {
             return 'Host inacessível ou não foi possível conectar ao SAP.';
         }

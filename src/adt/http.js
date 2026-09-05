@@ -1,4 +1,6 @@
 import { randomUUID } from "node:crypto";
+import { request as httpRequest } from "node:http";
+import { request as httpsRequest } from "node:https";
 import { writeSapLog } from "../log.js";
 export class AdtHttpError extends Error {
     response;
@@ -63,6 +65,67 @@ export class AdtHttpClient {
         }
         this.cookie = [...current.entries()].map(([k, v]) => `${k}=${v}`).join("; ");
     }
+    // Executa uma requisição HTTP/HTTPS usando as opções TLS da conexão.
+    async requestUrl(url, options, redirects = 0) {
+        if (redirects > 5) {
+            throw new Error('Too many redirects.');
+        }
+        return new Promise((resolve, reject) => {
+            const transport = url.protocol === "https:" ? httpsRequest : httpRequest;
+            const requestOptions = {
+                protocol: url.protocol,
+                hostname: url.hostname,
+                port: url.port || undefined,
+                path: `${url.pathname}${url.search}`,
+                method: options.method ?? "GET",
+                headers: { ...options.headers }
+            };
+            if (options.body !== undefined && options.body !== null && requestOptions.headers['Content-Length'] === undefined && requestOptions.headers['content-length'] === undefined) {
+                requestOptions.headers['Content-Length'] = Buffer.byteLength(String(options.body));
+            }
+            if (url.protocol === "https:") {
+                requestOptions.rejectUnauthorized = this.config.rejectUnauthorized !== false;
+            }
+            const request = transport(requestOptions, response => {
+                const chunks = [];
+                response.on("data", chunk => chunks.push(chunk));
+                response.on("end", () => {
+                    const headers = new Headers();
+                    for (const [name, value] of Object.entries(response.headers)) {
+                        if (Array.isArray(value)) {
+                            value.forEach(item => headers.append(name, item));
+                        } else if (value !== undefined) {
+                            headers.set(name, String(value));
+                        }
+                    }
+                    const status = response.statusCode ?? 0;
+                    const location = headers.get('location');
+                    if ([301, 302, 303, 307, 308].includes(status) && location) {
+                        const nextUrl = new URL(location, url);
+                        const nextMethod = status === 303 || ((status === 301 || status === 302) && options.method === 'POST') ? 'GET' : (options.method ?? 'GET');
+                        const nextBody = nextMethod === 'GET' || nextMethod === 'HEAD' ? undefined : options.body;
+                        resolve(this.requestUrl(nextUrl, {
+                            ...options,
+                            method: nextMethod,
+                            body: nextBody
+                        }, redirects + 1));
+                        return;
+                    }
+                    resolve({
+                        status,
+                        headers,
+                        body: Buffer.concat(chunks).toString("utf8"),
+                        url: url.toString()
+                    });
+                });
+            });
+            request.on("error", reject);
+            if (options.body !== undefined && options.body !== null) {
+                request.write(options.body);
+            }
+            request.end();
+        });
+    }
     async rawRequest(path, options) {
         const url = this.buildUrl(path, options.query);
         const headers = { ...this.baseHeaders(), ...(options.headers ?? {}) };
@@ -70,11 +133,10 @@ export class AdtHttpClient {
         const started = performance.now();
         let response;
         try {
-            response = await fetch(url, {
+            response = await this.requestUrl(url, {
                 method: options.method ?? "GET",
                 headers,
-                body: options.body,
-                redirect: "follow"
+                body: options.body
             });
         }
         catch (error) {
@@ -95,7 +157,6 @@ export class AdtHttpClient {
             throw new AdtHttpError(`ADT network request failed: ${message}`, synthetic, true);
         }
         this.updateCookies(response.headers);
-        const body = await response.text();
         const durationMs = Math.round(performance.now() - started);
         await writeSapLog({
             method: options.method ?? "GET",
@@ -104,10 +165,10 @@ export class AdtHttpClient {
             body: options.body,
             status: response.status,
             responseHeaders: response.headers,
-            responseBody: body,
+            responseBody: response.body,
             durationMs
         });
-        return { status: response.status, headers: response.headers, body, url: url.toString(), durationMs };
+        return { ...response, durationMs };
     }
     isRetryableStatus(status) {
         return status === 408 || status === 429 || status >= 500;

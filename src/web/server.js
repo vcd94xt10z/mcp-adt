@@ -27,6 +27,7 @@ export function createWebServer(connections, host = "127.0.0.1", port = 3100) {
                 const config = connectionFromPayload(payload);
                 validateConnection(config);
                 connections[name] = config;
+                clients.delete(name);
                 await persistConnections();
                 return json(res, 201, { ok: true, name, connection: { name, ...config, password: undefined } });
             }

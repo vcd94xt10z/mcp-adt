@@ -3,6 +3,7 @@ class ConnectionsPage {
         this.app = app;
         this.editingConnection = null;
         this.bound = false;
+        this.deletingConnection = null;
     }
 
     // Inicializa a tela de conexões e carrega seus dados.
@@ -19,6 +20,7 @@ class ConnectionsPage {
         $('#newConnection').on('click', () => this.openNew());
         $('#reloadConnections').on('click', () => this.reload());
         $('#connectionForm').on('submit', event => this.save(event));
+        $('#confirmDeleteConnection').on('click', () => this.confirmRemove());
     }
 
     // Renderiza a tabela com as conexões cadastradas.
@@ -121,22 +123,41 @@ class ConnectionsPage {
         }
     }
 
-    // Exclui uma conexão após confirmação do usuário.
-    async remove(name) {
-        if (!window.confirm(`Excluir a conexão '${name}'?`)) return;
+    // Abre o modal Bootstrap para confirmar a exclusão da conexão.
+    remove(name) {
+        this.deletingConnection = name;
+        $('#deleteConnectionName').text(name);
+        this.deleteModal().show();
+    }
+
+    // Executa a exclusão da conexão depois da confirmação no modal Bootstrap.
+    async confirmRemove() {
+        const name = this.deletingConnection;
+        if (!name) return;
+        const button = $('#confirmDeleteConnection');
+        button.prop('disabled', true);
         try {
             await this.app.api(`/api/connections/${encodeURIComponent(name)}`, { method: 'DELETE' });
+            this.deleteModal().hide();
             await this.app.loadConnections();
             this.render();
             this.app.showToast('Conexão excluída', `A conexão '${name}' foi excluída.`);
         } catch (error) {
             this.app.showError(error.data || { ok: false, error: error.message });
+        } finally {
+            button.prop('disabled', false);
+            this.deletingConnection = null;
         }
     }
 
     // Retorna a instância Bootstrap do modal de conexão.
     modal() {
         return bootstrap.Modal.getOrCreateInstance(document.getElementById('connectionModal'));
+    }
+
+    // Retorna a instância Bootstrap do modal de confirmação de exclusão.
+    deleteModal() {
+        return bootstrap.Modal.getOrCreateInstance(document.getElementById('deleteConnectionModal'));
     }
 }
 
