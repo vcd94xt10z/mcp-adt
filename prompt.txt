@@ -24,3 +24,5 @@ Interface Gráfica
 - Campos somente leitura deve ter fundo cinza para destacar que não podem ser editados, use o padrão do bootstrap se existir
 - Campos com foco, devem ter o fundo amarelo com bordas para indicar que estão sendo editados e selecionados, use o padrão do bootstrap se existir
 - Desenvolva de forma responsiva, para se adaptar a diferentes tamanhos de tela como celulares, tables e monitores de mesa
+- Os popups modais devem ser redimensionáveis
+- As mensagens Toast, sucesso deve ser verde, erro vermelho, atenção amarelo etc.

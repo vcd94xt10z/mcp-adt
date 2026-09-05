@@ -1,26 +1,27 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary border-bottom shadow-sm">
-    <div class="container-fluid">
-        <a class="navbar-brand fw-semibold" href="#">mcp-adt <span class="text-secondary">· ADT Test Console</span></a>
-        <div class="d-flex align-items-center gap-2">
-            <label for="connection" class="form-label mb-0 small text-secondary">Conexão SAP Ativa</label>
+<header class="app-header">
+    <div class="container app-header-container">
+        <a class="app-brand" href="#" data-page="connections" aria-label="mcp-adt - Conexões">
+            <img
+                class="app-brand-logo"
+                src="/assets/mcp.png"
+                alt="Model Context Protocol"
+            >
+            <span class="app-brand-text">
+                <strong>mcp-adt</strong>
+                <span>ADT Test Console</span>
+            </span>
+        </a>
+
+        <nav class="app-navigation" aria-label="Navegação principal">
+            <a href="#" class="app-nav-link active" data-page="connections">Conexões</a>
+            <a href="#" class="app-nav-link" data-page="requests">Requests</a>
+            <a href="#" class="app-nav-link" data-page="packages">Pacotes</a>
+            <a href="#" class="app-nav-link" data-page="log">Log</a>
+        </nav>
+
+        <div class="app-connection-control">
+            <label for="connection" class="app-connection-label">Conexão SAP Ativa</label>
             <select id="connection" class="form-select form-select-sm app-connection-select"></select>
         </div>
     </div>
-</nav>
-
-<div class="container-fluid border-bottom bg-body">
-    <ul class="nav nav-tabs border-0 app-nav" id="mainNavigation" role="tablist">
-        <li class="nav-item" role="presentation">
-            <button class="nav-link active" type="button" data-page="connections">🔌 Conexões</button>
-        </li>
-        <li class="nav-item" role="presentation">
-            <button class="nav-link" type="button" data-page="requests">🚚 Requests</button>
-        </li>
-        <li class="nav-item" role="presentation">
-            <button class="nav-link" type="button" data-page="packages">📦 Pacotes</button>
-        </li>
-        <li class="nav-item" role="presentation">
-            <button class="nav-link" type="button" data-page="log">📜 Log</button>
-        </li>
-    </ul>
-</div>
+</header>
