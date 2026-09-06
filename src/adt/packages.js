@@ -1,4 +1,4 @@
-import { xmlEscape, parsePackage, parsePackageSearch, parseLockHandle } from "./xml.js";
+import { xmlEscape, parsePackage, parsePackageSearch, parseNamedItems, parseLockHandle } from "./xml.js";
 const PACKAGE_URL = "/sap/bc/adt/packages";
 export function normalizePackageName(name) {
     const value = String(name ?? "").trim();
@@ -68,7 +68,13 @@ export class PackageApi {
         const items = parsePackageSearch(response.body);
         const superPackages = [...new Set(items.map(item => item.name).filter(Boolean))].sort();
         const softwareComponents = [...new Set(items.map(item => item.softwareComponent).filter(Boolean).concat(["HOME", "LOCAL"]))].sort();
-        const transportLayers = [...new Set(items.map(item => item.transportLayer).filter(Boolean).concat(["SAP"]))].sort();
+        const transportResponse = await this.http.request("/sap/bc/adt/packages/valuehelps/transportlayers", {
+            headers: { Accept: "application/vnd.sap.adt.nameditems.v1+xml" }
+        });
+        const transportLayers = parseNamedItems(transportResponse.body)
+            .map(item => item.name)
+            .filter(Boolean)
+            .sort();
         return { status: response.status, durationMs: response.durationMs, superPackages, softwareComponents, transportLayers, raw: response.body };
     }
     async get(name) {
