@@ -144,7 +144,9 @@ class ClassesPage {
             return;
         }
         try {
-            const data = await this.execute('class_check_syntax', { name });
+            const source = this.editor ? this.editor.getValue() : '';
+            const version = this.current?.version || 'active';
+            const data = await this.execute('class_check_syntax', { name, source, version });
             this.showSyntaxResult(name, data.result);
         } catch (error) {
             this.app.showError(error.data || { error: error.message });

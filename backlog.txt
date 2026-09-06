@@ -1,0 +1,37 @@
+Falta Implementar
+
+POO
+- Interfaces (POO)
+
+DDIC
+- Domínios
+- Elemento de dados
+- Estruturas
+- Tipos de tabela
+- Tabelas Transparentes
+- Views
+
+Source Code
+- Module Pool
+- Includes
+- Function Groups
+- Function Modules
+- Function Includes
+- Enhancement Implementation
+- BADI
+
+RAP
+- CDS Entity Views
+- Access Control
+- Metadata Extension
+- Behavior Definition
+- Behavior Implementation
+- Service Definition
+- Service Binding
+- Annotation View
+- OData Service Publish
+
+Outros
+- CDS Views Classica
+- Classe de mensagens
+- DUMPs (Filtrar e visualizar detalhes)
