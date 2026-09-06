@@ -37,25 +37,20 @@ function wildcardMatch(value, pattern) {
 }
 export class PackageApi {
     constructor(http) { this.http = http; }
-    async list({ query = "*", description = "", superPackage = "", maxResults = 100 } = {}) {
+    async list({ query = "*", description = "", maxResults = 100 } = {}) {
         const searchQuery = String(query ?? "*").trim() || "*";
         const descriptionFilter = String(description ?? "").trim();
-        const parentFilter = String(superPackage ?? "").trim();
         const limit = Math.max(1, Math.min(500, Number(maxResults) || 100));
         const response = await this.http.request("/sap/bc/adt/repository/informationsystem/search", { query: { operation: "quickSearch", query: searchQuery, objectType: "DEVC/K", maxResults: String(limit) }, headers: { Accept: "*/*" } });
         let items = parsePackageSearch(response.body)
             .filter(item => !searchQuery || searchQuery === "*" || wildcardMatch(item.name, searchQuery));
 
-        // Quando o usuário informa um superpackage, consulta os detalhes dos pacotes
-        // encontrados para obter o relacionamento hierárquico real informado pelo SAP.
-        // O quickSearch nem sempre retorna o superpackage no resultado resumido.
-        const needsEnrichment = Boolean(parentFilter) || items.some(item => !item.description || !item.superPackage);
-        if (needsEnrichment) {
+        if (items.some(item => !item.description || !item.superPackage)) {
             const enriched = await Promise.all(items.map(async item => {
-                if (!parentFilter && item.description && item.superPackage) return item;
+                if (item.description && item.superPackage) return item;
                 try {
                     const detail = await this.get(item.name);
-                    return { ...item, description: item.description || detail.description || "", superPackage: detail.superPackage || item.superPackage || "", softwareComponent: item.softwareComponent || detail.softwareComponent || "", transportLayer: item.transportLayer || detail.transportLayer || "" };
+                    return { ...item, description: item.description || detail.description || "", superPackage: item.superPackage || detail.superPackage || "", softwareComponent: item.softwareComponent || detail.softwareComponent || "", transportLayer: item.transportLayer || detail.transportLayer || "" };
                 } catch {
                     return item;
                 }
@@ -66,10 +61,7 @@ export class PackageApi {
         if (descriptionFilter) {
             items = items.filter(item => String(item.description || "").toUpperCase().includes(descriptionFilter.toUpperCase()));
         }
-        if (parentFilter) {
-            items = items.filter(item => String(item.superPackage || "").toUpperCase() === parentFilter.toUpperCase());
-        }
-        return { status: response.status, durationMs: response.durationMs, query: searchQuery, description: descriptionFilter, superPackage: parentFilter, maxResults: limit, count: items.length, items, raw: response.body };
+        return { status: response.status, durationMs: response.durationMs, query: searchQuery, description: descriptionFilter, maxResults: limit, count: items.length, items, raw: response.body };
     }
     async creationOptions() {
         const response = await this.http.request("/sap/bc/adt/repository/informationsystem/search", { query: { operation: "quickSearch", query: "*", objectType: "DEVC/K", maxResults: "500" }, headers: { Accept: "*/*" } });

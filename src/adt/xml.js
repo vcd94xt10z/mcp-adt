@@ -66,7 +66,7 @@ export function parsePackageSearch(xml) {
             name: normalizedName,
             type: type.toUpperCase(),
             description: xmlUnescape(firstValue(node, ['description', 'desc'])),
-            superPackage: xmlUnescape(firstValue(node, ['superPackage', 'packageName', 'package', 'DEVCLASS', 'SUPERPACKAGE']) || firstNodeAttributeValue(node, ['superPackage'], ['name'])),
+            superPackage: xmlUnescape(firstValue(node, ['superPackage', 'packageName', 'package', 'DEVCLASS', 'SUPERPACKAGE']) || firstNodeAttributeValue(node, ['packageRef', 'superPackage'], ['name'])),
             softwareComponent: xmlUnescape(firstValue(node, ['softwareComponent', 'SOFTWARE_COMPONENT']) || firstNodeAttributeValue(node, ['softwareComponent'], ['name'])),
             transportLayer: xmlUnescape(firstValue(node, ['transportLayer', 'TRANSPORT_LAYER']) || firstNodeAttributeValue(node, ['transportLayer'], ['name']))
         });
