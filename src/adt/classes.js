@@ -61,6 +61,7 @@ function parseClass(xml) {
         packageName: packageMatch?.[1] ?? "",
         final: attr("final").toLowerCase() === "true",
         visibility: attr("visibility"),
+        version: attr("version"),
         raw: source
     };
 }
@@ -110,6 +111,23 @@ export class ClassApi {
             headers: { Accept: "text/plain" }
         });
         return { name: className, source: response.body, status: response.status, durationMs: response.durationMs };
+    }
+
+    // Carrega primeiro a versão inativa para edição e usa a ativa quando não existe versão inativa.
+    async getForEdit(name) {
+        try {
+            const classData = await this.get(name, "inactive");
+            const source = await this.getSource(name, "inactive");
+            if (String(classData.version).toLowerCase() === "inactive") {
+                return { class: classData, source, version: "inactive" };
+            }
+        } catch (error) {
+            // Sem versão inativa, continua com a versão ativa.
+        }
+
+        const classData = await this.get(name, "active");
+        const source = await this.getSource(name, "active");
+        return { class: classData, source, version: "active" };
     }
 
     // Valida o nome da classe antes da criação.

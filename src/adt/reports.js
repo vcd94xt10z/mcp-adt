@@ -54,7 +54,7 @@ function parseReport(xml) {
         name: attr("name"), type: attr("type") || "PROG/P", description: attr("description"),
         language: attr("masterLanguage") || attr("language"), responsible: attr("responsible"),
         packageName: packageMatch?.[1] ?? "", programType: attr("programType"),
-        abapLanguageVersion: attr("abapLanguageVersion"), raw: source
+        abapLanguageVersion: attr("abapLanguageVersion"), version: attr("version"), raw: source
     };
 }
 
@@ -93,6 +93,23 @@ export class ReportApi {
             query: version ? { version } : undefined, headers: { Accept: "text/plain" }
         });
         return { name: reportName, source: response.body, status: response.status, durationMs: response.durationMs };
+    }
+
+    // Carrega primeiro a versão inativa para edição e usa a ativa quando não existe versão inativa.
+    async getForEdit(name) {
+        try {
+            const report = await this.get(name, "inactive");
+            const source = await this.getSource(name, "inactive");
+            if (String(report.version).toLowerCase() === "inactive") {
+                return { report, source, version: "inactive" };
+            }
+        } catch (error) {
+            // Sem versão inativa, continua com a versão ativa.
+        }
+
+        const report = await this.get(name, "active");
+        const source = await this.getSource(name, "active");
+        return { report, source, version: "active" };
     }
 
     async validateName(input) {

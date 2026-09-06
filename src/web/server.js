@@ -7,6 +7,7 @@ import { RequestApi } from "../adt/requests.js";
 import { ClassApi } from "../adt/classes.js";
 import { ReportApi } from "../adt/reports.js";
 import { ActivationApi } from "../adt/activation.js";
+import { CheckRunApi } from "../adt/checkrun.js";
 import { saveConnections, validateConnection, validateConnectionName } from "../config.js";
 import { clearLog, getLogFile, isLogEnabled, readLog, setLogEnabled } from "../log.js";
 const publicDir = join(process.cwd(), "public");
@@ -193,12 +194,13 @@ async function execute(res, connections, clients, payload) {
             break;
         case "class_get": {
             const api = new ClassApi(client); const name = required(input, "name"); const version = optional(input, "version");
-            const [classData, source, transport] = await Promise.all([
-                api.get(name, version),
-                api.getSource(name, version),
+            const [editData, transport] = await Promise.all([
+                version
+                    ? Promise.all([api.get(name, version), api.getSource(name, version)]).then(([classData, source]) => ({ class: classData, source, version }))
+                    : api.getForEdit(name),
                 api.getTransport(name).catch(() => ({ number: "" }))
             ]);
-            result = { class: classData, source, transport };
+            result = { ...editData, transport };
             break;
         }
         case "class_create": {
@@ -221,6 +223,16 @@ async function execute(res, connections, clients, payload) {
         case "class_update_source":
             result = await new ClassApi(client).updateSource(required(input, "name"), String(input.source ?? ""), optional(input, "transport"), optional(input, "packageName"));
             break;
+        case "class_check_syntax": {
+            const name = required(input, "name").toUpperCase();
+            const source = optional(input, "source");
+            const version = optional(input, "version") ?? "active";
+            const api = new CheckRunApi(client);
+            result = source === undefined
+                ? await api.checkSyntax(`/sap/bc/adt/oo/classes/${encodeURIComponent(name.toLowerCase())}`, version)
+                : await api.checkSource(`/sap/bc/adt/oo/classes/${encodeURIComponent(name.toLowerCase())}`, source, version);
+            break;
+        }
         case "class_activate": {
             const name = required(input, "name").toUpperCase();
             result = await new ActivationApi(client).activate({ uri: `/sap/bc/adt/oo/classes/${encodeURIComponent(name.toLowerCase())}`, name });
@@ -237,8 +249,13 @@ async function execute(res, connections, clients, payload) {
             break;
         case "report_get": {
             const api = new ReportApi(client); const name = required(input, "name"); const version = optional(input, "version");
-            const [report, source, transport] = await Promise.all([api.get(name, version), api.getSource(name, version), api.getTransport(name).catch(() => ({ number: "" }))]);
-            result = { report, source, transport };
+            const [editData, transport] = await Promise.all([
+                version
+                    ? Promise.all([api.get(name, version), api.getSource(name, version)]).then(([report, source]) => ({ report, source, version }))
+                    : api.getForEdit(name),
+                api.getTransport(name).catch(() => ({ number: "" }))
+            ]);
+            result = { ...editData, transport };
             break;
         }
         case "report_create":
@@ -250,6 +267,16 @@ async function execute(res, connections, clients, payload) {
         case "report_update_source":
             result = await new ReportApi(client).updateSource(required(input, "name"), String(input.source ?? ""), optional(input, "transport"), optional(input, "packageName"));
             break;
+        case "report_check_syntax": {
+            const name = required(input, "name").toUpperCase();
+            const source = optional(input, "source");
+            const version = optional(input, "version") ?? "active";
+            const api = new CheckRunApi(client);
+            result = source === undefined
+                ? await api.checkSyntax(`/sap/bc/adt/programs/programs/${encodeURIComponent(name.toLowerCase())}`, version)
+                : await api.checkSource(`/sap/bc/adt/programs/programs/${encodeURIComponent(name.toLowerCase())}`, source, version);
+            break;
+        }
         case "report_activate": {
             const name = required(input, "name").toUpperCase();
             result = await new ActivationApi(client).activate({ uri: `/sap/bc/adt/programs/programs/${encodeURIComponent(name.toLowerCase())}`, name });

@@ -21,6 +21,7 @@ class ReportsPage {
         $('#newReport').on('click', () => this.openCreate());
         $('#reportGenerateSkeleton').on('click', () => this.generateSkeleton());
         $('#reportForm').on('submit', event => { event.preventDefault(); this.save(); });
+        $('#reportCheckSyntax').on('click', () => this.checkSyntax());
         $('#reportActivate').on('click', () => this.activateReport());
         $('#reportDeleteConfirm').on('click', () => this.deleteReport());
         $('#reportResults').on('click', '[data-action]', event => this.action(event));
@@ -58,7 +59,7 @@ class ReportsPage {
     openCreate() {
         this.current = null; $('#reportForm')[0].reset(); $('#reportLanguage').val('EN'); $('#reportFormTitle').text('Novo report');
         $('#reportName,#reportDescription,#reportPackage,#reportLanguage,#reportTransport').prop('readonly', false);
-        $('#reportsPage .value-help-button').prop('disabled', false); $('#reportActivate').hide(); this.editor.setValue(''); this.modal('reportModal').show();
+        $('#reportsPage .value-help-button').prop('disabled', false); $('#reportCheckSyntax').show(); $('#reportActivate').hide(); this.editor.setValue(''); this.modal('reportModal').show();
     }
 
     async action(event) {
@@ -71,7 +72,7 @@ class ReportsPage {
             $('#reportDescription').val(item.description).prop('readonly', false); $('#reportPackage').val(item.packageName).prop('readonly', true);
             $('#reportLanguage').val(item.language || 'EN').prop('readonly', true); $('#reportTransport').val(data.result.transport?.number || '').prop('readonly', true);
             $('#reportsPage .value-help-button[data-value-help="package"],#reportsPage .value-help-button[data-value-help="language"],#reportsPage .value-help-button[data-value-help="request"]').prop('disabled', true);
-            this.editor.setValue(data.result.source.source || ''); $('#reportActivate').show(); this.modal('reportModal').show();
+            this.editor.setValue(data.result.source.source || ''); $('#reportCheckSyntax,#reportActivate').show(); this.modal('reportModal').show();
         } catch (error) { this.app.showError(error.data || { error: error.message }); }
     }
 
@@ -81,6 +82,35 @@ class ReportsPage {
             if (this.current) await this.execute('report_update', { ...input, responsible: this.current.report?.responsible || '' }); else await this.execute('report_create', input);
             this.modal('reportModal').hide(); this.app.showToast('Sucesso', this.current ? 'Report atualizado.' : 'Report criado.'); await this.search();
         } catch (error) { this.app.showError(error.data || { error: error.message }); }
+    }
+
+    // Executa a verificação de sintaxe no SAP usando o ABAP Check Run do Eclipse ADT.
+    async checkSyntax() {
+        const name = $('#reportName').val().trim();
+        if (!name) {
+            this.app.showToast('Nome obrigatório', 'Informe o nome do report antes de verificar a sintaxe.', false);
+            return;
+        }
+        try {
+            const data = await this.execute('report_check_syntax', { name, source: this.editor.getValue(), version: this.current?.version || 'active' });
+            this.showSyntaxResult(name, data.result);
+        } catch (error) {
+            this.app.showError(error.data || { error: error.message });
+        }
+    }
+
+    // Exibe as mensagens de sintaxe retornadas pelo SAP com linha e coluna.
+    showSyntaxResult(name, result) {
+        const messages = result.messages || [];
+        $('#reportSyntaxName').text(name);
+        const errors = messages.filter(message => message.type === 'E').length;
+        const warnings = messages.filter(message => message.type === 'W').length;
+        const summary = messages.length === 0
+            ? { css: 'alert-success', text: 'Nenhum erro de sintaxe encontrado.' }
+            : { css: errors ? 'alert-danger' : warnings ? 'alert-warning' : 'alert-info', text: `${messages.length} mensagem(ns) encontrada(s): ${errors} erro(s), ${warnings} aviso(s).` };
+        $('#reportSyntaxSummary').removeClass('alert-success alert-danger alert-warning alert-info').addClass(summary.css).text(summary.text);
+        $('#reportSyntaxMessages').html(messages.map(message => `<tr><td>${this.escape(message.type)}</td><td>${message.line || '-'}</td><td>${message.column || '-'}</td><td>${this.escape(message.shortText || '')}</td></tr>`).join('') || '<tr><td colspan="4" class="text-center text-secondary">Nenhuma mensagem retornada.</td></tr>');
+        this.modal('reportSyntaxModal').show();
     }
 
     async activateResult(name) { try { await this.execute('report_activate', { name }); this.app.showToast('Sucesso', `Report ${name} ativado.`); } catch (error) { this.app.showError(error.data || { error: error.message }); } }

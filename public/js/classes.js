@@ -36,6 +36,7 @@ class ClassesPage {
         $('#newClass').on('click', () => this.openCreate());
         $('#classGenerateSkeleton').on('click', () => this.generateSkeleton());
         $('#classForm').on('submit', event => { event.preventDefault(); this.save(); });
+        $('#classCheckSyntax').on('click', () => this.checkSyntax());
         $('#classActivate').on('click', () => this.activateClass());
         $('#classDeleteConfirm').on('click', () => this.deleteClass());
         $('#classResults').on('click', '[data-action]', event => this.action(event));
@@ -75,7 +76,7 @@ class ClassesPage {
         $('#className,#classPackage,#classDescription,#classLanguage,#classTransport').prop('readonly', false);
         $('#classVisibility').prop('disabled', false);
         $('.value-help-button').prop('disabled', false);
-        $('#classActivate').hide();
+        $('#classCheckSyntax').show(); $('#classActivate').hide();
         this.editor.setValue('');
         this.modal('classModal').show();
     }
@@ -99,7 +100,7 @@ class ClassesPage {
             $('#classVisibility').val(item.visibility || 'public').prop('disabled', true);
             $('.value-help-button[data-value-help="package"],.value-help-button[data-value-help="language"],.value-help-button[data-value-help="request"]').prop('disabled', true);
             this.editor.setValue(data.result.source.source || '');
-            $('#classActivate').show();
+            $('#classCheckSyntax,#classActivate').show();
             this.modal('classModal').show();
         } catch (error) { this.app.showError(error.data || { error: error.message }); }
     }
@@ -134,6 +135,35 @@ class ClassesPage {
             this.app.showToast('Sucesso', this.current ? 'Classe atualizada.' : 'Classe criada.');
             await this.search();
         } catch (error) { this.app.showError(error.data || { error: error.message }); }
+    }
+
+    // Executa a verificação de sintaxe no SAP usando o ABAP Check Run do Eclipse ADT.
+    async checkSyntax() {
+        const name = $('#className').val().trim();
+        if (!name) {
+            this.app.showToast('Nome obrigatório', 'Informe o nome da classe antes de verificar a sintaxe.', false);
+            return;
+        }
+        try {
+            const data = await this.execute('class_check_syntax', { name, source: this.editor.getValue(), version: this.current?.version || 'active' });
+            this.showSyntaxResult(name, data.result);
+        } catch (error) {
+            this.app.showError(error.data || { error: error.message });
+        }
+    }
+
+    // Exibe as mensagens de sintaxe retornadas pelo SAP com linha e coluna.
+    showSyntaxResult(name, result) {
+        const messages = result.messages || [];
+        $('#classSyntaxName').text(name);
+        const errors = messages.filter(message => message.type === 'E').length;
+        const warnings = messages.filter(message => message.type === 'W').length;
+        const summary = messages.length === 0
+            ? { css: 'alert-success', text: 'Nenhum erro de sintaxe encontrado.' }
+            : { css: errors ? 'alert-danger' : warnings ? 'alert-warning' : 'alert-info', text: `${messages.length} mensagem(ns) encontrada(s): ${errors} erro(s), ${warnings} aviso(s).` };
+        $('#classSyntaxSummary').removeClass('alert-success alert-danger alert-warning alert-info').addClass(summary.css).text(summary.text);
+        $('#classSyntaxMessages').html(messages.map(message => `<tr><td>${this.escape(message.type)}</td><td>${message.line || '-'}</td><td>${message.column || '-'}</td><td>${this.escape(message.shortText || '')}</td></tr>`).join('') || '<tr><td colspan="4" class="text-center text-secondary">Nenhuma mensagem retornada.</td></tr>');
+        this.modal('classSyntaxModal').show();
     }
 
     async activateClass() { try { await this.execute('class_activate', { name: $('#className').val().trim() }); this.app.showToast('Sucesso', 'Classe ativada.'); } catch (error) { this.app.showError(error.data || { error: error.message }); } }

@@ -6,6 +6,7 @@ import { RequestApi } from "../adt/requests.js";
 import { ClassApi } from "../adt/classes.js";
 import { ReportApi } from "../adt/reports.js";
 import { ActivationApi } from "../adt/activation.js";
+import { CheckRunApi } from "../adt/checkrun.js";
 import { loadConnections } from "../config.js";
 export function createMcpServer(initialConnections) {
     const server = new McpServer({ name: "mcp-adt", version: "0.1.0" });
@@ -74,7 +75,7 @@ export function createMcpServer(initialConnections) {
     server.registerTool("class_get", {
         title: "Get ABAP class", description: "Read ABAP class metadata and source through SAP ADT.",
         inputSchema: connectionSchema.extend({ name: z.string().min(1), version: z.string().optional() })
-    }, async ({ connection, name, version }) => { const api = new ClassApi(await client(connection)); return result({ class: await api.get(name, version), source: await api.getSource(name, version) }); });
+    }, async ({ connection, name, version }) => { const api = new ClassApi(await client(connection)); if (version) return result({ class: await api.get(name, version), source: await api.getSource(name, version), version }); return result(await api.getForEdit(name)); });
     server.registerTool("class_create", {
         title: "Create ABAP class", description: "Create an ABAP class using the Eclipse ADT flow.",
         inputSchema: connectionSchema.extend({ name: z.string().min(1), description: z.string(), packageName: z.string().min(1), transport: z.string().optional(), language: z.string().optional(), final: z.boolean().optional(), visibility: z.string().optional(), source: z.string().optional() })
@@ -87,6 +88,10 @@ export function createMcpServer(initialConnections) {
         title: "Update ABAP class source", description: "Update the main source of an ABAP class using lock, PUT and unlock. Local package classes do not require a transport request.",
         inputSchema: connectionSchema.extend({ name: z.string().min(1), source: z.string(), transport: z.string().optional(), packageName: z.string().optional() })
     }, async ({ connection, name, source, transport, packageName }) => result(await new ClassApi(await client(connection)).updateSource(name, source, transport, packageName)));
+    server.registerTool("class_check_syntax", {
+        title: "Check ABAP class syntax", description: "Run the Eclipse ADT ABAP Check Run against the exact source code supplied by the caller without saving it. If source is omitted, checks the selected SAP version.",
+        inputSchema: connectionSchema.extend({ name: z.string().min(1), source: z.string().optional(), version: z.enum(["active", "inactive"]).optional() })
+    }, async ({ connection, name, source, version }) => { const className = name.trim().toUpperCase(); const api = new CheckRunApi(await client(connection)); const uri = `/sap/bc/adt/oo/classes/${encodeURIComponent(className.toLowerCase())}`; return result(source === undefined ? await api.checkSyntax(uri, version ?? "inactive") : await api.checkSource(uri, source, version ?? "active")); });
     server.registerTool("class_activate", {
         title: "Activate ABAP class", description: "Activate an ABAP class through SAP ADT.",
         inputSchema: connectionSchema.extend({ name: z.string().min(1) })
@@ -102,7 +107,7 @@ export function createMcpServer(initialConnections) {
     server.registerTool("report_get", {
         title: "Get ABAP report", description: "Read ABAP report metadata, source and associated transport when available.",
         inputSchema: connectionSchema.extend({ name: z.string().min(1), version: z.string().optional() })
-    }, async ({ connection, name, version }) => { const api = new ReportApi(await client(connection)); return result({ report: await api.get(name, version), source: await api.getSource(name, version), transport: await api.getTransport(name).catch(() => ({ number: "" })) }); });
+    }, async ({ connection, name, version }) => { const api = new ReportApi(await client(connection)); const editData = version ? { report: await api.get(name, version), source: await api.getSource(name, version), version } : await api.getForEdit(name); return result({ ...editData, transport: await api.getTransport(name).catch(() => ({ number: "" })) }); });
     server.registerTool("report_create", {
         title: "Create ABAP report", description: "Create an executable ABAP report using the Eclipse ADT flow. Local packages do not require a transport request.",
         inputSchema: connectionSchema.extend({ name: z.string().min(1), description: z.string(), packageName: z.string().min(1), transport: z.string().optional(), language: z.string().optional(), source: z.string().optional() })
@@ -115,6 +120,10 @@ export function createMcpServer(initialConnections) {
         title: "Update ABAP report source", description: "Update the main source of an ABAP report using lock, PUT and unlock.",
         inputSchema: connectionSchema.extend({ name: z.string().min(1), source: z.string(), transport: z.string().optional(), packageName: z.string().optional() })
     }, async ({ connection, name, source, transport, packageName }) => result(await new ReportApi(await client(connection)).updateSource(name, source, transport, packageName)));
+    server.registerTool("report_check_syntax", {
+        title: "Check ABAP report syntax", description: "Run the Eclipse ADT ABAP Check Run against the exact source code supplied by the caller without saving it. If source is omitted, checks the selected SAP version.",
+        inputSchema: connectionSchema.extend({ name: z.string().min(1), source: z.string().optional(), version: z.enum(["active", "inactive"]).optional() })
+    }, async ({ connection, name, source, version }) => { const reportName = name.trim().toUpperCase(); const api = new CheckRunApi(await client(connection)); const uri = `/sap/bc/adt/programs/programs/${encodeURIComponent(reportName.toLowerCase())}`; return result(source === undefined ? await api.checkSyntax(uri, version ?? "inactive") : await api.checkSource(uri, source, version ?? "active")); });
     server.registerTool("report_activate", {
         title: "Activate ABAP report", description: "Activate an ABAP report through SAP ADT.",
         inputSchema: connectionSchema.extend({ name: z.string().min(1) })
