@@ -4,6 +4,7 @@ import { AdtHttpClient } from "../adt/http.js";
 import { PackageApi } from "../adt/packages.js";
 import { RequestApi } from "../adt/requests.js";
 import { ClassApi } from "../adt/classes.js";
+import { ReportApi } from "../adt/reports.js";
 import { ActivationApi } from "../adt/activation.js";
 import { loadConnections } from "../config.js";
 export function createMcpServer(initialConnections) {
@@ -89,6 +90,34 @@ export function createMcpServer(initialConnections) {
         title: "Delete ABAP class", description: "Check and delete an ABAP class through the Eclipse ADT deletion endpoints.",
         inputSchema: connectionSchema.extend({ name: z.string().min(1), transport: z.string().optional() })
     }, async ({ connection, name, transport }) => result(await new ClassApi(await client(connection)).delete(name, transport)));
+    server.registerTool("report_list", {
+        title: "List ABAP reports", description: "Search executable ABAP reports by name pattern with * and ? wildcards.",
+        inputSchema: connectionSchema.extend({ query: z.string().optional(), maxResults: z.number().optional() })
+    }, async ({ connection, query, maxResults }) => result(await new ReportApi(await client(connection)).list({ query, maxResults })));
+    server.registerTool("report_get", {
+        title: "Get ABAP report", description: "Read ABAP report metadata, source and associated transport when available.",
+        inputSchema: connectionSchema.extend({ name: z.string().min(1), version: z.string().optional() })
+    }, async ({ connection, name, version }) => { const api = new ReportApi(await client(connection)); return result({ report: await api.get(name, version), source: await api.getSource(name, version), transport: await api.getTransport(name).catch(() => ({ number: "" })) }); });
+    server.registerTool("report_create", {
+        title: "Create ABAP report", description: "Create an executable ABAP report using the Eclipse ADT flow. Local packages do not require a transport request.",
+        inputSchema: connectionSchema.extend({ name: z.string().min(1), description: z.string(), packageName: z.string().min(1), transport: z.string().optional(), language: z.string().optional(), source: z.string().optional() })
+    }, async ({ connection, ...input }) => { const connections = await loadConnections(); return result(await new ReportApi(await client(connection)).create({ ...input, responsible: connections[connection]?.user })); });
+    server.registerTool("report_update", {
+        title: "Update ABAP report", description: "Update ABAP report metadata and source using lock, PUT and unlock. Local packages do not require a transport request.",
+        inputSchema: connectionSchema.extend({ name: z.string().min(1), description: z.string(), packageName: z.string().optional(), transport: z.string().optional(), language: z.string().optional(), responsible: z.string().optional(), source: z.string() })
+    }, async ({ connection, ...input }) => result(await new ReportApi(await client(connection)).update(input)));
+    server.registerTool("report_update_source", {
+        title: "Update ABAP report source", description: "Update the main source of an ABAP report using lock, PUT and unlock.",
+        inputSchema: connectionSchema.extend({ name: z.string().min(1), source: z.string(), transport: z.string().optional(), packageName: z.string().optional() })
+    }, async ({ connection, name, source, transport, packageName }) => result(await new ReportApi(await client(connection)).updateSource(name, source, transport, packageName)));
+    server.registerTool("report_activate", {
+        title: "Activate ABAP report", description: "Activate an ABAP report through SAP ADT.",
+        inputSchema: connectionSchema.extend({ name: z.string().min(1) })
+    }, async ({ connection, name }) => { const reportName = name.trim().toUpperCase(); return result(await new ActivationApi(await client(connection)).activate({ uri: `/sap/bc/adt/programs/programs/${encodeURIComponent(reportName.toLowerCase())}`, name: reportName })); });
+    server.registerTool("report_delete", {
+        title: "Delete ABAP report", description: "Check and delete an ABAP report through the Eclipse ADT deletion endpoints.",
+        inputSchema: connectionSchema.extend({ name: z.string().min(1), transport: z.string().optional() })
+    }, async ({ connection, name, transport }) => result(await new ReportApi(await client(connection)).delete(name, transport)));
     server.registerTool("request_list", {
         title: "List transport requests",
         description: "List transport requests through SAP ADT.",

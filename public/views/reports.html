@@ -1,0 +1,34 @@
+<section id="reportsPage" class="app-page d-none">
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+                <div><h2 class="h5 mb-1">Reports</h2><p class="text-secondary mb-0">Pesquise, crie, altere, ative e exclua reports ABAP.</p></div>
+                <button id="newReport" class="btn btn-primary" type="button">Novo report</button>
+            </div>
+            <div class="card bg-body-tertiary border mb-3"><div class="card-body"><div class="row g-3 align-items-end"><div class="col-md-7"><label class="form-label" for="reportSearchQuery">Padrão do nome</label><input id="reportSearchQuery" class="form-control" value="Z*" placeholder="Z* ou *TESTE*"></div><div class="col-md-2"><label class="form-label" for="reportSearchMax">Máx.</label><input id="reportSearchMax" class="form-control" type="number" min="1" max="500" value="100"></div><div class="col-md-3 d-grid"><button id="reportSearch" class="btn btn-primary" type="button">Pesquisar</button></div></div></div></div>
+            <div id="reportResults" class="table-responsive"><div class="alert alert-secondary">Informe o padrão e clique em Pesquisar.</div></div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="reportModal" tabindex="-1">
+        <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable resizable-modal">
+            <form id="reportForm" class="modal-content">
+                <div class="modal-header"><h5 id="reportFormTitle" class="modal-title">Novo report</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+                <div class="modal-body">
+                    <div class="row g-3">
+                        <div class="col-md-4"><label class="form-label">Nome *</label><input id="reportName" class="form-control" required></div>
+                        <div class="col-md-4"><label class="form-label">Descrição *</label><input id="reportDescription" class="form-control" required></div>
+                        <div class="col-md-4"><label class="form-label">Pacote *</label><div class="input-group"><input id="reportPackage" class="form-control" required><button class="btn btn-outline-secondary value-help-button" type="button" data-value-help="package">Selecionar</button></div></div>
+                        <div class="col-md-4"><label class="form-label">Request Workbench</label><div class="input-group"><input id="reportTransport" class="form-control"><button class="btn btn-outline-secondary value-help-button" type="button" data-value-help="request">Selecionar</button></div></div>
+                        <div class="col-md-4"><label class="form-label">Idioma</label><div class="input-group"><input id="reportLanguage" class="form-control" value="EN"><button class="btn btn-outline-secondary value-help-button" type="button" data-value-help="language">Selecionar</button></div></div>
+                        <div class="col-md-4"><label class="form-label">Tipo</label><input class="form-control" value="Programa executável" readonly></div>
+                        <div class="col-12"><div class="d-flex justify-content-between align-items-center mb-2"><label class="form-label mb-0">Código fonte</label><button id="reportGenerateSkeleton" class="btn btn-outline-primary btn-sm" type="button">Gerar esboço</button></div><textarea id="reportSource" class="form-control report-source" rows="18" spellcheck="false"></textarea></div>
+                    </div>
+                </div>
+                <div class="modal-footer"><button id="reportActivate" class="btn btn-success me-auto" type="button">Ativar</button><button class="btn btn-primary" type="submit">Salvar</button><button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Cancelar</button></div>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal fade" id="reportDeleteModal" tabindex="-1"><div class="modal-dialog modal-dialog-centered"><div class="modal-content"><div class="modal-header"><h5 class="modal-title">Confirmar exclusão</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><p id="reportDeleteText"></p><label class="form-label">Request Workbench</label><div class="input-group"><input id="reportDeleteTransport" class="form-control" readonly><button class="btn btn-outline-secondary value-help-button" type="button" data-value-help="delete-request" disabled>Selecionar</button></div></div><div class="modal-footer"><button id="reportDeleteConfirm" class="btn btn-danger" type="button">Excluir</button><button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button></div></div></div></div>
+</section>

@@ -5,6 +5,7 @@ import { AdtHttpClient } from "../adt/http.js";
 import { PackageApi } from "../adt/packages.js";
 import { RequestApi } from "../adt/requests.js";
 import { ClassApi } from "../adt/classes.js";
+import { ReportApi } from "../adt/reports.js";
 import { ActivationApi } from "../adt/activation.js";
 import { saveConnections, validateConnection, validateConnectionName } from "../config.js";
 import { clearLog, getLogFile, isLogEnabled, readLog, setLogEnabled } from "../log.js";
@@ -227,6 +228,35 @@ async function execute(res, connections, clients, payload) {
             break;
         case "class_delete":
             result = await new ClassApi(client).delete(required(input, "name"), optional(input, "transport"));
+            break;
+        case "report_list":
+            result = await new ReportApi(client).list({ query: optional(input, "query") ?? "Z*", maxResults: Number(input.maxResults) || 100 });
+            break;
+        case "report_get": {
+            const api = new ReportApi(client); const name = required(input, "name"); const version = optional(input, "version");
+            const [report, source, transport] = await Promise.all([api.get(name, version), api.getSource(name, version), api.getTransport(name).catch(() => ({ number: "" }))]);
+            result = { report, source, transport };
+            break;
+        }
+        case "report_create":
+            result = await new ReportApi(client).create({ name: required(input, "name"), description: String(input.description ?? ""), packageName: required(input, "packageName"), transport: optional(input, "transport"), language: optional(input, "language") ?? config.language ?? "EN", responsible: config.user, source: String(input.source ?? "") });
+            break;
+        case "report_update":
+            result = await new ReportApi(client).update({ name: required(input, "name"), description: String(input.description ?? ""), packageName: optional(input, "packageName"), transport: optional(input, "transport"), language: optional(input, "language"), responsible: optional(input, "responsible"), source: String(input.source ?? "") });
+            break;
+        case "report_update_source":
+            result = await new ReportApi(client).updateSource(required(input, "name"), String(input.source ?? ""), optional(input, "transport"), optional(input, "packageName"));
+            break;
+        case "report_activate": {
+            const name = required(input, "name").toUpperCase();
+            result = await new ActivationApi(client).activate({ uri: `/sap/bc/adt/programs/programs/${encodeURIComponent(name.toLowerCase())}`, name });
+            break;
+        }
+        case "report_delete_check":
+            result = await new ReportApi(client).checkDelete(required(input, "name"));
+            break;
+        case "report_delete":
+            result = await new ReportApi(client).delete(required(input, "name"), optional(input, "transport"));
             break;
         case "request_list":
             result = await new RequestApi(client).list();
