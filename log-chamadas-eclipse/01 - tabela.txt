@@ -1,0 +1,12 @@
+@EndUserText.label : 'Log'
+@AbapCatalog.enhancement.category : #NOT_EXTENSIBLE
+@AbapCatalog.tableCategory : #TRANSPARENT
+@AbapCatalog.deliveryClass : #A
+@AbapCatalog.dataMaintenance : #ALLOWED
+define table zadt_log {
+
+  key mandt : mandt not null;
+  key logid : /aif/pers_runid not null;
+  json      : abap.string(0);
+
+}
