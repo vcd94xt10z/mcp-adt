@@ -73,10 +73,14 @@ export function createMcpServer(initialConnections) {
         title: "Create ABAP class", description: "Create an ABAP class using the Eclipse ADT flow.",
         inputSchema: connectionSchema.extend({ name: z.string().min(1), description: z.string(), packageName: z.string().min(1), transport: z.string().optional(), language: z.string().optional(), final: z.boolean().optional(), visibility: z.string().optional(), source: z.string().optional() })
     }, async ({ connection, ...input }) => { const connections = await loadConnections(); return result(await new ClassApi(await client(connection)).create({ ...input, responsible: connections[connection]?.user })); });
+    server.registerTool("class_update", {
+        title: "Update ABAP class", description: "Update ABAP class metadata and source. Local package classes do not require a transport request.",
+        inputSchema: connectionSchema.extend({ name: z.string().min(1), description: z.string(), packageName: z.string().optional(), transport: z.string().optional(), language: z.string().optional(), responsible: z.string().optional(), final: z.boolean().optional(), visibility: z.string().optional(), source: z.string() })
+    }, async ({ connection, ...input }) => result(await new ClassApi(await client(connection)).update(input)));
     server.registerTool("class_update_source", {
-        title: "Update ABAP class source", description: "Update the main source of an ABAP class using lock, PUT and unlock.",
-        inputSchema: connectionSchema.extend({ name: z.string().min(1), source: z.string(), transport: z.string().min(1) })
-    }, async ({ connection, name, source, transport }) => result(await new ClassApi(await client(connection)).updateSource(name, source, transport)));
+        title: "Update ABAP class source", description: "Update the main source of an ABAP class using lock, PUT and unlock. Local package classes do not require a transport request.",
+        inputSchema: connectionSchema.extend({ name: z.string().min(1), source: z.string(), transport: z.string().optional(), packageName: z.string().optional() })
+    }, async ({ connection, name, source, transport, packageName }) => result(await new ClassApi(await client(connection)).updateSource(name, source, transport, packageName)));
     server.registerTool("class_activate", {
         title: "Activate ABAP class", description: "Activate an ABAP class through SAP ADT.",
         inputSchema: connectionSchema.extend({ name: z.string().min(1) })

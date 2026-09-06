@@ -9,6 +9,9 @@ Instruções Gerais
 implementarmos uma nova função, vou te passar uma amostra de request/response para criar no nosso MCP.
 - Reforçando que o Eclipse não usa ADT diretamente, ele faz a requisição ADT usando RFC no módulo de função SADT_REST_RFC_ENDPOINT.
 - Vou enviar o projeto atual zipado, leia o contéudo para entender como o projeto funciona
+- No diretório "log-chamadas-eclipse", você encontra o log das chamadas que o Eclipse faz ao SAP usando ADT. Isso é útil quando deseja saber como o Eclipse
+faz cada operação no SAP como criar classes, programas, pacotes, listar objetos, procurar objetos etc.
+- Reforçando, objetos locais não precisa de request, não peça request nesses casos
 
 Padrões de Código
 - Use a POO para melhora a organização e reutilização do código
@@ -26,3 +29,15 @@ Interface Gráfica
 - Desenvolva de forma responsiva, para se adaptar a diferentes tamanhos de tela como celulares, tables e monitores de mesa
 - Os popups modais devem ser redimensionáveis
 - As mensagens Toast, sucesso deve ser verde, erro vermelho, atenção amarelo etc.
+- Se o campo possuir uma lista de valores possíveis, se for uma lista pequena e estática, use o componente SELECT do navegador, se a lista vier de um cadastro, 
+verifique se já não existe um value help criado. Se já existir, reutilize, se não existir, crie um value help novo seguindo o mesmo padrão dos demais do sistemas
+- Sempre que criar um filtro, coloque a funcionalidade para executar o filtro com ENTER em cada campo, para não ter que ficar clicando em "Pesquisar" ou "Buscar"
+- Para cada CRUD que criar, no formulário de criação geralmente os campos são todos abertos. Já na modificação, alguns campos não podem ser modificados, 
+nesse caso, deixe somente leitura
+- Quando criar uma filtro com tabela de resultado, sempre coloque os botões básicos em cada linha do resultado: Visualizar (Exibe o formulário com tudo somente leitura),
+Editar (Exibe o mesmo formulário, só que podendo editar os campos pertinentes), Excluir (Permite excluir, sempre coloque um popup modal de confirmação). Se o objeto em 
+questão tiver opção de ativação, coloque um botão para isso também.
+- Tecla de atalho F8: Se tiver um botão "Buscar", "Pesquisar" ou algo nesse sentido, a busca deve ser executada
+- Tecla de atalho F3: Voltar no histórico do navegador
+- Tecla de atalho F4: Se um campo com value help estiver selecionado ou com foco, abre o value help
+- Tecla de atalho CTRL + S: Se estiver em um formulário que possui o botão salvar, deve salvar

@@ -3,6 +3,11 @@ import { xmlEscape, parseLockHandle } from "./xml.js";
 const CLASSES_URL = "/sap/bc/adt/oo/classes";
 const CLASS_CONTENT_TYPE = "application/vnd.sap.adt.oo.classes.v4+xml";
 
+// Identifica pacotes locais, que não exigem ordem de transporte.
+function isLocalPackage(packageName) {
+    return String(packageName ?? "").trim().toUpperCase().startsWith("$");
+}
+
 // Normaliza e valida o nome de uma classe ABAP.
 export function normalizeClassName(name) {
     const value = String(name ?? "").trim().toUpperCase();
@@ -134,7 +139,7 @@ export class ClassApi {
         const packageName = String(input.packageName ?? "").trim().toUpperCase();
         if (!packageName) throw new Error("Package name is required.");
         const transport = String(input.transport ?? "").trim();
-        if (!packageName.startsWith("$") && !transport) throw new Error(`A Workbench transport request is required for class '${name}'.`);
+        if (!isLocalPackage(packageName) && !transport) throw new Error(`A Workbench transport request is required for class '${name}'.`);
         const validation = await this.validateName({ ...input, name, packageName });
         if (!validation.valid) throw new Error(`SAP rejected the class name '${name}'.`);
         await this.checkTransport(packageName, name);
@@ -167,19 +172,55 @@ export class ClassApi {
         return this.http.write(`${CLASSES_URL}/${encodeURIComponent(className.toLowerCase())}`, { query: { _action: "UNLOCK", lockHandle }, headers: { "X-sap-adt-sessiontype": "stateful" } });
     }
 
-    // Atualiza o código fonte garantindo o unlock mesmo em caso de erro.
-    // Atualiza o código fonte usando PUT, após bloquear a classe no SAP.
-    async updateSource(name, source, transport) {
-        const className = normalizeClassName(name);
-        const request = String(transport ?? "").trim();
-        if (!request) throw new Error(`A Workbench transport request is required to update class '${className}'.`);
+    // Atualiza os metadados principais da classe, inclusive a descrição.
+    async updateMetadata(input) {
+        const className = normalizeClassName(input.name);
+        const packageName = String(input.packageName ?? "").trim().toUpperCase();
+        if (!packageName) throw new Error("Package name is required.");
+        const request = String(input.transport ?? "").trim();
+        if (!isLocalPackage(packageName) && !request) throw new Error(`A Workbench transport request is required to update class '${className}'.`);
+
         const lock = await this.lock(className);
         let updateError;
         try {
             const token = await this.http.fetchCsrfToken();
+            const query = { lockHandle: lock.lockHandle };
+            if (request) query.corrNr = request;
+            const response = await this.http.request(`${CLASSES_URL}/${encodeURIComponent(className.toLowerCase())}`, {
+                method: "PUT",
+                query,
+                headers: {
+                    "Content-Type": CLASS_CONTENT_TYPE,
+                    Accept: CLASS_CONTENT_TYPE,
+                    "X-CSRF-Token": token
+                },
+                body: buildClassXml({ ...input, name: className, packageName })
+            });
+            return { name: className, packageName, status: response.status, durationMs: response.durationMs, raw: response.body };
+        } catch (error) {
+            updateError = error;
+            throw error;
+        } finally {
+            try { await this.unlock(className, lock.lockHandle); } catch (unlockError) { if (!updateError) throw unlockError; }
+        }
+    }
+
+    // Atualiza o código fonte usando PUT, após bloquear a classe no SAP.
+    // Pacotes locais não enviam corrNr porque não precisam de request.
+    async updateSource(name, source, transport, packageName) {
+        const className = normalizeClassName(name);
+        const request = String(transport ?? "").trim();
+        const packageValue = String(packageName ?? "").trim().toUpperCase();
+        if (packageValue && !isLocalPackage(packageValue) && !request) throw new Error(`A Workbench transport request is required to update class '${className}'.`);
+        const lock = await this.lock(className);
+        let updateError;
+        try {
+            const token = await this.http.fetchCsrfToken();
+            const query = { lockHandle: lock.lockHandle };
+            if (request) query.corrNr = request;
             const response = await this.http.request(`${CLASSES_URL}/${encodeURIComponent(className.toLowerCase())}/source/main`, {
                 method: "PUT",
-                query: { lockHandle: lock.lockHandle, corrNr: request },
+                query,
                 headers: {
                     "Content-Type": "text/plain; charset=utf-8",
                     Accept: "text/plain",
@@ -194,6 +235,25 @@ export class ClassApi {
         } finally {
             try { await this.unlock(className, lock.lockHandle); } catch (unlockError) { if (!updateError) throw unlockError; }
         }
+    }
+
+    // Atualiza metadados e código fonte usando as mesmas regras de transporte.
+    async update(input) {
+        const className = normalizeClassName(input.name);
+        const current = await this.get(className, "workingArea");
+        const packageName = String(input.packageName ?? current.packageName ?? "").trim().toUpperCase();
+        const metadata = await this.updateMetadata({
+            ...current,
+            ...input,
+            name: className,
+            packageName,
+            language: input.language ?? current.language ?? "EN",
+            responsible: input.responsible ?? current.responsible ?? "",
+            final: input.final ?? current.final,
+            visibility: input.visibility ?? current.visibility ?? "public"
+        });
+        const source = await this.updateSource(className, input.source ?? "", input.transport, packageName);
+        return { name: className, packageName, metadata, source };
     }
 
     // Extrai uma ordem de transporte de diferentes respostas XML retornadas pelo ADT.

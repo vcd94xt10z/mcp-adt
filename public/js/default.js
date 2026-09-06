@@ -232,6 +232,7 @@ class AppShell {
             return 'O SAP está indisponível ou retornou um erro interno.';
         }
 
+        if (message) return message;
         return 'Não foi possível estabelecer a conexão com o SAP. Verifique os dados da conexão.';
     }
 

@@ -201,8 +201,21 @@ async function execute(res, connections, clients, payload) {
             result = await new ClassApi(client).create({ name: required(input, "name"), description: String(input.description ?? ""), packageName: required(input, "packageName"), transport: optional(input, "transport"), language: optional(input, "language") ?? config.language ?? "EN", responsible: config.user, final: input.final === undefined ? true : Boolean(input.final), visibility: optional(input, "visibility") ?? "public", source: String(input.source ?? "") });
             break;
         }
+        case "class_update":
+            result = await new ClassApi(client).update({
+                name: required(input, "name"),
+                description: String(input.description ?? ""),
+                packageName: optional(input, "packageName"),
+                transport: optional(input, "transport"),
+                language: optional(input, "language"),
+                responsible: optional(input, "responsible"),
+                final: input.final === undefined ? undefined : Boolean(input.final),
+                visibility: optional(input, "visibility"),
+                source: String(input.source ?? "")
+            });
+            break;
         case "class_update_source":
-            result = await new ClassApi(client).updateSource(required(input, "name"), String(input.source ?? ""), required(input, "transport"));
+            result = await new ClassApi(client).updateSource(required(input, "name"), String(input.source ?? ""), optional(input, "transport"), optional(input, "packageName"));
             break;
         case "class_activate": {
             const name = required(input, "name").toUpperCase();

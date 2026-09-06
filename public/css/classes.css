@@ -14,3 +14,6 @@
 .abap-token-comment { color: #6c757d; }
 .abap-token-number { color: #b45309; }
 @media (max-width: 767px) { .abap-editor { min-height: 320px; } }
+
+#classResults .table-actions { white-space: nowrap; }
+#classResults .table-actions .btn + .btn { margin-left: .5rem; }

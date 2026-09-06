@@ -27,6 +27,12 @@ class ClassesPage {
     bind() {
         this.bound = true;
         $('#classSearch').on('click', () => this.search());
+        $('#classSearchQuery, #classSearchMax').on('keydown', event => {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                this.search();
+            }
+        });
         $('#newClass').on('click', () => this.openCreate());
         $('#classGenerateSkeleton').on('click', () => this.generateSkeleton());
         $('#classForm').on('submit', event => { event.preventDefault(); this.save(); });
@@ -57,7 +63,7 @@ class ClassesPage {
         try {
             const result = await this.execute('class_list', { query: $('#classSearchQuery').val(), maxResults: Number($('#classSearchMax').val()) || 100 });
             const items = result.result.items || [];
-            const rows = items.map(item => `<tr><td>${this.escape(item.name)}</td><td>${this.escape(item.description || '')}</td><td>${this.escape(item.packageName || '')}</td><td><div class="btn-group btn-group-sm"><button class="btn btn-outline-primary" data-action="open" data-name="${this.escapeAttr(item.name)}">Abrir</button><button class="btn btn-outline-danger" data-action="delete" data-name="${this.escapeAttr(item.name)}">Excluir</button></div></td></tr>`).join('');
+            const rows = items.map(item => `<tr><td>${this.escape(item.name)}</td><td>${this.escape(item.description || '')}</td><td>${this.escape(item.packageName || '')}</td><td class="table-actions"><button class="btn btn-sm btn-outline-primary" data-action="open" data-name="${this.escapeAttr(item.name)}">Editar</button><button class="btn btn-sm btn-outline-success" data-action="activate" data-name="${this.escapeAttr(item.name)}">Ativar</button><button class="btn btn-sm btn-outline-danger" data-action="delete" data-name="${this.escapeAttr(item.name)}">Excluir</button></td></tr>`).join('');
             $('#classResults').html(`<table class="table table-hover align-middle"><thead><tr><th>Nome</th><th>Descrição</th><th>Pacote</th><th>Ações</th></tr></thead><tbody>${rows || '<tr><td colspan="4" class="text-center text-secondary">Nenhuma classe encontrada.</td></tr>'}</tbody></table>`);
         } catch (error) { this.app.showError(error.data || { error: error.message }); }
     }
@@ -78,6 +84,7 @@ class ClassesPage {
         const button = $(event.currentTarget);
         const name = button.data('name');
         if (button.data('action') === 'delete') return this.confirmDelete(name);
+        if (button.data('action') === 'activate') return this.activateResult(name);
         try {
             const data = await this.execute('class_get', { name });
             this.current = data.result;
@@ -97,12 +104,31 @@ class ClassesPage {
         } catch (error) { this.app.showError(error.data || { error: error.message }); }
     }
 
+    async activateResult(name) {
+        try {
+            await this.execute('class_activate', { name });
+            this.app.showToast('Sucesso', `Classe ${name} ativada.`);
+        } catch (error) {
+            this.app.showError(error.data || { error: error.message });
+        }
+    }
+
     async save() {
         try {
             const name = $('#className').val().trim();
             const source = this.editor.getValue();
             const transport = $('#classTransport').val().trim();
-            if (this.current) await this.execute('class_update_source', { name, source, transport });
+            if (this.current) await this.execute('class_update', {
+                name,
+                description: $('#classDescription').val().trim(),
+                packageName: $('#classPackage').val().trim(),
+                transport,
+                language: $('#classLanguage').val().trim() || 'EN',
+                responsible: this.current.class?.responsible || '',
+                final: this.current.class?.final !== false,
+                visibility: this.current.class?.visibility || 'public',
+                source
+            });
             else await this.execute('class_create', { name, description: $('#classDescription').val().trim(), packageName: $('#classPackage').val().trim(), transport, language: $('#classLanguage').val().trim() || 'EN', visibility: $('#classVisibility').val(), source });
             this.modal('classModal').hide();
             this.app.showToast('Sucesso', this.current ? 'Classe atualizada.' : 'Classe criada.');
