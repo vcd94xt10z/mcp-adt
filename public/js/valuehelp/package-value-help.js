@@ -9,7 +9,7 @@ class PackageValueHelp extends ValueHelp {
             ],
             loadItems: async query => {
                 const pattern = query || 'Z*';
-                const result = await window.classesPage.execute('package_list', { query: pattern.includes('*') ? pattern : `${pattern}*`, maxResults: 200 });
+                const result = await window.app.executeOperation('package_list', { query: pattern.includes('*') ? pattern : `${pattern}*`, maxResults: 200 });
                 return result.result.items || [];
             }
         });

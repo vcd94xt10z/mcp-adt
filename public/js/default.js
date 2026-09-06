@@ -145,6 +145,19 @@ class AppShell {
         return data;
     }
 
+    // Executa uma operação MCP pela API web usando a conexão SAP atualmente selecionada.
+    async executeOperation(operation, input = {}) {
+        return this.api('/api/execute', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                operation,
+                connection: this.currentConnection(),
+                input
+            })
+        });
+    }
+
     // Executa uma chamada à API web e converte respostas JSON para um objeto JavaScript.
     async api(url, options = {}) {
         this.pendingHttpRequests += 1;

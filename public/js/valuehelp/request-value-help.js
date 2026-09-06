@@ -9,7 +9,7 @@ class RequestValueHelp extends ValueHelp {
                 { label: 'Owner', value: item => item.owner }
             ],
             loadItems: async query => {
-                const result = await window.classesPage.execute('request_modifiable_workbench_list', {});
+                const result = await window.app.executeOperation('request_modifiable_workbench_list', {});
                 const text = query.toUpperCase();
                 return (result.result.items || []).filter(item => !text || `${item.number} ${item.description}`.toUpperCase().includes(text));
             }

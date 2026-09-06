@@ -88,7 +88,7 @@ class ReportsPage {
         catch (error) { this.app.showError(error.data || { error: error.message }); }
     }
 
-    async execute(operation, input) { return this.app.api('/api/execute', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ operation, connection: this.app.currentConnection(), input }) }); }
+    async execute(operation, input) { return this.app.executeOperation(operation, input); }
     modal(id) { return bootstrap.Modal.getOrCreateInstance(document.getElementById(id)); }
     escape(value) { return $('<div>').text(value ?? '').html(); }
     escapeAttr(value) { return this.escape(value).replaceAll('"', '&quot;'); }
