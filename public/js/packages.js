@@ -93,11 +93,11 @@ class PackagesPage {
             $('#packageFormTitle').text('Novo pacote');
             $('#packageSubmit').text('Criar');
             $('#packageForm')[0].reset();
-            $('#packageName').prop('readonly', false);
+            $('#packageName').prop('readonly', false).removeClass('readonly-field');
             $('#packageDescription').prop('readonly', false);
             $('#packageLanguage, #packageType, #packageSoftware, #packageLayer').prop('disabled', false);
             $('#packageRecordChanges').prop('disabled', false).prop('checked', true);
-            $('#packageSuper').prop('readonly', false).val('');
+            $('#packageSuper').prop('readonly', false).removeClass('readonly-field').val('');
             $('#packageModeHint').removeClass('alert-secondary').addClass('alert-info').text('Pacote não-local: selecione uma request Workbench. O console não cria requests automaticamente.');
             await this.populateCreateOptions();
             this.updateMode();
@@ -115,12 +115,12 @@ class PackagesPage {
             $('#packageForm').addClass('edit-mode');
             $('#packageFormTitle').text('Editar pacote');
             $('#packageSubmit').text('Salvar');
-            $('#packageName').val(this.editingName).prop('readonly', true);
+            $('#packageName').val(this.editingName).prop('readonly', true).addClass('readonly-field');
             $('#packageDescription').val(packageData.description || '').prop('readonly', false);
             $('#packageLanguage').empty().append($('<option>', { value: packageData.language || '', text: packageData.language || '' })).prop('disabled', true);
             $('#packageType').val(packageData.packageType || packageData.type || '').prop('disabled', true);
             $('#packageSoftware').empty().append($('<option>', { value: packageData.softwareComponent || '', text: packageData.softwareComponent || '' })).prop('disabled', true);
-            $('#packageSuper').val(packageData.superPackage || '').prop('readonly', true);
+            $('#packageSuper').val(packageData.superPackage || '').prop('readonly', true).addClass('readonly-field');
             $('#packageRecordChanges').prop('checked', packageData.recordChanges === true).prop('disabled', true);
             await this.populateEditTransportLayers(packageData.transportLayer || '');
             $('#packageTransport').empty();

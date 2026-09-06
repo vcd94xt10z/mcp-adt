@@ -46,12 +46,16 @@ export class PackageApi {
         let items = parsePackageSearch(response.body)
             .filter(item => !searchQuery || searchQuery === "*" || wildcardMatch(item.name, searchQuery));
 
-        if (items.some(item => !item.description || !item.superPackage)) {
+        // Quando o usuário informa um superpackage, consulta os detalhes dos pacotes
+        // encontrados para obter o relacionamento hierárquico real informado pelo SAP.
+        // O quickSearch nem sempre retorna o superpackage no resultado resumido.
+        const needsEnrichment = Boolean(parentFilter) || items.some(item => !item.description || !item.superPackage);
+        if (needsEnrichment) {
             const enriched = await Promise.all(items.map(async item => {
-                if (item.description && item.superPackage) return item;
+                if (!parentFilter && item.description && item.superPackage) return item;
                 try {
                     const detail = await this.get(item.name);
-                    return { ...item, description: item.description || detail.description || "", superPackage: item.superPackage || detail.superPackage || "", softwareComponent: item.softwareComponent || detail.softwareComponent || "", transportLayer: item.transportLayer || detail.transportLayer || "" };
+                    return { ...item, description: item.description || detail.description || "", superPackage: detail.superPackage || item.superPackage || "", softwareComponent: item.softwareComponent || detail.softwareComponent || "", transportLayer: item.transportLayer || detail.transportLayer || "" };
                 } catch {
                     return item;
                 }
