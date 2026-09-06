@@ -35,6 +35,11 @@ export function createMcpServer(initialConnections) {
         description: "Read a package by name through SAP ADT.",
         inputSchema: connectionSchema.extend({ name: z.string().min(1) })
     }, async ({ connection, name }) => result(await new PackageApi(await client(connection)).get(name)));
+    server.registerTool("package_validate_object", {
+        title: "Validate package compatibility",
+        description: "Validate whether a selected SAP package can be used for an object type without hiding packages from the user.",
+        inputSchema: connectionSchema.extend({ name: z.string().min(1), objectType: z.string().min(1) })
+    }, async ({ connection, name, objectType }) => result(await new PackageApi(await client(connection)).validateObjectCompatibility(name, objectType)));
     server.registerTool("package_create", {
         title: "Create SAP package",
         description: "Create an ABAP package (DEVC) through SAP ADT. Package names are normalized to uppercase. Local packages whose name starts with $ do not use a transport. Non-local packages require a Workbench transport request and record object changes.",

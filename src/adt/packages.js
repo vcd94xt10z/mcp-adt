@@ -82,6 +82,51 @@ export class PackageApi {
         const response = await this.http.request(`${PACKAGE_URL}/${encodeURIComponent(normalizedName)}`, { headers: { Accept: "application/vnd.sap.adt.packages.v2+xml" } });
         return { ...parsePackage(response.body), status: response.status, durationMs: response.durationMs, raw: response.body };
     }
+
+    // Valida se um pacote pode receber determinado tipo de objeto sem ocultar pacotes do usuário.
+    async validateObjectCompatibility(name, objectType) {
+        const packageName = normalizePackageName(name);
+        const type = String(objectType ?? '').trim().toUpperCase();
+
+        if (!type) throw new Error('Object type is required.');
+        if (isLocalPackage(packageName)) {
+            return { packageName, objectType: type, compatible: true, reason: 'LOCAL', details: 'Pacote local selecionado.' };
+        }
+
+        const detail = await this.get(packageName);
+        let propertiesRaw = '';
+
+        try {
+            const uri = `${PACKAGE_URL}/${encodeURIComponent(packageName.toLowerCase())}`;
+            const response = await this.http.request('/sap/bc/adt/repository/informationsystem/objectproperties/values', {
+                query: { uri },
+                headers: { Accept: 'application/xml, */*' }
+            });
+            propertiesRaw = String(response.body ?? '');
+        } catch {
+            // Alguns sistemas não disponibilizam object properties para pacotes.
+        }
+
+        const evidence = `${detail.raw ?? ''} ${propertiesRaw}`;
+        const cloudMatch = evidence.match(/(?:softwareComponentType|componentType|type)=["']([KLQ])["']/i);
+        let cloudType = cloudMatch?.[1]?.toUpperCase() || '';
+        if (!cloudType && /key user extensibility/i.test(evidence)) cloudType = 'Q';
+        if (!cloudType && /local cloud development/i.test(evidence)) cloudType = 'L';
+        if (!cloudType && /cloud development|tier\s*[12]/i.test(evidence)) cloudType = 'K';
+
+        if (type === 'PROG/P' && cloudType) {
+            const typeText = { K: 'K – Cloud Development', L: 'L – Local Cloud Development', Q: 'Q – Key User Extensibility' }[cloudType];
+            return {
+                packageName,
+                objectType: type,
+                compatible: false,
+                softwareComponentType: cloudType,
+                details: `O pacote '${packageName}' pertence a um software component do tipo ${typeText}. Reports clássicos (PROG/P) não são permitidos nesse tipo de software component. Escolha um pacote de desenvolvimento clássico, por exemplo um pacote Tier 3, ou use $TMP para desenvolvimento local.`
+            };
+        }
+
+        return { packageName, objectType: type, compatible: true, softwareComponent: detail.softwareComponent, details: 'O pacote não apresentou nenhuma restrição conhecida para o tipo de objeto selecionado.' };
+    }
     async create(input) {
         const name = normalizePackageName(input.name);
         const local = name.startsWith("$");

@@ -77,11 +77,16 @@ class ValueHelp {
         }
     }
 
-    select(index) {
+    // Seleciona um valor e permite que a tela execute validações assíncronas antes de fechar o modal.
+    async select(index) {
         const item = this.items?.[index];
         if (!item) return;
-        this.selectedCallback?.(item);
-        this.modal.hide();
+        try {
+            const result = await this.selectedCallback?.(item);
+            if (result !== false) this.modal.hide();
+        } catch (error) {
+            window.app.showError(error.data || { error: error.message });
+        }
     }
 }
 

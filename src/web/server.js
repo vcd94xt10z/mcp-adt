@@ -163,6 +163,9 @@ async function execute(res, connections, clients, payload) {
         case "package_get":
             result = await new PackageApi(client).get(required(input, "name"));
             break;
+        case "package_validate_object":
+            result = await new PackageApi(client).validateObjectCompatibility(required(input, "name"), required(input, "objectType"));
+            break;
         case "package_create": {
             const packageInput = {
                 name: required(input, "name"), description: String(input.description ?? ""),

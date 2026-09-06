@@ -7,6 +7,16 @@ function isLocalPackage(packageName) {
     return String(packageName ?? "").trim().toUpperCase().startsWith("$");
 }
 
+// Converte restrições conhecidas do SAP em mensagens claras para a interface e para o MCP.
+function applyReportPackageError(error, packageName) {
+    const body = String(error?.response?.body ?? '');
+    const message = String(error?.message ?? '');
+    if (/Objects of type PROG are not permitted in software components of type [KLQ]/i.test(body) || /Objects of type PROG are not permitted/i.test(message)) {
+        error.userMessage = `O pacote '${packageName}' não pode ser usado para criar um Report clássico (PROG/P). O pacote pertence a um software component de desenvolvimento Cloud, Local Cloud ou Key User Extensibility, onde objetos PROG não são permitidos. Escolha um pacote de desenvolvimento clássico, por exemplo Tier 3, ou use $TMP para desenvolvimento local.`;
+    }
+    return error;
+}
+
 export function normalizeReportName(name) {
     const value = String(name ?? "").trim().toUpperCase();
     if (!value) throw new Error("Report name is required.");
@@ -113,12 +123,16 @@ export class ReportApi {
         const validation = await this.validateName({ ...input, name, packageName });
         if (!validation.valid) throw new Error(`SAP rejected the report name '${name}'.`);
         await this.checkTransport(packageName, name);
-        const response = await this.http.write(REPORTS_URL, {
-            query: transport ? { corrNr: transport } : undefined,
-            headers: { "Content-Type": REPORT_CONTENT_TYPE, Accept: REPORT_CONTENT_TYPE }, body: buildReportXml({ ...input, name, packageName })
-        });
-        if (String(input.source ?? "").trim()) await this.updateSource(name, String(input.source), transport, packageName);
-        return { name, packageName, transport: transport || undefined, status: response.status, durationMs: response.durationMs, location: response.headers.get("location"), raw: response.body };
+        try {
+            const response = await this.http.write(REPORTS_URL, {
+                query: transport ? { corrNr: transport } : undefined,
+                headers: { "Content-Type": REPORT_CONTENT_TYPE, Accept: REPORT_CONTENT_TYPE }, body: buildReportXml({ ...input, name, packageName })
+            });
+            if (String(input.source ?? "").trim()) await this.updateSource(name, String(input.source), transport, packageName);
+            return { name, packageName, transport: transport || undefined, status: response.status, durationMs: response.durationMs, location: response.headers.get("location"), raw: response.body };
+        } catch (error) {
+            throw applyReportPackageError(error, packageName);
+        }
     }
 
     async lock(name) {

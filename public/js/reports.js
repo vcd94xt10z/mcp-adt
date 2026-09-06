@@ -28,7 +28,15 @@ class ReportsPage {
     }
 
     openValueHelp(type) {
-        if (type === 'package') return window.packageValueHelp.open(item => $('#reportPackage').val(item.name));
+        if (type === 'package') return window.packageValueHelp.open(async item => {
+            const validation = await this.execute('package_validate_object', { name: item.name, objectType: 'PROG/P' });
+            if (!validation.result.compatible) {
+                this.app.showToast('Pacote não pode ser usado para Report', validation.result.details, false);
+                return false;
+            }
+            $('#reportPackage').val(item.name);
+            return true;
+        });
         if (type === 'request') return window.requestValueHelp.open(item => $('#reportTransport').val(item.number));
         if (type === 'language') return window.languageValueHelp.open(item => $('#reportLanguage').val(item.code || item));
     }
