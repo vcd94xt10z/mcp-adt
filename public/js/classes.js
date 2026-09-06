@@ -66,7 +66,7 @@ class ClassesPage {
         this.current = null;
         $('#classForm')[0].reset();
         $('#classFormTitle').text('Nova classe');
-        $('#className,#classPackage,#classDescription,#classLanguage').prop('readonly', false);
+        $('#className,#classPackage,#classDescription,#classLanguage,#classTransport').prop('readonly', false);
         $('#classVisibility').prop('disabled', false);
         $('.value-help-button').prop('disabled', false);
         $('#classActivate').hide();
@@ -88,8 +88,9 @@ class ClassesPage {
             $('#classDescription').val(item.description);
             $('#classPackage').val(item.packageName).prop('readonly', true);
             $('#classLanguage').val(item.language || 'EN').prop('readonly', true);
+            $('#classTransport').val(data.result.transport?.number || '').prop('readonly', true);
             $('#classVisibility').val(item.visibility || 'public').prop('disabled', true);
-            $('.value-help-button[data-value-help="package"],.value-help-button[data-value-help="language"]').prop('disabled', true);
+            $('.value-help-button[data-value-help="package"],.value-help-button[data-value-help="language"],.value-help-button[data-value-help="request"]').prop('disabled', true);
             this.editor.setValue(data.result.source.source || '');
             $('#classActivate').show();
             this.modal('classModal').show();
@@ -110,8 +111,31 @@ class ClassesPage {
     }
 
     async activateClass() { try { await this.execute('class_activate', { name: $('#className').val().trim() }); this.app.showToast('Sucesso', 'Classe ativada.'); } catch (error) { this.app.showError(error.data || { error: error.message }); } }
-    confirmDelete(name) { this.pendingDelete = name; $('#classDeleteText').text(`Deseja realmente excluir a classe '${name}'?`); $('#classDeleteTransport').val(''); this.modal('classDeleteModal').show(); }
-    async deleteClass() { try { await this.execute('class_delete', { name: this.pendingDelete, transport: $('#classDeleteTransport').val().trim() }); this.modal('classDeleteModal').hide(); this.app.showToast('Sucesso', 'Classe excluída.'); await this.search(); } catch (error) { this.app.showError(error.data || { error: error.message }); } }
+
+    async confirmDelete(name) {
+        this.pendingDelete = name;
+        $('#classDeleteText').text(`Deseja realmente excluir a classe '${name}'?`);
+        $('#classDeleteTransport').val('').prop('readonly', true);
+        $('#classDeleteModal .value-help-button[data-value-help="delete-request"]').prop('disabled', true);
+        this.modal('classDeleteModal').show();
+        try {
+            const data = await this.execute('class_delete_check', { name });
+            const transport = data.result.transport || '';
+            $('#classDeleteTransport').val(transport);
+        } catch (error) {
+            this.app.showError(error.data || { error: error.message });
+        }
+    }
+
+    async deleteClass() {
+        try {
+            await this.execute('class_delete', { name: this.pendingDelete, transport: $('#classDeleteTransport').val().trim() });
+            this.modal('classDeleteModal').hide();
+            this.app.showToast('Sucesso', 'Classe excluída.');
+            await this.search();
+        } catch (error) { this.app.showError(error.data || { error: error.message }); }
+    }
+
     async execute(operation, input) { return this.app.api('/api/execute', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ operation, connection: this.app.currentConnection(), input }) }); }
     modal(id) { return bootstrap.Modal.getOrCreateInstance(document.getElementById(id)); }
     escape(value) { return $('<div>').text(value ?? '').html(); }

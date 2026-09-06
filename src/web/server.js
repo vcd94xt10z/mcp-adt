@@ -189,7 +189,12 @@ async function execute(res, connections, clients, payload) {
             break;
         case "class_get": {
             const api = new ClassApi(client); const name = required(input, "name"); const version = optional(input, "version");
-            result = { class: await api.get(name, version), source: await api.getSource(name, version) };
+            const [classData, source, transport] = await Promise.all([
+                api.get(name, version),
+                api.getSource(name, version),
+                api.getTransport(name).catch(() => ({ number: "" }))
+            ]);
+            result = { class: classData, source, transport };
             break;
         }
         case "class_create": {
@@ -204,6 +209,9 @@ async function execute(res, connections, clients, payload) {
             result = await new ActivationApi(client).activate({ uri: `/sap/bc/adt/oo/classes/${encodeURIComponent(name.toLowerCase())}`, name });
             break;
         }
+        case "class_delete_check":
+            result = await new ClassApi(client).checkDelete(required(input, "name"));
+            break;
         case "class_delete":
             result = await new ClassApi(client).delete(required(input, "name"), optional(input, "transport"));
             break;
@@ -244,27 +252,72 @@ async function getSystemInformation(client) {
 function parseInstalledLanguages(xml, configuredLanguage) {
     const source = String(xml ?? "");
     const found = [];
-    const patterns = [
-        /<(?:[^:>]+:)?language\b([^>]*)>/gi,
-        /<(?:[^:>]+:)?lang(?:uage)?\b([^>]*)>/gi
-    ];
-    for (const pattern of patterns) {
-        for (const match of source.matchAll(pattern)) {
-            const attrs = match[1] ?? "";
-            const code = attrs.match(/(?:code|key|id|value|language)=['"]([^'"]+)['"]/i)?.[1];
-            const description = attrs.match(/(?:description|desc|name|text|title)=['"]([^'"]+)['"]/i)?.[1] ?? "";
-            if (code && /^[A-Z]{2}$/i.test(code)) found.push({ code: code.toUpperCase(), description });
-        }
+
+    // Adiciona um idioma somente uma vez e mantém a primeira descrição encontrada.
+    const addLanguage = (code, description = "") => {
+        const normalizedCode = String(code ?? "").trim().toUpperCase();
+        if (!/^[A-Z]{2}$/.test(normalizedCode)) return;
+        found.push({ code: normalizedCode, description: String(description ?? "").trim() });
+    };
+
+    // Lê idiomas informados como atributos XML.
+    for (const match of source.matchAll(/<(?:[^:>]+:)?(?:language|lang)\b([^>]*)>(?:\s*([^<]+)\s*)?<\//gi)) {
+        const attrs = match[1] ?? "";
+        const text = match[2] ?? "";
+        const code = attrs.match(/(?:code|key|id|value|language)=['"]([^'"]+)['"]/i)?.[1] ?? text;
+        const description = attrs.match(/(?:description|desc|name|text|title)=['"]([^'"]+)['"]/i)?.[1] ?? "";
+        addLanguage(code, description);
     }
-    const installedMatch = source.match(/(?:zcsa\/installed_languages|installed_languages)[^\n<]{0,80}?([A-Z]{2}(?:[,; ]+[A-Z]{2})*)/i);
-    if (installedMatch) {
-        installedMatch[1].split(/[,;\s]+/).filter(code => /^[A-Z]{2}$/i.test(code)).forEach(code => found.push({ code: code.toUpperCase(), description: "Idioma instalado" }));
+
+    // Lê listas de idiomas retornadas pelo systeminformation em atributos ou elementos.
+    const listPattern = /(?:installed[_-]?languages|languages|logon[_-]?languages)=['"]([^'"]+)['"]|<(?:[^:>]+:)?(?:installed[_-]?languages|languages|logon[_-]?languages)[^>]*>\s*([^<]+)\s*<\//gi;
+    for (const match of source.matchAll(listPattern)) {
+        String(match[1] ?? match[2] ?? "").split(/[,;\s]+/).forEach(code => addLanguage(code, "Idioma do sistema"));
     }
-    const current = String(configuredLanguage ?? "").trim().toUpperCase();
-    if (current && /^[A-Z]{2}$/.test(current)) found.push({ code: current, description: "Idioma da conexão" });
-    const seen = new Set();
-    return found.filter(item => { if (seen.has(item.code)) return false; seen.add(item.code); return true; }).sort((a, b) => a.code.localeCompare(b.code));
+
+    // Lê estruturas JSON quando o endpoint for convertido pelo backend para JSON.
+    try {
+        const json = JSON.parse(source);
+        const candidates = json.languages ?? json.installedLanguages ?? json.installed_languages ?? [];
+        (Array.isArray(candidates) ? candidates : String(candidates).split(/[,;\s]+/)).forEach(item => {
+            if (typeof item === "string") addLanguage(item, "Idioma do sistema");
+            else if (item && typeof item === "object") addLanguage(item.code ?? item.language ?? item.key, item.description ?? item.text ?? item.name);
+        });
+    } catch {
+        // A resposta normalmente é XML; não há ação necessária quando não for JSON.
+    }
+
+    addLanguage(configuredLanguage, "Idioma da conexão");
+
+    // Alguns sistemas não expõem a lista de idiomas pelo systeminformation.
+    // Nesse caso disponibilizamos a lista padrão de idiomas SAP para o Value Help.
+    if (new Set(found.map(item => item.code)).size <= 1) {
+        for (const item of defaultSapLanguages()) addLanguage(item.code, item.description);
+    }
+
+    const unique = new Map();
+    for (const item of found) {
+        const existing = unique.get(item.code);
+        if (!existing || (!existing.description && item.description)) unique.set(item.code, item);
+    }
+    return [...unique.values()].sort((a, b) => a.code.localeCompare(b.code));
 }
+
+// Retorna os idiomas padrão usados pelo SAP GUI para fallback do Value Help.
+function defaultSapLanguages() {
+    return [
+        ["AF", "Afrikaans"], ["AR", "Arabic"], ["BG", "Bulgarian"], ["CA", "Catalan"], ["CS", "Czech"],
+        ["DA", "Danish"], ["DE", "German"], ["EL", "Greek"], ["EN", "English"], ["ES", "Spanish"],
+        ["ET", "Estonian"], ["FI", "Finnish"], ["FR", "French"], ["HE", "Hebrew"], ["HI", "Hindi"],
+        ["HR", "Croatian"], ["HU", "Hungarian"], ["ID", "Indonesian"], ["IS", "Icelandic"], ["IT", "Italian"],
+        ["JA", "Japanese"], ["KK", "Kazakh"], ["KO", "Korean"], ["LT", "Lithuanian"], ["LV", "Latvian"],
+        ["MS", "Malay"], ["NL", "Dutch"], ["NO", "Norwegian"], ["PL", "Polish"], ["PT", "Portuguese"],
+        ["RO", "Romanian"], ["RU", "Russian"], ["SH", "Serbian Latin"], ["SK", "Slovak"], ["SL", "Slovenian"],
+        ["SV", "Swedish"], ["TH", "Thai"], ["TR", "Turkish"], ["UK", "Ukrainian"], ["VI", "Vietnamese"],
+        ["ZF", "Chinese Simplified"], ["ZH", "Chinese Traditional"]
+    ].map(([code, description]) => ({ code, description }));
+}
+
 function getClient(name, config, clients) {
     let client = clients.get(name);
     if (!client) {

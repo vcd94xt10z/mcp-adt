@@ -128,7 +128,7 @@ export class ClassApi {
         return { status: response.status, durationMs: response.durationMs, raw: response.body };
     }
 
-    // Cria a classe e opcionalmente grava o código fonte inicial.
+    // Cria a classe e grava o código fonte informado somente depois da criação.
     async create(input) {
         const name = normalizeClassName(input.name);
         const packageName = String(input.packageName ?? "").trim().toUpperCase();
@@ -143,7 +143,9 @@ export class ClassApi {
             headers: { "Content-Type": CLASS_CONTENT_TYPE, Accept: CLASS_CONTENT_TYPE },
             body: buildClassXml({ ...input, name, packageName })
         });
-        if (String(input.source ?? "").trim()) await this.updateSource(name, String(input.source), transport);
+        if (String(input.source ?? "").trim()) {
+            await this.updateSource(name, String(input.source), transport);
+        }
         return { name, packageName, transport: transport || undefined, status: response.status, durationMs: response.durationMs, location: response.headers.get("location"), raw: response.body };
     }
 
@@ -166,6 +168,7 @@ export class ClassApi {
     }
 
     // Atualiza o código fonte garantindo o unlock mesmo em caso de erro.
+    // Atualiza o código fonte usando PUT, após bloquear a classe no SAP.
     async updateSource(name, source, transport) {
         const className = normalizeClassName(name);
         const request = String(transport ?? "").trim();
@@ -173,9 +176,16 @@ export class ClassApi {
         const lock = await this.lock(className);
         let updateError;
         try {
-            const response = await this.http.write(`${CLASSES_URL}/${encodeURIComponent(className.toLowerCase())}/source/main`, {
-                method: "PUT", query: { lockHandle: lock.lockHandle, corrNr: request },
-                headers: { "Content-Type": "text/plain; charset=utf-8", Accept: "text/plain" }, body: String(source ?? "")
+            const token = await this.http.fetchCsrfToken();
+            const response = await this.http.request(`${CLASSES_URL}/${encodeURIComponent(className.toLowerCase())}/source/main`, {
+                method: "PUT",
+                query: { lockHandle: lock.lockHandle, corrNr: request },
+                headers: {
+                    "Content-Type": "text/plain; charset=utf-8",
+                    Accept: "text/plain",
+                    "X-CSRF-Token": token
+                },
+                body: String(source ?? "")
             });
             return { name: className, status: response.status, durationMs: response.durationMs, raw: response.body };
         } catch (error) {
@@ -186,6 +196,52 @@ export class ClassApi {
         }
     }
 
+    // Extrai uma ordem de transporte de diferentes respostas XML retornadas pelo ADT.
+    parseTransportNumber(raw) {
+        const source = String(raw ?? "");
+        const patterns = [
+            /<(?:[\w.-]+:)?TRKORR\b[^>]*>\s*([^<\s]+)\s*<\//i,
+            /<(?:[\w.-]+:)?(?:transportNumber|requestNumber|request)\b[^>]*>\s*([^<\s]+)\s*<\//i,
+            /(?:[\w.-]+:)?(?:trkorr|transportNumber|requestNumber|request)=['"]([^'"]+)['"]/i
+        ];
+        return patterns.map(pattern => source.match(pattern)?.[1] ?? "").find(Boolean)?.trim() ?? "";
+    }
+
+    // Consulta a ordem de transporte associada à classe.
+    async getTransport(name) {
+        const className = normalizeClassName(name);
+        const uri = `${CLASSES_URL}/${encodeURIComponent(className.toLowerCase())}/transports`;
+        const accepts = [
+            "application/vnd.sap.as+xml;charset=utf-8;dataname=com.sap.adt.lock.result2",
+            "application/vnd.sap.as+xml; charset=utf-8",
+            "application/xml, text/xml"
+        ];
+        let lastError;
+
+        for (const accept of accepts) {
+            try {
+                const response = await this.http.request(uri, {
+                    headers: { Accept: accept, "X-sap-adt-sessiontype": "stateful" }
+                });
+                const number = this.parseTransportNumber(response.body);
+                if (number) return { name: className, number, status: response.status, durationMs: response.durationMs, raw: response.body };
+            } catch (error) {
+                lastError = error;
+            }
+        }
+
+        // O check de exclusão também retorna a request sugerida/associada pelo SAP.
+        try {
+            const check = await this.checkDelete(className);
+            if (check.transport) return { name: className, number: check.transport, status: check.status, durationMs: check.durationMs, raw: check.raw };
+        } catch (error) {
+            lastError = error;
+        }
+
+        if (lastError) throw lastError;
+        return { name: className, number: "" };
+    }
+
     // Executa o check de exclusão usado pelo Eclipse e retorna o transporte sugerido pelo SAP.
     async checkDelete(name) {
         const className = normalizeClassName(name);
@@ -193,7 +249,7 @@ export class ClassApi {
         const body = `<?xml version="1.0" encoding="UTF-8"?>\n<del:checkRequest xmlns:adtcore="http://www.sap.com/adt/core" xmlns:del="http://www.sap.com/adt/deletion">\n  <del:object adtcore:uri="${xmlEscape(uri)}"/>\n</del:checkRequest>`;
         const response = await this.http.write("/sap/bc/adt/deletion/check", { headers: { "Content-Type": "application/vnd.sap.adt.deletion.check.request.v1+xml", Accept: "application/vnd.sap.adt.deletion.check.response.v1+xml" }, body });
         const isDeletable = /isDeletable=["']true["']/i.test(response.body);
-        const transport = response.body.match(/<del:trkorr>([^<]+)<\/del:trkorr>/i)?.[1] ?? "";
+        const transport = this.parseTransportNumber(response.body);
         return { name: className, uri, isDeletable, transport, status: response.status, durationMs: response.durationMs, raw: response.body };
     }
 

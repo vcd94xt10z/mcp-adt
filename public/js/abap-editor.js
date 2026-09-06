@@ -4,8 +4,10 @@ class AbapEditor {
         this.id = this.textarea.attr('id');
         this.textarea.wrap('<div class="abap-editor"></div>');
         this.container = this.textarea.parent();
+        this.lineNumbers = $('<pre class="abap-editor-lines" aria-hidden="true"></pre>');
         this.highlight = $('<pre class="abap-editor-highlight" aria-hidden="true"><code></code></pre>');
         this.container.prepend(this.highlight);
+        this.container.prepend(this.lineNumbers);
         this.bind();
         this.refresh();
     }
@@ -13,26 +15,33 @@ class AbapEditor {
     bind() {
         this.textarea.on('input', () => this.refresh());
         this.textarea.on('scroll', () => {
-            this.highlight.scrollTop(this.textarea.scrollTop());
+            const top = this.textarea.scrollTop();
+            this.highlight.scrollTop(top);
+            this.lineNumbers.scrollTop(top);
             this.highlight.scrollLeft(this.textarea.scrollLeft());
         });
         this.textarea.on('keydown', event => {
-            if (event.key === 'Tab') {
-                event.preventDefault();
-                const element = this.textarea[0];
-                const start = element.selectionStart;
-                const end = element.selectionEnd;
-                const value = element.value;
-                element.value = `${value.slice(0, start)}  ${value.slice(end)}`;
-                element.selectionStart = element.selectionEnd = start + 2;
-                this.refresh();
-            }
+            if (event.key !== 'Tab') return;
+            event.preventDefault();
+            const element = this.textarea[0];
+            const start = element.selectionStart;
+            const end = element.selectionEnd;
+            const value = element.value;
+            element.value = `${value.slice(0, start)}  ${value.slice(end)}`;
+            element.selectionStart = element.selectionEnd = start + 2;
+            this.refresh();
         });
     }
 
     setValue(value) { this.textarea.val(value ?? ''); this.refresh(); }
     getValue() { return this.textarea.val(); }
-    refresh() { this.highlight.find('code').html(this.highlightAbap(this.getValue())); }
+
+    refresh() {
+        const source = this.getValue();
+        const lineCount = Math.max(1, source.split('\n').length);
+        this.lineNumbers.text(Array.from({ length: lineCount }, (_, index) => index + 1).join('\n'));
+        this.highlight.find('code').html(this.highlightAbap(source));
+    }
 
     highlightAbap(source) {
         const escaped = String(source ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
