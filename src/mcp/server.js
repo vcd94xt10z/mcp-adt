@@ -3,6 +3,8 @@ import * as z from "zod/v4";
 import { AdtHttpClient } from "../adt/http.js";
 import { PackageApi } from "../adt/packages.js";
 import { RequestApi } from "../adt/requests.js";
+import { ClassApi } from "../adt/classes.js";
+import { ActivationApi } from "../adt/activation.js";
 import { loadConnections } from "../config.js";
 export function createMcpServer(initialConnections) {
     const server = new McpServer({ name: "mcp-adt", version: "0.1.0" });
@@ -58,6 +60,31 @@ export function createMcpServer(initialConnections) {
         description: "Delete an ABAP package through SAP ADT. Non-local packages require a Workbench transport request.",
         inputSchema: connectionSchema.extend({ name: z.string().min(1), transport: z.string().optional() })
     }, async ({ connection, name, transport }) => result(await new PackageApi(await client(connection)).delete(name, transport)));
+    server.registerTool("class_list", {
+        title: "List ABAP classes",
+        description: "Search ABAP classes by name pattern with * and ? wildcards.",
+        inputSchema: connectionSchema.extend({ query: z.string().optional(), maxResults: z.number().optional() })
+    }, async ({ connection, query, maxResults }) => result(await new ClassApi(await client(connection)).list({ query, maxResults })));
+    server.registerTool("class_get", {
+        title: "Get ABAP class", description: "Read ABAP class metadata and source through SAP ADT.",
+        inputSchema: connectionSchema.extend({ name: z.string().min(1), version: z.string().optional() })
+    }, async ({ connection, name, version }) => { const api = new ClassApi(await client(connection)); return result({ class: await api.get(name, version), source: await api.getSource(name, version) }); });
+    server.registerTool("class_create", {
+        title: "Create ABAP class", description: "Create an ABAP class using the Eclipse ADT flow.",
+        inputSchema: connectionSchema.extend({ name: z.string().min(1), description: z.string(), packageName: z.string().min(1), transport: z.string().optional(), language: z.string().optional(), final: z.boolean().optional(), visibility: z.string().optional(), source: z.string().optional() })
+    }, async ({ connection, ...input }) => { const connections = await loadConnections(); return result(await new ClassApi(await client(connection)).create({ ...input, responsible: connections[connection]?.user })); });
+    server.registerTool("class_update_source", {
+        title: "Update ABAP class source", description: "Update the main source of an ABAP class using lock, PUT and unlock.",
+        inputSchema: connectionSchema.extend({ name: z.string().min(1), source: z.string(), transport: z.string().min(1) })
+    }, async ({ connection, name, source, transport }) => result(await new ClassApi(await client(connection)).updateSource(name, source, transport)));
+    server.registerTool("class_activate", {
+        title: "Activate ABAP class", description: "Activate an ABAP class through SAP ADT.",
+        inputSchema: connectionSchema.extend({ name: z.string().min(1) })
+    }, async ({ connection, name }) => { const className = name.trim().toUpperCase(); return result(await new ActivationApi(await client(connection)).activate({ uri: `/sap/bc/adt/oo/classes/${encodeURIComponent(className.toLowerCase())}`, name: className })); });
+    server.registerTool("class_delete", {
+        title: "Delete ABAP class", description: "Check and delete an ABAP class through the Eclipse ADT deletion endpoints.",
+        inputSchema: connectionSchema.extend({ name: z.string().min(1), transport: z.string().optional() })
+    }, async ({ connection, name, transport }) => result(await new ClassApi(await client(connection)).delete(name, transport)));
     server.registerTool("request_list", {
         title: "List transport requests",
         description: "List transport requests through SAP ADT.",

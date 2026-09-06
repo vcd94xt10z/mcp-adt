@@ -4,6 +4,8 @@ import { extname, join, resolve } from "node:path";
 import { AdtHttpClient } from "../adt/http.js";
 import { PackageApi } from "../adt/packages.js";
 import { RequestApi } from "../adt/requests.js";
+import { ClassApi } from "../adt/classes.js";
+import { ActivationApi } from "../adt/activation.js";
 import { saveConnections, validateConnection, validateConnectionName } from "../config.js";
 import { clearLog, getLogFile, isLogEnabled, readLog, setLogEnabled } from "../log.js";
 const publicDir = join(process.cwd(), "public");
@@ -182,6 +184,29 @@ async function execute(res, connections, clients, payload) {
             result = await new PackageApi(client).delete(name, optional(input, "transport"));
             break;
         }
+        case "class_list":
+            result = await new ClassApi(client).list({ query: optional(input, "query") ?? "ZCL*", maxResults: Number(input.maxResults) || 100 });
+            break;
+        case "class_get": {
+            const api = new ClassApi(client); const name = required(input, "name"); const version = optional(input, "version");
+            result = { class: await api.get(name, version), source: await api.getSource(name, version) };
+            break;
+        }
+        case "class_create": {
+            result = await new ClassApi(client).create({ name: required(input, "name"), description: String(input.description ?? ""), packageName: required(input, "packageName"), transport: optional(input, "transport"), language: optional(input, "language") ?? config.language ?? "EN", responsible: config.user, final: input.final === undefined ? true : Boolean(input.final), visibility: optional(input, "visibility") ?? "public", source: String(input.source ?? "") });
+            break;
+        }
+        case "class_update_source":
+            result = await new ClassApi(client).updateSource(required(input, "name"), String(input.source ?? ""), required(input, "transport"));
+            break;
+        case "class_activate": {
+            const name = required(input, "name").toUpperCase();
+            result = await new ActivationApi(client).activate({ uri: `/sap/bc/adt/oo/classes/${encodeURIComponent(name.toLowerCase())}`, name });
+            break;
+        }
+        case "class_delete":
+            result = await new ClassApi(client).delete(required(input, "name"), optional(input, "transport"));
+            break;
         case "request_list":
             result = await new RequestApi(client).list();
             break;
