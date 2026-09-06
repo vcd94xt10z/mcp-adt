@@ -193,6 +193,8 @@ class AppShell {
         const body = String(response?.body ?? '');
         const message = String(data?.error?.message ?? error?.message ?? '');
         const source = `${message} ${body}`.toLowerCase();
+        const adtMessage = this.extractAdtMessage(body);
+        if (adtMessage) return adtMessage;
 
         if (/self[- ]signed certificate|unable to verify|certificate|err_tls|depth_zero_self_signed|tls/i.test(source)) {
             return "Certificado TLS inválido ou não confiável. Desmarque 'Rejeitar certificados TLS inválidos' para ignorá-lo.";
@@ -231,6 +233,28 @@ class AppShell {
         }
 
         return 'Não foi possível estabelecer a conexão com o SAP. Verifique os dados da conexão.';
+    }
+
+    // Extrai a mensagem retornada pelo ADT em respostas XML de erro.
+    extractAdtMessage(body) {
+        const xml = String(body ?? '').trim();
+        if (!xml || !/<(?:[A-Za-z_][\w.-]*:)?(?:localizedMessage|message)\b/i.test(xml)) return '';
+
+        try {
+            const document = new DOMParser().parseFromString(xml, 'application/xml');
+            if (!document.querySelector('parsererror')) {
+                const localized = [...document.getElementsByTagNameNS('*', 'localizedMessage')].find(node => node.textContent.trim());
+                if (localized) return localized.textContent.trim();
+                const message = [...document.getElementsByTagNameNS('*', 'message')].find(node => node.textContent.trim());
+                if (message) return message.textContent.trim();
+            }
+        } catch {
+        }
+
+        const localizedMatch = xml.match(/<(?:[A-Za-z_][\w.-]*:)?localizedMessage\b[^>]*>([\s\S]*?)<\/(?:[A-Za-z_][\w.-]*:)?localizedMessage>/i);
+        const messageMatch = xml.match(/<(?:[A-Za-z_][\w.-]*:)?message\b[^>]*>([\s\S]*?)<\/(?:[A-Za-z_][\w.-]*:)?message>/i);
+        const value = localizedMatch?.[1] || messageMatch?.[1] || '';
+        return value.replace(/<[^>]+>/g, '').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '\"').replace(/&#39;/g, "'").trim();
     }
 
     // Exibe uma notificação curta de sucesso ou erro para o usuário.
