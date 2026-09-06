@@ -187,6 +187,7 @@ class AppShell {
     // Extrai uma mensagem amigável dos erros de conexão sem exibir o retorno técnico do SAP.
     connectionErrorReason(error) {
         const data = error?.data;
+        if (data?.error?.userMessage) return data.error.userMessage;
         const response = data?.error?.response;
         const status = Number(response?.status ?? error?.status ?? 0);
         const body = String(response?.body ?? '');

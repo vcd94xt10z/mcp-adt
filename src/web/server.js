@@ -155,7 +155,7 @@ async function execute(res, connections, clients, payload) {
     let result;
     switch (operation) {
         case "package_list":
-            result = await new PackageApi(client).list({ query: optional(input, "query") ?? "Z*", description: optional(input, "description"), maxResults: Number(input.maxResults) || 100 });
+            result = await new PackageApi(client).list({ query: optional(input, "query") ?? "Z*", description: optional(input, "description"), superPackage: optional(input, "superPackage"), maxResults: Number(input.maxResults) || 100 });
             break;
         case "package_get":
             result = await new PackageApi(client).get(required(input, "name"));
@@ -292,7 +292,7 @@ function json(res, status, value) {
 function serializeError(error) {
     if (error && typeof error === "object" && "response" in error) {
         const e = error;
-        return { message: e.message, retryable: e.retryable, response: e.response };
+        return { message: e.message, userMessage: e.userMessage, retryable: e.retryable, response: e.response };
     }
     return error instanceof Error ? { message: error.message, stack: error.stack } : { message: String(error) };
 }
