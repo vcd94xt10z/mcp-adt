@@ -76,7 +76,7 @@ class ClassesPage {
         $('#className,#classPackage,#classDescription,#classLanguage,#classTransport').prop('readonly', false);
         $('#classVisibility').prop('disabled', false);
         $('.value-help-button').prop('disabled', false);
-        $('#classCheckSyntax').show(); $('#classActivate').hide();
+        $('#classCheckSyntax,#classActivate').hide();
         this.editor.setValue('');
         this.modal('classModal').show();
     }
@@ -131,7 +131,6 @@ class ClassesPage {
                 source
             });
             else await this.execute('class_create', { name, description: $('#classDescription').val().trim(), packageName: $('#classPackage').val().trim(), transport, language: $('#classLanguage').val().trim() || 'EN', visibility: $('#classVisibility').val(), source });
-            this.modal('classModal').hide();
             this.app.showToast('Sucesso', this.current ? 'Classe atualizada.' : 'Classe criada.');
             await this.search();
         } catch (error) { this.app.showError(error.data || { error: error.message }); }
@@ -141,11 +140,11 @@ class ClassesPage {
     async checkSyntax() {
         const name = $('#className').val().trim();
         if (!name) {
-            this.app.showToast('Nome obrigatório', 'Informe o nome da classe antes de verificar a sintaxe.', false);
+            this.app.showToast('Nome obrigatório', 'Informe ou salve a classe antes de verificar a sintaxe.', false);
             return;
         }
         try {
-            const data = await this.execute('class_check_syntax', { name, source: this.editor.getValue(), version: this.current?.version || 'active' });
+            const data = await this.execute('class_check_syntax', { name });
             this.showSyntaxResult(name, data.result);
         } catch (error) {
             this.app.showError(error.data || { error: error.message });

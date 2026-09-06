@@ -59,7 +59,7 @@ class ReportsPage {
     openCreate() {
         this.current = null; $('#reportForm')[0].reset(); $('#reportLanguage').val('EN'); $('#reportFormTitle').text('Novo report');
         $('#reportName,#reportDescription,#reportPackage,#reportLanguage,#reportTransport').prop('readonly', false);
-        $('#reportsPage .value-help-button').prop('disabled', false); $('#reportCheckSyntax').show(); $('#reportActivate').hide(); this.editor.setValue(''); this.modal('reportModal').show();
+        $('#reportsPage .value-help-button').prop('disabled', false); $('#reportCheckSyntax,#reportActivate').hide(); this.editor.setValue(''); this.modal('reportModal').show();
     }
 
     async action(event) {
@@ -80,7 +80,7 @@ class ReportsPage {
         try {
             const input = { name: $('#reportName').val().trim(), description: $('#reportDescription').val().trim(), packageName: $('#reportPackage').val().trim(), transport: $('#reportTransport').val().trim(), language: $('#reportLanguage').val().trim() || 'EN', source: this.editor.getValue() };
             if (this.current) await this.execute('report_update', { ...input, responsible: this.current.report?.responsible || '' }); else await this.execute('report_create', input);
-            this.modal('reportModal').hide(); this.app.showToast('Sucesso', this.current ? 'Report atualizado.' : 'Report criado.'); await this.search();
+            this.app.showToast('Sucesso', this.current ? 'Report atualizado.' : 'Report criado.'); await this.search();
         } catch (error) { this.app.showError(error.data || { error: error.message }); }
     }
 
@@ -88,11 +88,11 @@ class ReportsPage {
     async checkSyntax() {
         const name = $('#reportName').val().trim();
         if (!name) {
-            this.app.showToast('Nome obrigatório', 'Informe o nome do report antes de verificar a sintaxe.', false);
+            this.app.showToast('Nome obrigatório', 'Informe ou salve o report antes de verificar a sintaxe.', false);
             return;
         }
         try {
-            const data = await this.execute('report_check_syntax', { name, source: this.editor.getValue(), version: this.current?.version || 'active' });
+            const data = await this.execute('report_check_syntax', { name });
             this.showSyntaxResult(name, data.result);
         } catch (error) {
             this.app.showError(error.data || { error: error.message });
