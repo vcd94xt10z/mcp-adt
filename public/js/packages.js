@@ -26,7 +26,7 @@ class PackagesPage {
         });
         $('#transportSubmit').on('click', () => this.confirmDelete());
         $('#packageDeleteConfirm').on('click', () => this.confirmDeleteAction());
-        $('#packageSearchQuery, #packageSearchDescription, #packageSearchMax').on('keydown', event => {
+        $('#packageSearchQuery, #packageSearchMax').on('keydown', event => {
             if (event.key === 'Enter') {
                 event.preventDefault();
                 this.search();
@@ -39,10 +39,9 @@ class PackagesPage {
         const box = $('#packageResults');
         box.html('<div class="alert alert-info">Pesquisando…</div>');
         const query = String($('#packageSearchQuery').val() || '').trim() || '*';
-        const description = String($('#packageSearchDescription').val() || '').trim();
         const maxResults = Math.max(1, Math.min(500, Number($('#packageSearchMax').val()) || 100));
         try {
-            const data = await this.execute('package_list', { query, description, maxResults });
+            const data = await this.execute('package_list', { query, maxResults });
             this.renderResults(data.result?.items || []);
         } catch (error) {
             box.html('<div class="alert alert-danger">Erro na pesquisa.</div>');
@@ -52,10 +51,7 @@ class PackagesPage {
 
     // Renderiza os pacotes encontrados e associa as ações de cada linha.
     renderResults(items) {
-        const descriptionFilter = String($('#packageSearchDescription').val() || '').trim().toUpperCase();
-        const filtered = items.filter(item => {
-            return !descriptionFilter || String(item.description || '').toUpperCase().includes(descriptionFilter);
-        });
+        const filtered = items;
 
         if (!filtered.length) {
             $('#packageResults').html('<div class="alert alert-secondary">Nenhum pacote encontrado.</div>');

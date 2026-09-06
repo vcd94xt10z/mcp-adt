@@ -24,7 +24,7 @@ export function createMcpServer(initialConnections) {
     const connectionSchema = z.object({ connection: z.string().min(1) });
     server.registerTool("package_list", {
         title: "List SAP packages",
-        description: "Search SAP ABAP packages by name pattern using the ADT Repository Information System. Default pattern is Z*. Supports result limit.",
+        description: "Search SAP ABAP packages by name pattern using the ADT Repository Information System. Default pattern is Z*. Returns package description and superpackage.",
         inputSchema: connectionSchema.extend({ query: z.string().optional(), maxResults: z.number().optional() })
     }, async ({ connection, query, maxResults }) => result(await new PackageApi(await client(connection)).list({ query, maxResults })));
     server.registerTool("package_get", {

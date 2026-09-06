@@ -155,7 +155,7 @@ async function execute(res, connections, clients, payload) {
     let result;
     switch (operation) {
         case "package_list":
-            result = await new PackageApi(client).list({ query: optional(input, "query") ?? "Z*", description: optional(input, "description"), superPackage: optional(input, "superPackage"), maxResults: Number(input.maxResults) || 100 });
+            result = await new PackageApi(client).list({ query: optional(input, "query") ?? "Z*", maxResults: Number(input.maxResults) || 100 });
             break;
         case "package_get":
             result = await new PackageApi(client).get(required(input, "name"));

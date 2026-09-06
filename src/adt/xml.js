@@ -66,10 +66,34 @@ export function parsePackageSearch(xml) {
             name: normalizedName,
             type: type.toUpperCase(),
             description: xmlUnescape(firstValue(node, ['description', 'desc'])),
-            superPackage: xmlUnescape(firstValue(node, ['superPackage', 'packageName', 'package', 'DEVCLASS', 'SUPERPACKAGE']) || firstNodeAttributeValue(node, ['packageRef', 'superPackage'], ['name'])),
+            superPackage: xmlUnescape(firstValue(node, ['superPackage', 'packageName', 'package', 'DEVCLASS', 'SUPERPACKAGE']) || firstNodeAttributeValue(node, ['superPackage'], ['name'])),
             softwareComponent: xmlUnescape(firstValue(node, ['softwareComponent', 'SOFTWARE_COMPONENT']) || firstNodeAttributeValue(node, ['softwareComponent'], ['name'])),
             transportLayer: xmlUnescape(firstValue(node, ['transportLayer', 'TRANSPORT_LAYER']) || firstNodeAttributeValue(node, ['transportLayer'], ['name']))
         });
+    });
+
+    return items;
+}
+
+
+// Analisa uma lista de NamedItems retornada pelos value helps do ADT.
+export function parseNamedItems(xml) {
+    const root = parseXmlTree(xml);
+    const items = [];
+    const seen = new Set();
+
+    walkNodes(root, node => {
+        if (node.localName !== 'nameditem') return;
+        const name = firstAttribute(node, ['name', 'code', 'key']) || firstValue(node, ['name', 'code', 'key']);
+        if (!name) return;
+        const description = firstAttribute(node, ['description', 'text', 'shortText']) || firstValue(node, ['description', 'text', 'shortText']) || name;
+        const normalizedName = xmlUnescape(name).trim();
+        const normalizedDescription = xmlUnescape(description).trim();
+        if (!normalizedName) return;
+        const key = normalizedName.toUpperCase();
+        if (seen.has(key)) return;
+        seen.add(key);
+        items.push({ name: normalizedName, description: normalizedDescription });
     });
 
     return items;
