@@ -115,7 +115,7 @@ export function createMcpServer(initialConnections) {
         inputSchema: connectionSchema.extend({ name: z.string().min(1), description: z.string(), packageName: z.string().min(1), transport: z.string().optional(), language: z.string().optional(), final: z.boolean().optional(), visibility: z.string().optional(), source: z.string().optional() })
     }, async ({ connection, ...input }) => { const connections = await loadConnections(); return result(await new InterfaceApi(await client(connection)).create({ ...input, responsible: connections[connection]?.user })); });
     server.registerTool("interface_update", {
-        title: "Update ABAP interface", description: "Update ABAP interface metadata and source. Local package interfaces do not require a transport request.",
+        title: "Update ABAP interface", description: "Update the main source of an ABAP interface using the Eclipse ADT save flow. Local package interfaces do not require a transport request.",
         inputSchema: connectionSchema.extend({ name: z.string().min(1), description: z.string(), packageName: z.string().optional(), transport: z.string().optional(), language: z.string().optional(), responsible: z.string().optional(), final: z.boolean().optional(), visibility: z.string().optional(), source: z.string() })
     }, async ({ connection, ...input }) => result(await new InterfaceApi(await client(connection)).update(input)));
     server.registerTool("interface_update_source", {

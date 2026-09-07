@@ -253,23 +253,27 @@ export class InterfaceApi {
         }
     }
 
-    // Atualiza metadados e código fonte usando as mesmas regras de transporte.
+    // Atualiza uma interface existente seguindo o fluxo de salvamento observado no Eclipse.
+    // Para alterações de código fonte, o Eclipse não regrava os metadados da interface.
+    // Regravar o XML de metadados pode remover atributos controlados pelo SAP, como a
+    // versão da linguagem ABAP, causando erros durante o salvamento.
     async update(input) {
         const interfaceName = normalizeInterfaceName(input.name);
         const current = await this.get(interfaceName, "workingArea");
         const packageName = String(input.packageName ?? current.packageName ?? "").trim().toUpperCase();
-        const metadata = await this.updateMetadata({
-            ...current,
-            ...input,
+
+        const source = await this.updateSource(
+            interfaceName,
+            input.source ?? "",
+            input.transport,
+            packageName
+        );
+
+        return {
             name: interfaceName,
             packageName,
-            language: input.language ?? current.language ?? "EN",
-            responsible: input.responsible ?? current.responsible ?? "",
-            final: input.final ?? current.final,
-            visibility: input.visibility ?? current.visibility ?? "public"
-        });
-        const source = await this.updateSource(interfaceName, input.source ?? "", input.transport, packageName);
-        return { name: interfaceName, packageName, metadata, source };
+            source
+        };
     }
 
     // Extrai uma ordem de transporte de diferentes respostas XML retornadas pelo ADT.
