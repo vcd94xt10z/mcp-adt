@@ -12,7 +12,14 @@ function wildcard(value, pattern) { const p = String(pattern).replace(/[.+^${}()
 
 function parseDomain(xml) {
     const source = String(xml ?? "");
-    const fixValues = [...source.matchAll(/<doma:fixValue\b[^>]*>\s*<doma:low>([\s\S]*?)<\/doma:low>(?:\s*<doma:high>([\s\S]*?)<\/doma:high>)?\s*<doma:text>([\s\S]*?)<\/doma:text>\s*<\/doma:fixValue>/gi)].map(m => ({ low: m[1].trim(), high: (m[2] ?? "").trim(), text: m[3].trim() }));
+    const fixValues = [...source.matchAll(/<(?:[\w.-]+:)?fixValue\b[^>]*>([\s\S]*?)<\/(?:[\w.-]+:)?fixValue>/gi)].map(match => {
+        const value = match[1];
+        return {
+            low: text(value, "low"),
+            high: text(value, "high"),
+            text: text(value, "text")
+        };
+    });
     const valueTableMatch = source.match(/<doma:valueTableRef\b[^>]*(?:adtcore:)?name=["']([^"']*)/i);
     return {
         name: xmlAttr(source, "name"), type: xmlAttr(source, "type"), description: xmlAttr(source, "description"), language: xmlAttr(source, "language") || xmlAttr(source, "masterLanguage"), responsible: xmlAttr(source, "responsible"), version: xmlAttr(source, "version"), abapLanguageVersion: xmlAttr(source, "abapLanguageVersion"), masterLanguage: xmlAttr(source, "masterLanguage"), masterSystem: xmlAttr(source, "masterSystem"), changedAt: xmlAttr(source, "changedAt"), changedBy: xmlAttr(source, "changedBy"), createdAt: xmlAttr(source, "createdAt"), createdBy: xmlAttr(source, "createdBy"),
