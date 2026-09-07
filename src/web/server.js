@@ -444,7 +444,7 @@ function parseInstalledLanguages(xml, configuredLanguage) {
         // A resposta normalmente é XML; não há ação necessária quando não for JSON.
     }
 
-    addLanguage(configuredLanguage, "Idioma da conexão");
+    addLanguage(configuredLanguage, String(configuredLanguage ?? "").trim().toUpperCase() === "EN" ? "Inglês" : "Idioma da conexão");
 
     // Alguns sistemas não expõem a lista de idiomas pelo systeminformation.
     // Nesse caso disponibilizamos a lista padrão de idiomas SAP para o Value Help.
