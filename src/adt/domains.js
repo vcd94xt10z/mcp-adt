@@ -98,12 +98,13 @@ export class DomainApi {
         return { name, packageName, masterSystem, status: response.status, durationMs: response.durationMs, raw: response.body };
     }
 
-    // Bloqueia o domínio para alteração seguindo exatamente o Accept usado pelo Eclipse.
+    // Bloqueia o domínio para alteração mantendo a mesma sessão ADT até o UNLOCK.
     async lock(name) {
         const domainName = normalizeDomainName(name);
         const response = await this.http.write(`${DOMAINS_URL}/${encodeURIComponent(domainName.toLowerCase())}`, {
             query: { _action: "LOCK", accessMode: "MODIFY" },
             headers: {
+                "X-sap-adt-sessiontype": "stateful",
                 Accept: "application/vnd.sap.as+xml;charset=UTF-8;dataname=com.sap.adt.lock.result;q=0.8, application/vnd.sap.as+xml;charset=UTF-8;dataname=com.sap.adt.lock.result2;q=0.9"
             }
         });
@@ -111,8 +112,59 @@ export class DomainApi {
         if (!lock.lockHandle) throw new Error(`SAP did not return a lock handle for domain '${domainName}'.`);
         return { ...lock, status: response.status, durationMs: response.durationMs, raw: response.body };
     }
-    async unlock(name,lockHandle) { return this.http.write(`${DOMAINS_URL}/${encodeURIComponent(normalizeDomainName(name).toLowerCase())}`,{query:{_action:"UNLOCK",lockHandle}}); }
-    async update(input) { const name=normalizeDomainName(input.name); const current=await this.get(name,"inactive").catch(()=>this.get(name,"workingArea")); const packageName=String(input.packageName??current.packageName??"").trim().toUpperCase(); const transport=String(input.transport??"").trim(); if(!localPackage(packageName)&&!transport) throw new Error(`A Workbench transport request is required to update domain '${name}'.`); const lock=await this.lock(name); let failure; try { const token=await this.http.fetchCsrfToken(); const response=await this.http.request(`${DOMAINS_URL}/${encodeURIComponent(name.toLowerCase())}`,{method:"PUT",query:{lockHandle:lock.lockHandle,...(transport?{corrNr:transport}:{})},headers:{"Content-Type":`${DOMAIN_CONTENT_TYPE}; charset=utf-8`,Accept:DOMAIN_ACCEPT,"X-CSRF-Token":token},body:buildDomainXml({...input,name,packageName},current)}); return {name,status:response.status,durationMs:response.durationMs,raw:response.body}; } catch(e){failure=e;throw e;} finally { try{await this.unlock(name,lock.lockHandle);}catch(e){if(!failure)throw e;} } }
+
+    // Desbloqueia o domínio usando a mesma sessão utilizada para o LOCK.
+    async unlock(name, lockHandle) {
+        return this.http.write(`${DOMAINS_URL}/${encodeURIComponent(normalizeDomainName(name).toLowerCase())}`, {
+            query: { _action: "UNLOCK", lockHandle },
+            headers: { "X-sap-adt-sessiontype": "stateful" }
+        });
+    }
+
+    // Atualiza o domínio depois de obter o lock handle válido para a sessão ADT atual.
+    async update(input) {
+        const name = normalizeDomainName(input.name);
+        const current = await this.get(name, "inactive").catch(() => this.get(name, "workingArea"));
+        const packageName = String(input.packageName ?? current.packageName ?? "").trim().toUpperCase();
+        const transport = String(input.transport ?? "").trim();
+
+        if (!localPackage(packageName) && !transport) {
+            throw new Error(`A Workbench transport request is required to update domain '${name}'.`);
+        }
+
+        // Obtém o token antes do LOCK para não executar uma chamada adicional entre LOCK e PUT.
+        const token = await this.http.fetchCsrfToken();
+        const lock = await this.lock(name);
+        let failure;
+
+        try {
+            const query = { lockHandle: lock.lockHandle };
+            if (transport) query.corrNr = transport;
+
+            const response = await this.http.request(`${DOMAINS_URL}/${encodeURIComponent(name.toLowerCase())}`, {
+                method: "PUT",
+                query,
+                headers: {
+                    "Content-Type": `${DOMAIN_CONTENT_TYPE}; charset=utf-8`,
+                    Accept: DOMAIN_ACCEPT,
+                    "X-CSRF-Token": token,
+                    "X-sap-adt-sessiontype": "stateful"
+                },
+                body: buildDomainXml({ ...input, name, packageName }, current)
+            });
+
+            return { name, status: response.status, durationMs: response.durationMs, raw: response.body };
+        } catch (error) {
+            failure = error;
+            throw error;
+        } finally {
+            try {
+                await this.unlock(name, lock.lockHandle);
+            } catch (unlockError) {
+                if (!failure) throw unlockError;
+            }
+        }
+    }
     async checkDelete(name) { const domainName=normalizeDomainName(name); const uri=`${DOMAINS_URL}/${encodeURIComponent(domainName.toLowerCase())}`; const body=`<?xml version="1.0" encoding="UTF-8"?><del:checkRequest xmlns:adtcore="http://www.sap.com/adt/core" xmlns:del="http://www.sap.com/adt/deletion"><del:object adtcore:uri="${xmlEscape(uri)}"/></del:checkRequest>`; const response=await this.http.write("/sap/bc/adt/deletion/check",{headers:{"Content-Type":"application/vnd.sap.adt.deletion.check.request.v1+xml",Accept:"application/vnd.sap.adt.deletion.check.response.v1+xml"},body}); const transport=response.body.match(/<del:trkorr>\s*([^<]+)/i)?.[1]?.trim()??""; return {name:domainName,uri,isDeletable:/isDeletable=["']true/i.test(response.body),transport,raw:response.body}; }
     async delete(name,transport) { const check=await this.checkDelete(name); if(!check.isDeletable) throw new Error(`Domain '${check.name}' cannot be deleted.`); const request=String(transport??check.transport??"").trim(); const body=`<?xml version="1.0" encoding="UTF-8"?><del:deletionRequest xmlns:adtcore="http://www.sap.com/adt/core" xmlns:del="http://www.sap.com/adt/deletion"><del:object adtcore:uri="${xmlEscape(check.uri)}">${request?`<del:transportNumber>${xmlEscape(request)}</del:transportNumber>`:""}</del:object></del:deletionRequest>`; const response=await this.http.write("/sap/bc/adt/deletion/delete",{headers:{"Content-Type":"application/vnd.sap.adt.deletion.request.v1+xml",Accept:"application/vnd.sap.adt.deletion.response.v1+xml"},body}); return {name:check.name,deleted:/isDeleted=["']true/i.test(response.body),transport:request||undefined,raw:response.body}; }
 }
