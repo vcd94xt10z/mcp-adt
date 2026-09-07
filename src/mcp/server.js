@@ -4,6 +4,7 @@ import { AdtHttpClient } from "../adt/http.js";
 import { PackageApi } from "../adt/packages.js";
 import { RequestApi } from "../adt/requests.js";
 import { ClassApi } from "../adt/classes.js";
+import { InterfaceApi } from "../adt/interfaces.js";
 import { ReportApi } from "../adt/reports.js";
 import { ActivationApi } from "../adt/activation.js";
 import { CheckRunApi } from "../adt/checkrun.js";
@@ -100,6 +101,39 @@ export function createMcpServer(initialConnections) {
         title: "Delete ABAP class", description: "Check and delete an ABAP class through the Eclipse ADT deletion endpoints.",
         inputSchema: connectionSchema.extend({ name: z.string().min(1), transport: z.string().optional() })
     }, async ({ connection, name, transport }) => result(await new ClassApi(await client(connection)).delete(name, transport)));
+    server.registerTool("interface_list", {
+        title: "List ABAP interfaces",
+        description: "Search ABAP interfaces by name pattern with * and ? wildcards.",
+        inputSchema: connectionSchema.extend({ query: z.string().optional(), maxResults: z.number().optional() })
+    }, async ({ connection, query, maxResults }) => result(await new InterfaceApi(await client(connection)).list({ query: query ?? "ZIF*", maxResults })));
+    server.registerTool("interface_get", {
+        title: "Get ABAP interface", description: "Read ABAP interface metadata and source through SAP ADT.",
+        inputSchema: connectionSchema.extend({ name: z.string().min(1), version: z.string().optional() })
+    }, async ({ connection, name, version }) => { const api = new InterfaceApi(await client(connection)); if (version) return result({ class: await api.get(name, version), source: await api.getSource(name, version), version }); return result(await api.getForEdit(name)); });
+    server.registerTool("interface_create", {
+        title: "Create ABAP interface", description: "Create an ABAP interface using the Eclipse ADT flow.",
+        inputSchema: connectionSchema.extend({ name: z.string().min(1), description: z.string(), packageName: z.string().min(1), transport: z.string().optional(), language: z.string().optional(), final: z.boolean().optional(), visibility: z.string().optional(), source: z.string().optional() })
+    }, async ({ connection, ...input }) => { const connections = await loadConnections(); return result(await new InterfaceApi(await client(connection)).create({ ...input, responsible: connections[connection]?.user })); });
+    server.registerTool("interface_update", {
+        title: "Update ABAP interface", description: "Update ABAP interface metadata and source. Local package interfaces do not require a transport request.",
+        inputSchema: connectionSchema.extend({ name: z.string().min(1), description: z.string(), packageName: z.string().optional(), transport: z.string().optional(), language: z.string().optional(), responsible: z.string().optional(), final: z.boolean().optional(), visibility: z.string().optional(), source: z.string() })
+    }, async ({ connection, ...input }) => result(await new InterfaceApi(await client(connection)).update(input)));
+    server.registerTool("interface_update_source", {
+        title: "Update ABAP interface source", description: "Update the main source of an ABAP interface using lock, PUT and unlock. Local package interfaces do not require a transport request.",
+        inputSchema: connectionSchema.extend({ name: z.string().min(1), source: z.string(), transport: z.string().optional(), packageName: z.string().optional() })
+    }, async ({ connection, name, source, transport, packageName }) => result(await new InterfaceApi(await client(connection)).updateSource(name, source, transport, packageName)));
+    server.registerTool("interface_check_syntax", {
+        title: "Check ABAP interface syntax", description: "Run the Eclipse ADT ABAP Check Run against the exact source code supplied by the caller without saving it. If source is omitted, checks the selected SAP version.",
+        inputSchema: connectionSchema.extend({ name: z.string().min(1), source: z.string().optional(), version: z.enum(["active", "inactive"]).optional() })
+    }, async ({ connection, name, source, version }) => { const interfaceName = name.trim().toUpperCase(); const api = new CheckRunApi(await client(connection)); const uri = `/sap/bc/adt/oo/interfaces/${encodeURIComponent(interfaceName.toLowerCase())}`; return result(source === undefined ? await api.checkSyntax(uri, version ?? "inactive") : await api.checkSource(uri, source, version ?? "active")); });
+    server.registerTool("interface_activate", {
+        title: "Activate ABAP interface", description: "Activate an ABAP interface through SAP ADT.",
+        inputSchema: connectionSchema.extend({ name: z.string().min(1) })
+    }, async ({ connection, name }) => { const interfaceName = name.trim().toUpperCase(); return result(await new ActivationApi(await client(connection)).activate({ uri: `/sap/bc/adt/oo/interfaces/${encodeURIComponent(interfaceName.toLowerCase())}`, name: interfaceName })); });
+    server.registerTool("interface_delete", {
+        title: "Delete ABAP interface", description: "Check and delete an ABAP interface through the Eclipse ADT deletion endpoints.",
+        inputSchema: connectionSchema.extend({ name: z.string().min(1), transport: z.string().optional() })
+    }, async ({ connection, name, transport }) => result(await new InterfaceApi(await client(connection)).delete(name, transport)));
     server.registerTool("report_list", {
         title: "List ABAP reports", description: "Search executable ABAP reports by name pattern with * and ? wildcards.",
         inputSchema: connectionSchema.extend({ query: z.string().optional(), maxResults: z.number().optional() })

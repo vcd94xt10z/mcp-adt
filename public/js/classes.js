@@ -15,11 +15,11 @@ class ClassesPage {
 
     async loadResources() {
         if (this.resourcesLoaded) return;
-        await $.getScript('/js/valuehelp/value-help.js');
-        await $.getScript('/js/valuehelp/package-value-help.js');
-        await $.getScript('/js/valuehelp/request-value-help.js');
-        await $.getScript('/js/valuehelp/language-value-help.js');
-        await $.getScript('/js/abap-editor.js');
+        if (!window.ValueHelp) await $.getScript('/js/valuehelp/value-help.js');
+        if (!window.packageValueHelp) await $.getScript('/js/valuehelp/package-value-help.js');
+        if (!window.requestValueHelp) await $.getScript('/js/valuehelp/request-value-help.js');
+        if (!window.languageValueHelp) await $.getScript('/js/valuehelp/language-value-help.js');
+        if (!window.AbapEditor) await $.getScript('/js/abap-editor.js');
         this.editor = new AbapEditor('#classSource');
         this.resourcesLoaded = true;
     }

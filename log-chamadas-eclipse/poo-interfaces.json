@@ -1,0 +1,3626 @@
+[
+  {
+    "LOGID": 497,
+    "JSON": {
+      "REQUEST": {
+        "REQUEST_LINE": {
+          "METHOD": "GET",
+          "URI": "/sap/bc/adt/repository/informationsystem/search?operation=quickSearch&query=ZCLIENTE1*&maxResults=1&objectType=DEVC",
+          "VERSION": "HTTP/1.1"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "sap-adt-request-id",
+            "VALUE": "ceb58fe7ac574ecdaac6d25f98b97af6"
+          },
+          {
+            "NAME": "Accept",
+            "VALUE": "application/xml"
+          },
+          {
+            "NAME": "User-Agent",
+            "VALUE": "Eclipse/4.39.0.v20260226-0420 (win32; x86_64; Java 21.0.10) ADT/3.56.0 (devedition)"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time"
+          }
+        ],
+        "MESSAGE_BODY": ""
+      },
+      "RESPONSE": {
+        "STATUS_LINE": {
+          "VERSION": "HTTP/1.1",
+          "STATUS_CODE": "200 ",
+          "REASON_PHRASE": "OK"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "~server_protocol",
+            "VALUE": "HTTP/1.1"
+          },
+          {
+            "NAME": "Content-Type",
+            "VALUE": "application/xml; charset=utf-8"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time=28504"
+          }
+        ],
+        "MESSAGE_BODY": "<?xml version=\"1.0\" encoding=\"utf-8\"?><adtcore:objectReferences xmlns:adtcore=\"http://www.sap.com/adt/core\"><adtcore:objectReference adtcore:uri=\"/sap/bc/adt/packages/zcliente1\" adtcore:type=\"DEVC/K\" adtcore:name=\"ZCLIENTE1\" adtcore:packageName=\"ZCLIENTE1\" adtcore:description=\"afdasf\"/></adtcore:objectReferences>"
+      }
+    }
+  },
+  {
+    "LOGID": 498,
+    "JSON": {
+      "REQUEST": {
+        "REQUEST_LINE": {
+          "METHOD": "POST",
+          "URI": "/sap/bc/adt/oo/validation/objectname?objname=ZFI_CLIENTE1&packagename=ZCLIENTE1&description=Teste+de+Interface&objtype=INTF%2FOI",
+          "VERSION": "HTTP/1.1"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "sap-adt-request-id",
+            "VALUE": "8c8cbaa577bd4c439c3ce2838386a4cf"
+          },
+          {
+            "NAME": "Accept",
+            "VALUE": "application/vnd.sap.as+xml;charset=UTF-8;dataname=com.sap.adt.oo.clifname.check"
+          },
+          {
+            "NAME": "User-Agent",
+            "VALUE": "Eclipse/4.39.0.v20260226-0420 (win32; x86_64; Java 21.0.10) ADT/3.56.0 (devedition)"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time"
+          }
+        ],
+        "MESSAGE_BODY": ""
+      },
+      "RESPONSE": {
+        "STATUS_LINE": {
+          "VERSION": "HTTP/1.1",
+          "STATUS_CODE": "200 ",
+          "REASON_PHRASE": "OK"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "~server_protocol",
+            "VALUE": "HTTP/1.1"
+          },
+          {
+            "NAME": "Content-Type",
+            "VALUE": "application/vnd.sap.as+xml; charset=utf-8; dataname=com.sap.adt.oo.clifname.check"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time=21759"
+          }
+        ],
+        "MESSAGE_BODY": "<?xml version=\"1.0\" encoding=\"utf-8\"?><asx:abap version=\"1.0\" xmlns:asx=\"http://www.sap.com/abapxml\"><asx:values><DATA><CHECK_RESULT>X</CHECK_RESULT></DATA></asx:values></asx:abap>"
+      }
+    }
+  },
+  {
+    "LOGID": 499,
+    "JSON": {
+      "REQUEST": {
+        "REQUEST_LINE": {
+          "METHOD": "POST",
+          "URI": "/sap/bc/adt/cts/transportchecks",
+          "VERSION": "HTTP/1.1"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "sap-adt-request-id",
+            "VALUE": "3c675430bf564ac78a877f816393355e"
+          },
+          {
+            "NAME": "Content-Type",
+            "VALUE": "application/vnd.sap.as+xml; charset=UTF-8; dataname=com.sap.adt.transport.service.checkData"
+          },
+          {
+            "NAME": "Accept",
+            "VALUE": "application/vnd.sap.as+xml;charset=UTF-8;dataname=com.sap.adt.transport.service.checkData"
+          },
+          {
+            "NAME": "User-Agent",
+            "VALUE": "Eclipse/4.39.0.v20260226-0420 (win32; x86_64; Java 21.0.10) ADT/3.56.0 (devedition)"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time"
+          }
+        ],
+        "MESSAGE_BODY": "<?xml version=\"1.0\" encoding=\"UTF-8\" ?><asx:abap version=\"1.0\" xmlns:asx=\"http://www.sap.com/abapxml\"><asx:values><DATA><PGMID></PGMID><OBJECT></OBJECT><OBJECTNAME></OBJECTNAME><DEVCLASS>ZCLIENTE1</DEVCLASS><SUPER_PACKAGE></SUPER_PACKAGE><RECORD_CHANGES></RECORD_CHANGES><OPERATION>I</OPERATION><URI>/sap/bc/adt/oo/interfaces/zfi_cliente1</URI></DATA></asx:values></asx:abap>"
+      },
+      "RESPONSE": {
+        "STATUS_LINE": {
+          "VERSION": "HTTP/1.1",
+          "STATUS_CODE": "200 ",
+          "REASON_PHRASE": "OK"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "~server_protocol",
+            "VALUE": "HTTP/1.1"
+          },
+          {
+            "NAME": "Content-Type",
+            "VALUE": "application/vnd.sap.as+xml; charset=utf-8; dataname=com.sap.adt.transport.service.checkData"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time=185726"
+          }
+        ],
+        "MESSAGE_BODY": "<?xml version=\"1.0\" encoding=\"utf-8\"?><asx:abap version=\"1.0\" xmlns:asx=\"http://www.sap.com/abapxml\"><asx:values><DATA><PGMID>R3TR</PGMID><OBJECT>INTF</OBJECT><OBJECTNAME>ZFI_CLIENTE1</OBJECTNAME><OPERATION>I</OPERATION><DEVCLASS>ZCLIENTE1</DEVCLASS><CTEXT>afdasf</CTEXT><KORRFLAG>X</KORRFLAG><AS4USER/><PDEVCLASS>SAP</PDEVCLASS><DLVUNIT>HOME</DLVUNIT><NAMESPACE>/0CUST/</NAMESPACE><SUPER_PACKAGE/><RECORD_CHANGES/><RESULT>S</RESULT><RECORDING>X</RECORDING><EXISTING_REQ_ONLY/><MESSAGES/><REQUESTS><CTS_REQUEST><REQ_HEADER><TRKORR>A4HK900218</TRKORR><TRFUNCTION>K</TRFUNCTION><TRSTATUS>D</TRSTATUS><TARSYSTEM/><AS4USER>DEVELOPER</AS4USER><AS4DATE>2026-09-05</AS4DATE><AS4TIME>18:11:11</AS4TIME><AS4TEXT>Workbench sem target2</AS4TEXT><CLIENT>001</CLIENT><REPOID/></REQ_HEADER><REQ_ATTRS/><TASK_HEADERS/></CTS_REQUEST><CTS_REQUEST><REQ_HEADER><TRKORR>A4HK900148</TRKORR><TRFUNCTION>K</TRFUNCTION><TRSTATUS>D</TRSTATUS><TARSYSTEM/><AS4USER>DEVELOPER</AS4USER><AS4DATE>2026-09-05</AS4DATE><AS4TIME>17:34:41</AS4TIME><AS4TEXT>Request para criação de pacotes 3</AS4TEXT><CLIENT>001</CLIENT><REPOID/></REQ_HEADER><REQ_ATTRS/><TASK_HEADERS/></CTS_REQUEST></REQUESTS><LOCKS/><TADIRDEVC>ZCLIENTE1</TADIRDEVC><URI>/sap/bc/adt/oo/interfaces/zfi_cliente1</URI><CTS_PROJECTS/></DATA></asx:values></asx:abap>"
+      }
+    }
+  },
+  {
+    "LOGID": 500,
+    "JSON": {
+      "REQUEST": {
+        "REQUEST_LINE": {
+          "METHOD": "GET",
+          "URI": "/sap/bc/adt/system/users",
+          "VERSION": "HTTP/1.1"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "sap-adt-request-id",
+            "VALUE": "9450e7ea272b4847a0e33b8cb44ce980"
+          },
+          {
+            "NAME": "Accept",
+            "VALUE": "application/atom+xml;type=feed"
+          },
+          {
+            "NAME": "User-Agent",
+            "VALUE": "Eclipse/4.39.0.v20260226-0420 (win32; x86_64; Java 21.0.10) ADT/3.56.0 (devedition)"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time"
+          }
+        ],
+        "MESSAGE_BODY": ""
+      },
+      "RESPONSE": {
+        "STATUS_LINE": {
+          "VERSION": "HTTP/1.1",
+          "STATUS_CODE": "200 ",
+          "REASON_PHRASE": "OK"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "~server_protocol",
+            "VALUE": "HTTP/1.1"
+          },
+          {
+            "NAME": "Content-Type",
+            "VALUE": "application/atom+xml;type=feed"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time=34873"
+          }
+        ],
+        "MESSAGE_BODY": "<?xml version=\"1.0\" encoding=\"utf-8\"?><atom:feed xmlns:atom=\"http://www.w3.org/2005/Atom\"><atom:author><atom:name>SAP SE</atom:name></atom:author><atom:title>Users</atom:title><atom:updated>2026-09-07T17:17:13Z</atom:updated><atom:entry><atom:id>BWDEVELOPER</atom:id><atom:title>Doe Jane</atom:title></atom:entry><atom:entry><atom:id>DDIC</atom:id><atom:title>DDIC</atom:title></atom:entry><atom:entry><atom:id>DEVELOPER</atom:id><atom:title>John Doe</atom:title></atom:entry><atom:entry><atom:id>DEVELOPER2</atom:id><atom:title>John Doe</atom:title></atom:entry><atom:entry><atom:id>DEVELOPER_5</atom:id><atom:title>John DEVELOPER_5</atom:title></atom:entry><atom:entry><atom:id>SAP*</atom:id><atom:title>SAP*</atom:title></atom:entry><atom:entry><atom:id>SDMI_DLRYYAU</atom:id><atom:title>SDMI_DLRYYAU</atom:title></atom:entry></atom:feed>"
+      }
+    }
+  },
+  {
+    "LOGID": 501,
+    "JSON": {
+      "REQUEST": {
+        "REQUEST_LINE": {
+          "METHOD": "POST",
+          "URI": "/sap/bc/adt/oo/interfaces?corrNr=A4HK900148",
+          "VERSION": "HTTP/1.1"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "sap-adt-request-id",
+            "VALUE": "29efa27a618b4de2b9fb12441988f4b2"
+          },
+          {
+            "NAME": "Content-Type",
+            "VALUE": "application/vnd.sap.adt.oo.interfaces.v5+xml"
+          },
+          {
+            "NAME": "User-Agent",
+            "VALUE": "Eclipse/4.39.0.v20260226-0420 (win32; x86_64; Java 21.0.10) ADT/3.56.0 (devedition)"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time"
+          }
+        ],
+        "MESSAGE_BODY": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<intf:abapInterface xmlns:adtcore=\"http://www.sap.com/adt/core\" xmlns:intf=\"http://www.sap.com/adt/oo/interfaces\" adtcore:description=\"Teste de Interface\" adtcore:language=\"EN\" adtcore:name=\"ZFI_CLIENTE1\" adtcore:type=\"INTF/OI\" adtcore:masterLanguage=\"EN\" adtcore:masterSystem=\"A4H\" adtcore:responsible=\"DEVELOPER\">\r\n  <adtcore:packageRef adtcore:name=\"ZCLIENTE1\"/>\r\n</intf:abapInterface>"
+      },
+      "RESPONSE": {
+        "STATUS_LINE": {
+          "VERSION": "HTTP/1.1",
+          "STATUS_CODE": "200 ",
+          "REASON_PHRASE": "OK"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "~server_protocol",
+            "VALUE": "HTTP/1.1"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time=1998806"
+          }
+        ],
+        "MESSAGE_BODY": ""
+      }
+    }
+  },
+  {
+    "LOGID": 502,
+    "JSON": {
+      "REQUEST": {
+        "REQUEST_LINE": {
+          "METHOD": "GET",
+          "URI": "/sap/bc/adt/oo/interfaces/zfi_cliente1/source/main",
+          "VERSION": "HTTP/1.1"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "Cache-Control",
+            "VALUE": "no-cache"
+          },
+          {
+            "NAME": "sap-adt-request-id",
+            "VALUE": "fc6fca30a61144548bc0764f4fa9a903"
+          },
+          {
+            "NAME": "Accept",
+            "VALUE": "text/plain"
+          },
+          {
+            "NAME": "User-Agent",
+            "VALUE": "Eclipse/4.39.0.v20260226-0420 (win32; x86_64; Java 21.0.10) ADT/3.56.0 (devedition)"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time"
+          }
+        ],
+        "MESSAGE_BODY": ""
+      },
+      "RESPONSE": {
+        "STATUS_LINE": {
+          "VERSION": "HTTP/1.1",
+          "STATUS_CODE": "200 ",
+          "REASON_PHRASE": "OK"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "~server_protocol",
+            "VALUE": "HTTP/1.1"
+          },
+          {
+            "NAME": "Content-Type",
+            "VALUE": "text/plain; charset=utf-8"
+          },
+          {
+            "NAME": "Last-Modified",
+            "VALUE": "Mon, 07 Sep 2026 17:17:18 GMT"
+          },
+          {
+            "NAME": "ETag",
+            "VALUE": "202609071717180001"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time=29726"
+          }
+        ],
+        "MESSAGE_BODY": "INTERFACE zfi_cliente1\r\n  PUBLIC .\r\n\r\nENDINTERFACE."
+      }
+    }
+  },
+  {
+    "LOGID": 503,
+    "JSON": {
+      "REQUEST": {
+        "REQUEST_LINE": {
+          "METHOD": "GET",
+          "URI": "/sap/bc/adt/oo/interfaces/zfi_cliente1",
+          "VERSION": "HTTP/1.1"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "Cache-Control",
+            "VALUE": "no-cache"
+          },
+          {
+            "NAME": "sap-adt-request-id",
+            "VALUE": "b74248692d1f4275bcc9cea3cdcf5d44"
+          },
+          {
+            "NAME": "Accept",
+            "VALUE": "application/vnd.sap.adt.oo.interfaces.v5+xml, application/vnd.sap.adt.oo.interfaces.v4+xml, application/vnd.sap.adt.oo.interfaces.v3+xml, application/vnd.sap.adt.oo.interfaces.v2+xml, application/vnd.sap.adt.oo.interfaces+xml"
+          },
+          {
+            "NAME": "User-Agent",
+            "VALUE": "Eclipse/4.39.0.v20260226-0420 (win32; x86_64; Java 21.0.10) ADT/3.56.0 (devedition)"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time"
+          }
+        ],
+        "MESSAGE_BODY": ""
+      },
+      "RESPONSE": {
+        "STATUS_LINE": {
+          "VERSION": "HTTP/1.1",
+          "STATUS_CODE": "200 ",
+          "REASON_PHRASE": "OK"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "~server_protocol",
+            "VALUE": "HTTP/1.1"
+          },
+          {
+            "NAME": "Content-Type",
+            "VALUE": "application/vnd.sap.adt.oo.interfaces.v5+xml; charset=utf-8"
+          },
+          {
+            "NAME": "Last-Modified",
+            "VALUE": "Mon, 07 Sep 2026 17:17:18 GMT"
+          },
+          {
+            "NAME": "ETag",
+            "VALUE": "202609071717180005"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time=5830"
+          }
+        ],
+        "MESSAGE_BODY": "<?xml version=\"1.0\" encoding=\"utf-8\"?><intf:abapInterface abapoo:modeled=\"false\" abapsource:sourceUri=\"source/main\" abapsource:fixPointArithmetic=\"false\" abapsource:activeUnicodeCheck=\"true\" adtcore:responsible=\"DEVELOPER\" adtcore:masterLanguage=\"EN\" adtcore:masterSystem=\"A4H\" adtcore:abapLanguageVersion=\"standard\" adtcore:name=\"ZFI_CLIENTE1\" adtcore:type=\"INTF/OI\" adtcore:changedAt=\"2026-09-07T17:17:18Z\" adtcore:version=\"inactive\" adtcore:createdAt=\"2026-09-07T00:00:00Z\" adtcore:changedBy=\"DEVELOPER\" adtcore:createdBy=\"DEVELOPER\" adtcore:description=\"Teste de Interface\" adtcore:descriptionTextLimit=\"60\" adtcore:language=\"EN\" xmlns:intf=\"http://www.sap.com/adt/oo/interfaces\" xmlns:abapoo=\"http://www.sap.com/adt/oo\" xmlns:abapsource=\"http://www.sap.com/adt/abapsource\" xmlns:adtcore=\"http://www.sap.com/adt/core\"><atom:link href=\"source/main/versions\" rel=\"http://www.sap.com/adt/relations/versions\" xmlns:atom=\"http://www.w3.org/2005/Atom\"/><atom:link href=\"source/main\" rel=\"http://www.sap.com/adt/relations/source\" type=\"text/plain\" etag=\"202609071717180001\" xmlns:atom=\"http://www.w3.org/2005/Atom\"/><atom:link href=\"source/main\" rel=\"http://www.sap.com/adt/relations/source\" type=\"text/html\" etag=\"202609071717180001\" xmlns:atom=\"http://www.w3.org/2005/Atom\"/><atom:link href=\"objectstructure\" rel=\"http://www.sap.com/adt/relations/objectstructure\" type=\"application/vnd.sap.adt.objectstructure.v2+xml\" xmlns:atom=\"http://www.w3.org/2005/Atom\"/><atom:link href=\"/sap/bc/adt/oo/interfaces/zfi_cliente1/source/main?withAbapDocFromShortTexts=true\" rel=\"http://www.sap.com/adt/relations/sources/withabapdocfromshorttexts\" type=\"text/plain\" title=\"Source with ABAP Doc\" xmlns:atom=\"http://www.w3.org/2005/Atom\"/><atom:link href=\"/sap/bc/adt/oo/interfaces/zfi_cliente1/source/main?version=active\" rel=\"http://www.sap.com/adt/relations/objectstates\" title=\"Reference to active or inactive version\" xmlns:atom=\"http://www.w3.org/2005/Atom\"/><atom:link href=\"/sap/bc/adt/repository/informationsystem/abaplanguageversions?uri=%2Fsap%2Fbc%2Fadt%2Foo%2Finterfaces%2Fzfi_cliente1\" rel=\"http://www.sap.com/adt/relations/informationsystem/abaplanguageversions\" type=\"application/vnd.sap.adt.nameditems.v1+xml\" title=\"Allowed ABAP language versions\" xmlns:atom=\"http://www.w3.org/2005/Atom\"/><adtcore:packageRef adtcore:uri=\"/sap/bc/adt/packages/zcliente1\" adtcore:type=\"DEVC/K\" adtcore:name=\"ZCLIENTE1\"/><abapsource:syntaxConfiguration><abapsource:language><abapsource:version>X</abapsource:version><abapsource:description>Standard ABAP</abapsource:description><atom:link href=\"/sap/bc/adt/abapsource/parsers/rnd/grammar\" rel=\"http://www.sap.com/adt/relations/abapsource/parser\" type=\"text/plain\" title=\"Standard ABAP\" etag=\"816\" xmlns:atom=\"http://www.w3.org/2005/Atom\"/></abapsource:language></abapsource:syntaxConfiguration></intf:abapInterface>"
+      }
+    }
+  },
+  {
+    "LOGID": 504,
+    "JSON": {
+      "REQUEST": {
+        "REQUEST_LINE": {
+          "METHOD": "GET",
+          "URI": "/sap/bc/adt/oo/interfaces/zfi_cliente1",
+          "VERSION": "HTTP/1.1"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "If-None-Match",
+            "VALUE": "202609071717180005"
+          },
+          {
+            "NAME": "sap-adt-request-id",
+            "VALUE": "37f9de795e984e1caed7e4e987bcee5f"
+          },
+          {
+            "NAME": "Accept",
+            "VALUE": "application/vnd.sap.adt.oo.interfaces.v5+xml, application/vnd.sap.adt.oo.interfaces.v4+xml, application/vnd.sap.adt.oo.interfaces.v3+xml, application/vnd.sap.adt.oo.interfaces.v2+xml, application/vnd.sap.adt.oo.interfaces+xml"
+          },
+          {
+            "NAME": "User-Agent",
+            "VALUE": "Eclipse/4.39.0.v20260226-0420 (win32; x86_64; Java 21.0.10) ADT/3.56.0 (devedition)"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time"
+          }
+        ],
+        "MESSAGE_BODY": ""
+      },
+      "RESPONSE": {
+        "STATUS_LINE": {
+          "VERSION": "HTTP/1.1",
+          "STATUS_CODE": "304 ",
+          "REASON_PHRASE": "Not Modified"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "~server_protocol",
+            "VALUE": "HTTP/1.1"
+          },
+          {
+            "NAME": "ETag",
+            "VALUE": "202609071717180005"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time=6168"
+          }
+        ],
+        "MESSAGE_BODY": ""
+      }
+    }
+  },
+  {
+    "LOGID": 505,
+    "JSON": {
+      "REQUEST": {
+        "REQUEST_LINE": {
+          "METHOD": "GET",
+          "URI": "/sap/bc/adt/oo/interfaces/zfi_cliente1/objectstructure?version=inactive&withShortDescriptions=true",
+          "VERSION": "HTTP/1.1"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "sap-adt-request-id",
+            "VALUE": "c5edd95052374c0ea2e29fb5299383fb"
+          },
+          {
+            "NAME": "Accept",
+            "VALUE": "application/xml;q=0.8, application/vnd.sap.adt.objectstructure+xml;q=0.9, application/vnd.sap.adt.objectstructure.v2+xml"
+          },
+          {
+            "NAME": "User-Agent",
+            "VALUE": "Eclipse/4.39.0.v20260226-0420 (win32; x86_64; Java 21.0.10) ADT/3.56.0 (devedition)"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time"
+          }
+        ],
+        "MESSAGE_BODY": ""
+      },
+      "RESPONSE": {
+        "STATUS_LINE": {
+          "VERSION": "HTTP/1.1",
+          "STATUS_CODE": "200 ",
+          "REASON_PHRASE": "OK"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "~server_protocol",
+            "VALUE": "HTTP/1.1"
+          },
+          {
+            "NAME": "Content-Type",
+            "VALUE": "application/vnd.sap.adt.objectstructure.v2+xml"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time=8128"
+          }
+        ],
+        "MESSAGE_BODY": "<abapsource:objectStructureElement xml:base=\"/sap/bc/adt/oo/interfaces/zfi_cliente1/objectstructure?version=inactive&amp;withShortDescriptions=true\" adtcore:name=\"ZFI_CLIENTE1\" adtcore:type=\"INTF/OI\" xmlns:adtcore=\"http://www.sap.com/adt/core\" xmlns:abapsource=\"http://www.sap.com/adt/abapsource\" xmlns:atom=\"http://www.w3.org/2005/Atom\"><atom:link rel=\"http://www.sap.com/adt/relations/source/definitionIdentifier\" href=\"./source/main#start=1,10;end=1,22\"/><atom:link rel=\"http://www.sap.com/adt/relations/source/definitionBlock\" href=\"./source/main#start=1,0;end=4,12\"/></abapsource:objectStructureElement>"
+      }
+    }
+  },
+  {
+    "LOGID": 506,
+    "JSON": {
+      "REQUEST": {
+        "REQUEST_LINE": {
+          "METHOD": "POST",
+          "URI": "/sap/bc/adt/checkruns?reporters=abapCheckRun",
+          "VERSION": "HTTP/1.1"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "sap-adt-request-id",
+            "VALUE": "86c4b6b155f34ebba60666e40715bc70"
+          },
+          {
+            "NAME": "Content-Type",
+            "VALUE": "application/vnd.sap.adt.checkobjects+xml"
+          },
+          {
+            "NAME": "Accept",
+            "VALUE": "application/vnd.sap.adt.checkmessages+xml"
+          },
+          {
+            "NAME": "User-Agent",
+            "VALUE": "Eclipse/4.39.0.v20260226-0420 (win32; x86_64; Java 21.0.10) ADT/3.56.0 (devedition)"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time"
+          }
+        ],
+        "MESSAGE_BODY": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<chkrun:checkObjectList xmlns:adtcore=\"http://www.sap.com/adt/core\" xmlns:chkrun=\"http://www.sap.com/adt/checkrun\">\r\n  <chkrun:checkObject adtcore:uri=\"/sap/bc/adt/oo/interfaces/zfi_cliente1\" chkrun:version=\"inactive\"/>\r\n</chkrun:checkObjectList>"
+      },
+      "RESPONSE": {
+        "STATUS_LINE": {
+          "VERSION": "HTTP/1.1",
+          "STATUS_CODE": "200 ",
+          "REASON_PHRASE": "OK"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "~server_protocol",
+            "VALUE": "HTTP/1.1"
+          },
+          {
+            "NAME": "Content-Type",
+            "VALUE": "application/vnd.sap.adt.checkmessages+xml; charset=utf-8"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time=410919"
+          }
+        ],
+        "MESSAGE_BODY": "<?xml version=\"1.0\" encoding=\"utf-8\"?><chkrun:checkRunReports xmlns:chkrun=\"http://www.sap.com/adt/checkrun\"><chkrun:checkReport chkrun:reporter=\"abapCheckRun\" chkrun:triggeringUri=\"/sap/bc/adt/oo/interfaces/zfi_cliente1\" chkrun:status=\"processed\" chkrun:statusText=\"Object ZFI_CLIENTE1 has been checked\"/></chkrun:checkRunReports>"
+      }
+    }
+  },
+  {
+    "LOGID": 507,
+    "JSON": {
+      "REQUEST": {
+        "REQUEST_LINE": {
+          "METHOD": "GET",
+          "URI": "/sap/bc/adt/repository/informationsystem/objectproperties/values?uri=%2Fsap%2Fbc%2Fadt%2Foo%2Finterfaces%2Fzfi_cliente1%2Fsource%2Fmain",
+          "VERSION": "HTTP/1.1"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "sap-adt-request-id",
+            "VALUE": "18f5fd463b164b228618b3261719e7dd"
+          },
+          {
+            "NAME": "Accept",
+            "VALUE": "application/vnd.sap.adt.repository.objproperties.result.v1+xml"
+          },
+          {
+            "NAME": "User-Agent",
+            "VALUE": "Eclipse/4.39.0.v20260226-0420 (win32; x86_64; Java 21.0.10) ADT/3.56.0 (devedition)"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time"
+          }
+        ],
+        "MESSAGE_BODY": ""
+      },
+      "RESPONSE": {
+        "STATUS_LINE": {
+          "VERSION": "HTTP/1.1",
+          "STATUS_CODE": "200 ",
+          "REASON_PHRASE": "OK"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "~server_protocol",
+            "VALUE": "HTTP/1.1"
+          },
+          {
+            "NAME": "Content-Type",
+            "VALUE": "application/vnd.sap.adt.repository.objproperties.result.v1+xml; charset=utf-8"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time=2154809"
+          }
+        ],
+        "MESSAGE_BODY": "<?xml version=\"1.0\" encoding=\"utf-8\"?><opr:objectProperties xmlns:opr=\"http://www.sap.com/adt/ris/objectProperties\"><opr:object text=\"Teste de Interface\" name=\"ZFI_CLIENTE1\" package=\"ZCLIENTE1\" type=\"INTF/OI\" expandable=\"false\"><atom:link href=\"/sap/bc/adt/oo/interfaces/zfi_cliente1\" rel=\"http://www.sap.com/adt/relations/objects\" title=\"ADT Object Reference\" xmlns:atom=\"http://www.w3.org/2005/Atom\"/><atom:link href=\"/sap/bc/adt/vit/wb/object_type/intfoi/object_name/ZFI_CLIENTE1\" rel=\"http://www.sap.com/adt/relations/objects\" type=\"application/vnd.sap.sapgui\" title=\"ADT Object Reference\" xmlns:atom=\"http://www.w3.org/2005/Atom\"/></opr:object><opr:property facet=\"SOURCETYPE\" name=\"UNDEFINED\" displayName=\"Unknown\"/><opr:property facet=\"SOURCETYPE\" name=\"UNDEFINED\" displayName=\"Undefined\"/><opr:property facet=\"APPL\" name=\"-\" displayName=\"-\" text=\"No application component assigned\"/><opr:property facet=\"PACKAGE\" name=\"ZCLASSIC_DEVELOPMENT\" displayName=\"ZCLASSIC_DEVELOPMENT\" text=\"Developer Extensibility - Tier 3\" hasChildrenOfSameFacet=\"true\"><atom:link href=\"/sap/bc/adt/packages/zclassic_development\" rel=\"http://www.sap.com/adt/relations/packages\" type=\"application/vnd.sap.sapgui\" title=\"ADT Object Reference\" xmlns:atom=\"http://www.w3.org/2005/Atom\"/></opr:property><opr:property facet=\"PACKAGE\" name=\"ZCLIENTE1\" displayName=\"ZCLIENTE1\" text=\"afdasf\"><atom:link href=\"/sap/bc/adt/packages/zcliente1\" rel=\"http://www.sap.com/adt/relations/packages\" type=\"application/vnd.sap.sapgui\" title=\"ADT Object Reference\" xmlns:atom=\"http://www.w3.org/2005/Atom\"/></opr:property><opr:property facet=\"GROUP\" name=\"SOURCE_LIBRARY\" displayName=\"Source Code Library\"/><opr:property facet=\"TYPE\" name=\"INTF\" displayName=\"Interfaces\"/><opr:property facet=\"OWNER\" name=\"DEVELOPER\" displayName=\"DEVELOPER\" text=\"John Doe\"/><opr:property facet=\"API\" name=\"NOT_RELEASED\" displayName=\"NOT_RELEASED\"/><opr:property facet=\"LANGUAGE\" name=\"EN\" displayName=\"English\"/><opr:property facet=\"SYSTEM\" name=\"A4H\" displayName=\"A4H\"/><opr:property facet=\"VERSION\" name=\"INACTIVE\" displayName=\"Inactive\"/><opr:property facet=\"DOCU\" name=\"SAPSCRIPT_POSSIBLE\" displayName=\"SAP Script documentation possible\"/><opr:property facet=\"CREATED\" name=\"2026\" displayName=\"2026\"/><opr:property facet=\"MONTH\" name=\"09\" displayName=\"09\" text=\"September\"/><opr:property facet=\"DATE\" name=\"20260907\" displayName=\"07.09.2026\" text=\"Monday\"/><opr:property facet=\"COMP\" name=\"HOME\" displayName=\"HOME\" text=\"Customer Development (Standard)\"/><opr:property facet=\"ABAPLV\" name=\"STANDARD\" displayName=\"Standard ABAP\"/></opr:objectProperties>"
+      }
+    }
+  },
+  {
+    "LOGID": 508,
+    "JSON": {
+      "REQUEST": {
+        "REQUEST_LINE": {
+          "METHOD": "GET",
+          "URI": "/sap/bc/adt/repository/informationsystem/objectproperties/values?uri=%2Fsap%2Fbc%2Fadt%2Foo%2Finterfaces%2Fzfi_cliente1",
+          "VERSION": "HTTP/1.1"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "sap-adt-request-id",
+            "VALUE": "f4f4ad3317f64487af762a49572c830d"
+          },
+          {
+            "NAME": "Accept",
+            "VALUE": "application/vnd.sap.adt.repository.objproperties.result.v1+xml"
+          },
+          {
+            "NAME": "User-Agent",
+            "VALUE": "Eclipse/4.39.0.v20260226-0420 (win32; x86_64; Java 21.0.10) ADT/3.56.0 (devedition)"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time"
+          }
+        ],
+        "MESSAGE_BODY": ""
+      },
+      "RESPONSE": {
+        "STATUS_LINE": {
+          "VERSION": "HTTP/1.1",
+          "STATUS_CODE": "200 ",
+          "REASON_PHRASE": "OK"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "~server_protocol",
+            "VALUE": "HTTP/1.1"
+          },
+          {
+            "NAME": "Content-Type",
+            "VALUE": "application/vnd.sap.adt.repository.objproperties.result.v1+xml; charset=utf-8"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time=2656943"
+          }
+        ],
+        "MESSAGE_BODY": "<?xml version=\"1.0\" encoding=\"utf-8\"?><opr:objectProperties xmlns:opr=\"http://www.sap.com/adt/ris/objectProperties\"><opr:object text=\"Teste de Interface\" name=\"ZFI_CLIENTE1\" package=\"ZCLIENTE1\" type=\"INTF/OI\" expandable=\"false\"><atom:link href=\"/sap/bc/adt/oo/interfaces/zfi_cliente1\" rel=\"http://www.sap.com/adt/relations/objects\" title=\"ADT Object Reference\" xmlns:atom=\"http://www.w3.org/2005/Atom\"/><atom:link href=\"/sap/bc/adt/vit/wb/object_type/intfoi/object_name/ZFI_CLIENTE1\" rel=\"http://www.sap.com/adt/relations/objects\" type=\"application/vnd.sap.sapgui\" title=\"ADT Object Reference\" xmlns:atom=\"http://www.w3.org/2005/Atom\"/></opr:object><opr:property facet=\"SOURCETYPE\" name=\"UNDEFINED\" displayName=\"Unknown\"/><opr:property facet=\"SOURCETYPE\" name=\"UNDEFINED\" displayName=\"Undefined\"/><opr:property facet=\"APPL\" name=\"-\" displayName=\"-\" text=\"No application component assigned\"/><opr:property facet=\"PACKAGE\" name=\"ZCLASSIC_DEVELOPMENT\" displayName=\"ZCLASSIC_DEVELOPMENT\" text=\"Developer Extensibility - Tier 3\" hasChildrenOfSameFacet=\"true\"><atom:link href=\"/sap/bc/adt/packages/zclassic_development\" rel=\"http://www.sap.com/adt/relations/packages\" type=\"application/vnd.sap.sapgui\" title=\"ADT Object Reference\" xmlns:atom=\"http://www.w3.org/2005/Atom\"/></opr:property><opr:property facet=\"PACKAGE\" name=\"ZCLIENTE1\" displayName=\"ZCLIENTE1\" text=\"afdasf\"><atom:link href=\"/sap/bc/adt/packages/zcliente1\" rel=\"http://www.sap.com/adt/relations/packages\" type=\"application/vnd.sap.sapgui\" title=\"ADT Object Reference\" xmlns:atom=\"http://www.w3.org/2005/Atom\"/></opr:property><opr:property facet=\"GROUP\" name=\"SOURCE_LIBRARY\" displayName=\"Source Code Library\"/><opr:property facet=\"TYPE\" name=\"INTF\" displayName=\"Interfaces\"/><opr:property facet=\"OWNER\" name=\"DEVELOPER\" displayName=\"DEVELOPER\" text=\"John Doe\"/><opr:property facet=\"API\" name=\"NOT_RELEASED\" displayName=\"NOT_RELEASED\"/><opr:property facet=\"LANGUAGE\" name=\"EN\" displayName=\"English\"/><opr:property facet=\"SYSTEM\" name=\"A4H\" displayName=\"A4H\"/><opr:property facet=\"VERSION\" name=\"INACTIVE\" displayName=\"Inactive\"/><opr:property facet=\"DOCU\" name=\"SAPSCRIPT_POSSIBLE\" displayName=\"SAP Script documentation possible\"/><opr:property facet=\"CREATED\" name=\"2026\" displayName=\"2026\"/><opr:property facet=\"MONTH\" name=\"09\" displayName=\"09\" text=\"September\"/><opr:property facet=\"DATE\" name=\"20260907\" displayName=\"07.09.2026\" text=\"Monday\"/><opr:property facet=\"COMP\" name=\"HOME\" displayName=\"HOME\" text=\"Customer Development (Standard)\"/><opr:property facet=\"ABAPLV\" name=\"STANDARD\" displayName=\"Standard ABAP\"/></opr:objectProperties>"
+      }
+    }
+  },
+  {
+    "LOGID": 509,
+    "JSON": {
+      "REQUEST": {
+        "REQUEST_LINE": {
+          "METHOD": "POST",
+          "URI": "/sap/bc/adt/activation?method=activate&preauditRequested=true",
+          "VERSION": "HTTP/1.1"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "sap-adt-request-id",
+            "VALUE": "bcdab9c2806d4d18b93ed1719248c48e"
+          },
+          {
+            "NAME": "Content-Type",
+            "VALUE": "application/xml"
+          },
+          {
+            "NAME": "Accept",
+            "VALUE": "application/xml"
+          },
+          {
+            "NAME": "User-Agent",
+            "VALUE": "Eclipse/4.39.0.v20260226-0420 (win32; x86_64; Java 21.0.10) ADT/3.56.0 (devedition)"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time"
+          }
+        ],
+        "MESSAGE_BODY": "<?xml version=\"1.0\" encoding=\"UTF-8\"?><adtcore:objectReferences xmlns:adtcore=\"http://www.sap.com/adt/core\"><adtcore:objectReference adtcore:uri=\"/sap/bc/adt/oo/interfaces/zfi_cliente1\" adtcore:name=\"ZFI_CLIENTE1\"/></adtcore:objectReferences>"
+      },
+      "RESPONSE": {
+        "STATUS_LINE": {
+          "VERSION": "HTTP/1.1",
+          "STATUS_CODE": "200 ",
+          "REASON_PHRASE": "OK"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "~server_protocol",
+            "VALUE": "HTTP/1.1"
+          },
+          {
+            "NAME": "Content-Type",
+            "VALUE": "application/xml; charset=utf-8"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time=290561"
+          }
+        ],
+        "MESSAGE_BODY": "<?xml version=\"1.0\" encoding=\"utf-8\"?><chkl:messages xmlns:chkl=\"http://www.sap.com/abapxml/checklist\"><chkl:properties checkExecuted=\"true\" activationExecuted=\"true\" generationExecuted=\"true\"/></chkl:messages>"
+      }
+    }
+  },
+  {
+    "LOGID": 510,
+    "JSON": {
+      "REQUEST": {
+        "REQUEST_LINE": {
+          "METHOD": "GET",
+          "URI": "/sap/bc/adt/oo/interfaces/zfi_cliente1",
+          "VERSION": "HTTP/1.1"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "If-None-Match",
+            "VALUE": "202609071717180005"
+          },
+          {
+            "NAME": "sap-adt-request-id",
+            "VALUE": "9682046073cd48c7a322b75438fd85a1"
+          },
+          {
+            "NAME": "Accept",
+            "VALUE": "application/vnd.sap.adt.oo.interfaces.v5+xml, application/vnd.sap.adt.oo.interfaces.v4+xml, application/vnd.sap.adt.oo.interfaces.v3+xml, application/vnd.sap.adt.oo.interfaces.v2+xml, application/vnd.sap.adt.oo.interfaces+xml"
+          },
+          {
+            "NAME": "User-Agent",
+            "VALUE": "Eclipse/4.39.0.v20260226-0420 (win32; x86_64; Java 21.0.10) ADT/3.56.0 (devedition)"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time"
+          }
+        ],
+        "MESSAGE_BODY": ""
+      },
+      "RESPONSE": {
+        "STATUS_LINE": {
+          "VERSION": "HTTP/1.1",
+          "STATUS_CODE": "200 ",
+          "REASON_PHRASE": "OK"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "~server_protocol",
+            "VALUE": "HTTP/1.1"
+          },
+          {
+            "NAME": "Content-Type",
+            "VALUE": "application/vnd.sap.adt.oo.interfaces.v5+xml; charset=utf-8"
+          },
+          {
+            "NAME": "Last-Modified",
+            "VALUE": "Mon, 07 Sep 2026 17:17:26 GMT"
+          },
+          {
+            "NAME": "ETag",
+            "VALUE": "202609071717260015"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time=8977"
+          }
+        ],
+        "MESSAGE_BODY": "<?xml version=\"1.0\" encoding=\"utf-8\"?><intf:abapInterface abapoo:modeled=\"false\" abapsource:sourceUri=\"source/main\" abapsource:fixPointArithmetic=\"false\" abapsource:activeUnicodeCheck=\"true\" adtcore:responsible=\"DEVELOPER\" adtcore:masterLanguage=\"EN\" adtcore:masterSystem=\"A4H\" adtcore:abapLanguageVersion=\"standard\" adtcore:name=\"ZFI_CLIENTE1\" adtcore:type=\"INTF/OI\" adtcore:changedAt=\"2026-09-07T17:17:26Z\" adtcore:version=\"active\" adtcore:createdAt=\"2026-09-07T00:00:00Z\" adtcore:changedBy=\"DEVELOPER\" adtcore:createdBy=\"DEVELOPER\" adtcore:description=\"Teste de Interface\" adtcore:descriptionTextLimit=\"60\" adtcore:language=\"EN\" xmlns:intf=\"http://www.sap.com/adt/oo/interfaces\" xmlns:abapoo=\"http://www.sap.com/adt/oo\" xmlns:abapsource=\"http://www.sap.com/adt/abapsource\" xmlns:adtcore=\"http://www.sap.com/adt/core\"><atom:link href=\"source/main/versions\" rel=\"http://www.sap.com/adt/relations/versions\" xmlns:atom=\"http://www.w3.org/2005/Atom\"/><atom:link href=\"source/main\" rel=\"http://www.sap.com/adt/relations/source\" type=\"text/plain\" etag=\"202609071717260011\" xmlns:atom=\"http://www.w3.org/2005/Atom\"/><atom:link href=\"source/main\" rel=\"http://www.sap.com/adt/relations/source\" type=\"text/html\" etag=\"202609071717260011\" xmlns:atom=\"http://www.w3.org/2005/Atom\"/><atom:link href=\"objectstructure\" rel=\"http://www.sap.com/adt/relations/objectstructure\" type=\"application/vnd.sap.adt.objectstructure.v2+xml\" xmlns:atom=\"http://www.w3.org/2005/Atom\"/><atom:link href=\"/sap/bc/adt/oo/interfaces/zfi_cliente1/source/main?withAbapDocFromShortTexts=true\" rel=\"http://www.sap.com/adt/relations/sources/withabapdocfromshorttexts\" type=\"text/plain\" title=\"Source with ABAP Doc\" xmlns:atom=\"http://www.w3.org/2005/Atom\"/><atom:link href=\"/sap/bc/adt/repository/informationsystem/abaplanguageversions?uri=%2Fsap%2Fbc%2Fadt%2Foo%2Finterfaces%2Fzfi_cliente1\" rel=\"http://www.sap.com/adt/relations/informationsystem/abaplanguageversions\" type=\"application/vnd.sap.adt.nameditems.v1+xml\" title=\"Allowed ABAP language versions\" xmlns:atom=\"http://www.w3.org/2005/Atom\"/><adtcore:packageRef adtcore:uri=\"/sap/bc/adt/packages/zcliente1\" adtcore:type=\"DEVC/K\" adtcore:name=\"ZCLIENTE1\"/><abapsource:syntaxConfiguration><abapsource:language><abapsource:version>X</abapsource:version><abapsource:description>Standard ABAP</abapsource:description><atom:link href=\"/sap/bc/adt/abapsource/parsers/rnd/grammar\" rel=\"http://www.sap.com/adt/relations/abapsource/parser\" type=\"text/plain\" title=\"Standard ABAP\" etag=\"816\" xmlns:atom=\"http://www.w3.org/2005/Atom\"/></abapsource:language></abapsource:syntaxConfiguration></intf:abapInterface>"
+      }
+    }
+  },
+  {
+    "LOGID": 511,
+    "JSON": {
+      "REQUEST": {
+        "REQUEST_LINE": {
+          "METHOD": "GET",
+          "URI": "/sap/bc/adt/oo/interfaces/zfi_cliente1/source/main?version=inactive",
+          "VERSION": "HTTP/1.1"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "Cache-Control",
+            "VALUE": "no-cache"
+          },
+          {
+            "NAME": "sap-adt-request-id",
+            "VALUE": "fa4e215b4269428ab9d1d0d336a3a23c"
+          },
+          {
+            "NAME": "Accept",
+            "VALUE": "text/plain"
+          },
+          {
+            "NAME": "User-Agent",
+            "VALUE": "Eclipse/4.39.0.v20260226-0420 (win32; x86_64; Java 21.0.10) ADT/3.56.0 (devedition)"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time"
+          }
+        ],
+        "MESSAGE_BODY": ""
+      },
+      "RESPONSE": {
+        "STATUS_LINE": {
+          "VERSION": "HTTP/1.1",
+          "STATUS_CODE": "200 ",
+          "REASON_PHRASE": "OK"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "~server_protocol",
+            "VALUE": "HTTP/1.1"
+          },
+          {
+            "NAME": "Content-Type",
+            "VALUE": "text/plain; charset=utf-8"
+          },
+          {
+            "NAME": "Last-Modified",
+            "VALUE": "Mon, 07 Sep 2026 17:17:26 GMT"
+          },
+          {
+            "NAME": "ETag",
+            "VALUE": "202609071717260011"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time=19957"
+          }
+        ],
+        "MESSAGE_BODY": "INTERFACE zfi_cliente1\r\n  PUBLIC .\r\n\r\nENDINTERFACE."
+      }
+    }
+  },
+  {
+    "LOGID": 512,
+    "JSON": {
+      "REQUEST": {
+        "REQUEST_LINE": {
+          "METHOD": "POST",
+          "URI": "/sap/bc/adt/checkruns?reporters=abapCheckRun",
+          "VERSION": "HTTP/1.1"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "sap-adt-request-id",
+            "VALUE": "77a7010031c64367bceda0497799e300"
+          },
+          {
+            "NAME": "Content-Type",
+            "VALUE": "application/vnd.sap.adt.checkobjects+xml"
+          },
+          {
+            "NAME": "Accept",
+            "VALUE": "application/vnd.sap.adt.checkmessages+xml"
+          },
+          {
+            "NAME": "User-Agent",
+            "VALUE": "Eclipse/4.39.0.v20260226-0420 (win32; x86_64; Java 21.0.10) ADT/3.56.0 (devedition)"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time"
+          }
+        ],
+        "MESSAGE_BODY": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<chkrun:checkObjectList xmlns:adtcore=\"http://www.sap.com/adt/core\" xmlns:chkrun=\"http://www.sap.com/adt/checkrun\">\r\n  <chkrun:checkObject adtcore:uri=\"/sap/bc/adt/oo/interfaces/zfi_cliente1\" chkrun:version=\"active\"/>\r\n</chkrun:checkObjectList>"
+      },
+      "RESPONSE": {
+        "STATUS_LINE": {
+          "VERSION": "HTTP/1.1",
+          "STATUS_CODE": "200 ",
+          "REASON_PHRASE": "OK"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "~server_protocol",
+            "VALUE": "HTTP/1.1"
+          },
+          {
+            "NAME": "Content-Type",
+            "VALUE": "application/vnd.sap.adt.checkmessages+xml; charset=utf-8"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time=11200"
+          }
+        ],
+        "MESSAGE_BODY": "<?xml version=\"1.0\" encoding=\"utf-8\"?><chkrun:checkRunReports xmlns:chkrun=\"http://www.sap.com/adt/checkrun\"><chkrun:checkReport chkrun:reporter=\"abapCheckRun\" chkrun:triggeringUri=\"/sap/bc/adt/oo/interfaces/zfi_cliente1\" chkrun:status=\"processed\" chkrun:statusText=\"Object ZFI_CLIENTE1 has been checked\"/></chkrun:checkRunReports>"
+      }
+    }
+  },
+  {
+    "LOGID": 513,
+    "JSON": {
+      "REQUEST": {
+        "REQUEST_LINE": {
+          "METHOD": "POST",
+          "URI": "/sap/bc/adt/oo/interfaces/zfi_cliente1?_action=LOCK&accessMode=MODIFY",
+          "VERSION": "HTTP/1.1"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "Accept",
+            "VALUE": "application/vnd.sap.as+xml;charset=UTF-8;dataname=com.sap.adt.lock.result;q=0.8, application/vnd.sap.as+xml;charset=UTF-8;dataname=com.sap.adt.lock.result2;q=0.9"
+          },
+          {
+            "NAME": "sap-adt-request-id",
+            "VALUE": "099c36e150e149ff89f84167a89130d2"
+          },
+          {
+            "NAME": "User-Agent",
+            "VALUE": "Eclipse/4.39.0.v20260226-0420 (win32; x86_64; Java 21.0.10) ADT/3.56.0 (devedition)"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time"
+          }
+        ],
+        "MESSAGE_BODY": ""
+      },
+      "RESPONSE": {
+        "STATUS_LINE": {
+          "VERSION": "HTTP/1.1",
+          "STATUS_CODE": "200 ",
+          "REASON_PHRASE": "OK"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "~server_protocol",
+            "VALUE": "HTTP/1.1"
+          },
+          {
+            "NAME": "Content-Type",
+            "VALUE": "application/vnd.sap.as+xml; charset=utf-8; dataname=com.sap.adt.lock.Result"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time=19467"
+          }
+        ],
+        "MESSAGE_BODY": "<?xml version=\"1.0\" encoding=\"utf-8\"?><asx:abap version=\"1.0\" xmlns:asx=\"http://www.sap.com/abapxml\"><asx:values><DATA><LOCK_HANDLE>E89CAADA1C29B4233168465AF84FE37AE787F1A0</LOCK_HANDLE><CORRNR>A4HK900148</CORRNR><CORRUSER>DEVELOPER</CORRUSER><CORRTEXT>Request para criação de pacotes 3</CORRTEXT><IS_LOCAL/><IS_LINK_UP/><MODIFICATION_SUPPORT>NoModification</MODIFICATION_SUPPORT><SCOPE_MESSAGES/></DATA></asx:values></asx:abap>"
+      }
+    }
+  },
+  {
+    "LOGID": 514,
+    "JSON": {
+      "REQUEST": {
+        "REQUEST_LINE": {
+          "METHOD": "GET",
+          "URI": "/sap/bc/adt/oo/interfaces/zfi_cliente1?version=inactive",
+          "VERSION": "HTTP/1.1"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "If-None-Match",
+            "VALUE": "202609071717260015"
+          },
+          {
+            "NAME": "sap-adt-request-id",
+            "VALUE": "c61db503d58f4bdea629592fcb1c39b8"
+          },
+          {
+            "NAME": "Accept",
+            "VALUE": "application/vnd.sap.adt.oo.interfaces.v5+xml, application/vnd.sap.adt.oo.interfaces.v4+xml, application/vnd.sap.adt.oo.interfaces.v3+xml, application/vnd.sap.adt.oo.interfaces.v2+xml, application/vnd.sap.adt.oo.interfaces+xml"
+          },
+          {
+            "NAME": "User-Agent",
+            "VALUE": "Eclipse/4.39.0.v20260226-0420 (win32; x86_64; Java 21.0.10) ADT/3.56.0 (devedition)"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time"
+          }
+        ],
+        "MESSAGE_BODY": ""
+      },
+      "RESPONSE": {
+        "STATUS_LINE": {
+          "VERSION": "HTTP/1.1",
+          "STATUS_CODE": "304 ",
+          "REASON_PHRASE": "Not Modified"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "~server_protocol",
+            "VALUE": "HTTP/1.1"
+          },
+          {
+            "NAME": "ETag",
+            "VALUE": "202609071717260015"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time=10317"
+          }
+        ],
+        "MESSAGE_BODY": ""
+      }
+    }
+  },
+  {
+    "LOGID": 515,
+    "JSON": {
+      "REQUEST": {
+        "REQUEST_LINE": {
+          "METHOD": "GET",
+          "URI": "/sap/bc/adt/oo/interfaces/zfi_cliente1/objectstructure?version=active&withShortDescriptions=true",
+          "VERSION": "HTTP/1.1"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "sap-adt-request-id",
+            "VALUE": "1ae734b65a20485781d393a35fdff24f"
+          },
+          {
+            "NAME": "Accept",
+            "VALUE": "application/xml;q=0.8, application/vnd.sap.adt.objectstructure+xml;q=0.9, application/vnd.sap.adt.objectstructure.v2+xml"
+          },
+          {
+            "NAME": "User-Agent",
+            "VALUE": "Eclipse/4.39.0.v20260226-0420 (win32; x86_64; Java 21.0.10) ADT/3.56.0 (devedition)"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time"
+          }
+        ],
+        "MESSAGE_BODY": ""
+      },
+      "RESPONSE": {
+        "STATUS_LINE": {
+          "VERSION": "HTTP/1.1",
+          "STATUS_CODE": "200 ",
+          "REASON_PHRASE": "OK"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "~server_protocol",
+            "VALUE": "HTTP/1.1"
+          },
+          {
+            "NAME": "Content-Type",
+            "VALUE": "application/vnd.sap.adt.objectstructure.v2+xml"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time=6830"
+          }
+        ],
+        "MESSAGE_BODY": "<abapsource:objectStructureElement xml:base=\"/sap/bc/adt/oo/interfaces/zfi_cliente1/objectstructure?version=active&amp;withShortDescriptions=true\" adtcore:name=\"ZFI_CLIENTE1\" adtcore:type=\"INTF/OI\" xmlns:adtcore=\"http://www.sap.com/adt/core\" xmlns:abapsource=\"http://www.sap.com/adt/abapsource\" xmlns:atom=\"http://www.w3.org/2005/Atom\"><atom:link rel=\"http://www.sap.com/adt/relations/source/definitionIdentifier\" href=\"./source/main#start=1,10;end=1,22\"/><atom:link rel=\"http://www.sap.com/adt/relations/source/definitionBlock\" href=\"./source/main#start=1,0;end=4,12\"/></abapsource:objectStructureElement>"
+      }
+    }
+  },
+  {
+    "LOGID": 516,
+    "JSON": {
+      "REQUEST": {
+        "REQUEST_LINE": {
+          "METHOD": "POST",
+          "URI": "/sap/bc/adt/checkruns?reporters=abapCheckRun",
+          "VERSION": "HTTP/1.1"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "sap-adt-request-id",
+            "VALUE": "86bd652b1d514d2daa100a7837ddbff8"
+          },
+          {
+            "NAME": "Content-Type",
+            "VALUE": "application/vnd.sap.adt.checkobjects+xml"
+          },
+          {
+            "NAME": "Accept",
+            "VALUE": "application/vnd.sap.adt.checkmessages+xml"
+          },
+          {
+            "NAME": "User-Agent",
+            "VALUE": "Eclipse/4.39.0.v20260226-0420 (win32; x86_64; Java 21.0.10) ADT/3.56.0 (devedition)"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time"
+          }
+        ],
+        "MESSAGE_BODY": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<chkrun:checkObjectList xmlns:adtcore=\"http://www.sap.com/adt/core\" xmlns:chkrun=\"http://www.sap.com/adt/checkrun\">\r\n  <chkrun:checkObject adtcore:uri=\"/sap/bc/adt/oo/interfaces/zfi_cliente1\" chkrun:version=\"active\">\r\n    <chkrun:artifacts>\r\n      <chkrun:artifact chkrun:contentType=\"text/plain; charset=utf-8\" chkrun:uri=\"/sap/bc/adt/oo/interfaces/zfi_cliente1/source/main\">\r\n        <chkrun:content>SU5URVJGQUNFIHpmaV9jbGllbnRlMQ0KICBQVUJMSUMgLg0KICANCg0KRU5ESU5URVJGQUNFLg==</chkrun:content>\r\n      </chkrun:artifact>\r\n    </chkrun:artifacts>\r\n  </chkrun:checkObject>\r\n</chkrun:checkObjectList>"
+      },
+      "RESPONSE": {
+        "STATUS_LINE": {
+          "VERSION": "HTTP/1.1",
+          "STATUS_CODE": "200 ",
+          "REASON_PHRASE": "OK"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "~server_protocol",
+            "VALUE": "HTTP/1.1"
+          },
+          {
+            "NAME": "Content-Type",
+            "VALUE": "application/vnd.sap.adt.checkmessages+xml; charset=utf-8"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time=13885"
+          }
+        ],
+        "MESSAGE_BODY": "<?xml version=\"1.0\" encoding=\"utf-8\"?><chkrun:checkRunReports xmlns:chkrun=\"http://www.sap.com/adt/checkrun\"><chkrun:checkReport chkrun:reporter=\"abapCheckRun\" chkrun:triggeringUri=\"/sap/bc/adt/oo/interfaces/zfi_cliente1\" chkrun:status=\"processed\" chkrun:statusText=\"Object ZFI_CLIENTE1 has been checked\"/></chkrun:checkRunReports>"
+      }
+    }
+  },
+  {
+    "LOGID": 517,
+    "JSON": {
+      "REQUEST": {
+        "REQUEST_LINE": {
+          "METHOD": "POST",
+          "URI": "/sap/bc/adt/checkruns?reporters=abapCheckRun",
+          "VERSION": "HTTP/1.1"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "sap-adt-request-id",
+            "VALUE": "6af121fa09814e48959f7b268caa1f83"
+          },
+          {
+            "NAME": "Content-Type",
+            "VALUE": "application/vnd.sap.adt.checkobjects+xml"
+          },
+          {
+            "NAME": "Accept",
+            "VALUE": "application/vnd.sap.adt.checkmessages+xml"
+          },
+          {
+            "NAME": "User-Agent",
+            "VALUE": "Eclipse/4.39.0.v20260226-0420 (win32; x86_64; Java 21.0.10) ADT/3.56.0 (devedition)"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time"
+          }
+        ],
+        "MESSAGE_BODY": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<chkrun:checkObjectList xmlns:adtcore=\"http://www.sap.com/adt/core\" xmlns:chkrun=\"http://www.sap.com/adt/checkrun\">\r\n  <chkrun:checkObject adtcore:uri=\"/sap/bc/adt/oo/interfaces/zfi_cliente1\" chkrun:version=\"active\">\r\n    <chkrun:artifacts>\r\n      <chkrun:artifact chkrun:contentType=\"text/plain; charset=utf-8\" chkrun:uri=\"/sap/bc/adt/oo/interfaces/zfi_cliente1/source/main\">\r\n        <chkrun:content>SU5URVJGQUNFIHpmaV9jbGllbnRlMQ0KICBQVUJMSUMgLg0KICAgIA0KDQpFTkRJTlRFUkZBQ0Uu</chkrun:content>\r\n      </chkrun:artifact>\r\n    </chkrun:artifacts>\r\n  </chkrun:checkObject>\r\n</chkrun:checkObjectList>"
+      },
+      "RESPONSE": {
+        "STATUS_LINE": {
+          "VERSION": "HTTP/1.1",
+          "STATUS_CODE": "200 ",
+          "REASON_PHRASE": "OK"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "~server_protocol",
+            "VALUE": "HTTP/1.1"
+          },
+          {
+            "NAME": "Content-Type",
+            "VALUE": "application/vnd.sap.adt.checkmessages+xml; charset=utf-8"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time=10890"
+          }
+        ],
+        "MESSAGE_BODY": "<?xml version=\"1.0\" encoding=\"utf-8\"?><chkrun:checkRunReports xmlns:chkrun=\"http://www.sap.com/adt/checkrun\"><chkrun:checkReport chkrun:reporter=\"abapCheckRun\" chkrun:triggeringUri=\"/sap/bc/adt/oo/interfaces/zfi_cliente1\" chkrun:status=\"processed\" chkrun:statusText=\"Object ZFI_CLIENTE1 has been checked\"/></chkrun:checkRunReports>"
+      }
+    }
+  },
+  {
+    "LOGID": 518,
+    "JSON": {
+      "REQUEST": {
+        "REQUEST_LINE": {
+          "METHOD": "POST",
+          "URI": "/sap/bc/adt/checkruns?reporters=abapCheckRun",
+          "VERSION": "HTTP/1.1"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "sap-adt-request-id",
+            "VALUE": "8497af0af36d42cba2502f97f025e233"
+          },
+          {
+            "NAME": "Content-Type",
+            "VALUE": "application/vnd.sap.adt.checkobjects+xml"
+          },
+          {
+            "NAME": "Accept",
+            "VALUE": "application/vnd.sap.adt.checkmessages+xml"
+          },
+          {
+            "NAME": "User-Agent",
+            "VALUE": "Eclipse/4.39.0.v20260226-0420 (win32; x86_64; Java 21.0.10) ADT/3.56.0 (devedition)"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time"
+          }
+        ],
+        "MESSAGE_BODY": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<chkrun:checkObjectList xmlns:adtcore=\"http://www.sap.com/adt/core\" xmlns:chkrun=\"http://www.sap.com/adt/checkrun\">\r\n  <chkrun:checkObject adtcore:uri=\"/sap/bc/adt/oo/interfaces/zfi_cliente1\" chkrun:version=\"active\">\r\n    <chkrun:artifacts>\r\n      <chkrun:artifact chkrun:contentType=\"text/plain; charset=utf-8\" chkrun:uri=\"/sap/bc/adt/oo/interfaces/zfi_cliente1/source/main\">\r\n        <chkrun:content>SU5URVJGQUNFIHpmaV9jbGllbnRlMQ0KICBQVUJMSUMgLg0KICAgIE1FVEhPRA0KDQpFTkRJTlRFUkZBQ0Uu</chkrun:content>\r\n      </chkrun:artifact>\r\n    </chkrun:artifacts>\r\n  </chkrun:checkObject>\r\n</chkrun:checkObjectList>"
+      },
+      "RESPONSE": {
+        "STATUS_LINE": {
+          "VERSION": "HTTP/1.1",
+          "STATUS_CODE": "200 ",
+          "REASON_PHRASE": "OK"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "~server_protocol",
+            "VALUE": "HTTP/1.1"
+          },
+          {
+            "NAME": "Content-Type",
+            "VALUE": "application/vnd.sap.adt.checkmessages+xml; charset=utf-8"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time=26931"
+          }
+        ],
+        "MESSAGE_BODY": "<?xml version=\"1.0\" encoding=\"utf-8\"?><chkrun:checkRunReports xmlns:chkrun=\"http://www.sap.com/adt/checkrun\"><chkrun:checkReport chkrun:reporter=\"abapCheckRun\" chkrun:triggeringUri=\"/sap/bc/adt/oo/interfaces/zfi_cliente1\" chkrun:status=\"processed\" chkrun:statusText=\"Object ZFI_CLIENTE1 has been checked\"><chkrun:checkMessageList><chkrun:checkMessage chkrun:uri=\"/sap/bc/adt/oo/interfaces/zfi_cliente1/source/main#start=3,4;end=5,13\" chkrun:type=\"E\" chkrun:shortText=\"The statement &quot;METHOD&quot; cannot be used in the current environment. However, the similar statement &quot;METHODS&quot; can be used.\" chkrun:code=\"MESSAGE(G0V)\"/></chkrun:checkMessageList></chkrun:checkReport></chkrun:checkRunReports>"
+      }
+    }
+  },
+  {
+    "LOGID": 519,
+    "JSON": {
+      "REQUEST": {
+        "REQUEST_LINE": {
+          "METHOD": "POST",
+          "URI": "/sap/bc/adt/checkruns?reporters=abapCheckRun",
+          "VERSION": "HTTP/1.1"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "sap-adt-request-id",
+            "VALUE": "b49a88f351544512b110d3477e337d7b"
+          },
+          {
+            "NAME": "Content-Type",
+            "VALUE": "application/vnd.sap.adt.checkobjects+xml"
+          },
+          {
+            "NAME": "Accept",
+            "VALUE": "application/vnd.sap.adt.checkmessages+xml"
+          },
+          {
+            "NAME": "User-Agent",
+            "VALUE": "Eclipse/4.39.0.v20260226-0420 (win32; x86_64; Java 21.0.10) ADT/3.56.0 (devedition)"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time"
+          }
+        ],
+        "MESSAGE_BODY": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<chkrun:checkObjectList xmlns:adtcore=\"http://www.sap.com/adt/core\" xmlns:chkrun=\"http://www.sap.com/adt/checkrun\">\r\n  <chkrun:checkObject adtcore:uri=\"/sap/bc/adt/oo/interfaces/zfi_cliente1\" chkrun:version=\"active\">\r\n    <chkrun:artifacts>\r\n      <chkrun:artifact chkrun:contentType=\"text/plain; charset=utf-8\" chkrun:uri=\"/sap/bc/adt/oo/interfaces/zfi_cliente1/source/main\">\r\n        <chkrun:content>SU5URVJGQUNFIHpmaV9jbGllbnRlMQ0KICBQVUJMSUMgLg0KICAgIE1FVEhPRCANCg0KRU5ESU5URVJGQUNFLg==</chkrun:content>\r\n      </chkrun:artifact>\r\n    </chkrun:artifacts>\r\n  </chkrun:checkObject>\r\n</chkrun:checkObjectList>"
+      },
+      "RESPONSE": {
+        "STATUS_LINE": {
+          "VERSION": "HTTP/1.1",
+          "STATUS_CODE": "200 ",
+          "REASON_PHRASE": "OK"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "~server_protocol",
+            "VALUE": "HTTP/1.1"
+          },
+          {
+            "NAME": "Content-Type",
+            "VALUE": "application/vnd.sap.adt.checkmessages+xml; charset=utf-8"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time=13637"
+          }
+        ],
+        "MESSAGE_BODY": "<?xml version=\"1.0\" encoding=\"utf-8\"?><chkrun:checkRunReports xmlns:chkrun=\"http://www.sap.com/adt/checkrun\"><chkrun:checkReport chkrun:reporter=\"abapCheckRun\" chkrun:triggeringUri=\"/sap/bc/adt/oo/interfaces/zfi_cliente1\" chkrun:status=\"processed\" chkrun:statusText=\"Object ZFI_CLIENTE1 has been checked\"><chkrun:checkMessageList><chkrun:checkMessage chkrun:uri=\"/sap/bc/adt/oo/interfaces/zfi_cliente1/source/main#start=3,4;end=5,13\" chkrun:type=\"E\" chkrun:shortText=\"The statement &quot;METHOD&quot; cannot be used in the current environment. However, the similar statement &quot;METHODS&quot; can be used.\" chkrun:code=\"MESSAGE(G0V)\"/></chkrun:checkMessageList></chkrun:checkReport></chkrun:checkRunReports>"
+      }
+    }
+  },
+  {
+    "LOGID": 520,
+    "JSON": {
+      "REQUEST": {
+        "REQUEST_LINE": {
+          "METHOD": "POST",
+          "URI": "/sap/bc/adt/checkruns?reporters=abapCheckRun",
+          "VERSION": "HTTP/1.1"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "sap-adt-request-id",
+            "VALUE": "fc2020512f7c4241a8ea3c411c7a1416"
+          },
+          {
+            "NAME": "Content-Type",
+            "VALUE": "application/vnd.sap.adt.checkobjects+xml"
+          },
+          {
+            "NAME": "Accept",
+            "VALUE": "application/vnd.sap.adt.checkmessages+xml"
+          },
+          {
+            "NAME": "User-Agent",
+            "VALUE": "Eclipse/4.39.0.v20260226-0420 (win32; x86_64; Java 21.0.10) ADT/3.56.0 (devedition)"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time"
+          }
+        ],
+        "MESSAGE_BODY": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<chkrun:checkObjectList xmlns:adtcore=\"http://www.sap.com/adt/core\" xmlns:chkrun=\"http://www.sap.com/adt/checkrun\">\r\n  <chkrun:checkObject adtcore:uri=\"/sap/bc/adt/oo/interfaces/zfi_cliente1\" chkrun:version=\"active\">\r\n    <chkrun:artifacts>\r\n      <chkrun:artifact chkrun:contentType=\"text/plain; charset=utf-8\" chkrun:uri=\"/sap/bc/adt/oo/interfaces/zfi_cliente1/source/main\">\r\n        <chkrun:content>SU5URVJGQUNFIHpmaV9jbGllbnRlMQ0KICBQVUJMSUMgLg0KICAgIE1FVEhPRCB0ZXN0DQoNCkVORElOVEVSRkFDRS4=</chkrun:content>\r\n      </chkrun:artifact>\r\n    </chkrun:artifacts>\r\n  </chkrun:checkObject>\r\n</chkrun:checkObjectList>"
+      },
+      "RESPONSE": {
+        "STATUS_LINE": {
+          "VERSION": "HTTP/1.1",
+          "STATUS_CODE": "200 ",
+          "REASON_PHRASE": "OK"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "~server_protocol",
+            "VALUE": "HTTP/1.1"
+          },
+          {
+            "NAME": "Content-Type",
+            "VALUE": "application/vnd.sap.adt.checkmessages+xml; charset=utf-8"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time=14445"
+          }
+        ],
+        "MESSAGE_BODY": "<?xml version=\"1.0\" encoding=\"utf-8\"?><chkrun:checkRunReports xmlns:chkrun=\"http://www.sap.com/adt/checkrun\"><chkrun:checkReport chkrun:reporter=\"abapCheckRun\" chkrun:triggeringUri=\"/sap/bc/adt/oo/interfaces/zfi_cliente1\" chkrun:status=\"processed\" chkrun:statusText=\"Object ZFI_CLIENTE1 has been checked\"><chkrun:checkMessageList><chkrun:checkMessage chkrun:uri=\"/sap/bc/adt/oo/interfaces/zfi_cliente1/source/main#start=3,4;end=5,13\" chkrun:type=\"E\" chkrun:shortText=\"The current statement cannot be used between &quot;INTERFACE&quot; and &quot;ENDINTERFACE&quot;.\" chkrun:code=\"MESSAGE(G0T)\"/></chkrun:checkMessageList></chkrun:checkReport></chkrun:checkRunReports>"
+      }
+    }
+  },
+  {
+    "LOGID": 521,
+    "JSON": {
+      "REQUEST": {
+        "REQUEST_LINE": {
+          "METHOD": "POST",
+          "URI": "/sap/bc/adt/checkruns?reporters=abapCheckRun",
+          "VERSION": "HTTP/1.1"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "sap-adt-request-id",
+            "VALUE": "d464ab377c5145a4b10d63529ad4e5b2"
+          },
+          {
+            "NAME": "Content-Type",
+            "VALUE": "application/vnd.sap.adt.checkobjects+xml"
+          },
+          {
+            "NAME": "Accept",
+            "VALUE": "application/vnd.sap.adt.checkmessages+xml"
+          },
+          {
+            "NAME": "User-Agent",
+            "VALUE": "Eclipse/4.39.0.v20260226-0420 (win32; x86_64; Java 21.0.10) ADT/3.56.0 (devedition)"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time"
+          }
+        ],
+        "MESSAGE_BODY": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<chkrun:checkObjectList xmlns:adtcore=\"http://www.sap.com/adt/core\" xmlns:chkrun=\"http://www.sap.com/adt/checkrun\">\r\n  <chkrun:checkObject adtcore:uri=\"/sap/bc/adt/oo/interfaces/zfi_cliente1\" chkrun:version=\"active\">\r\n    <chkrun:artifacts>\r\n      <chkrun:artifact chkrun:contentType=\"text/plain; charset=utf-8\" chkrun:uri=\"/sap/bc/adt/oo/interfaces/zfi_cliente1/source/main\">\r\n        <chkrun:content>SU5URVJGQUNFIHpmaV9jbGllbnRlMQ0KICBQVUJMSUMgLg0KICAgIE1FVEhPRCB0ZXN0MS4NCg0KRU5ESU5URVJGQUNFLg==</chkrun:content>\r\n      </chkrun:artifact>\r\n    </chkrun:artifacts>\r\n  </chkrun:checkObject>\r\n</chkrun:checkObjectList>"
+      },
+      "RESPONSE": {
+        "STATUS_LINE": {
+          "VERSION": "HTTP/1.1",
+          "STATUS_CODE": "200 ",
+          "REASON_PHRASE": "OK"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "~server_protocol",
+            "VALUE": "HTTP/1.1"
+          },
+          {
+            "NAME": "Content-Type",
+            "VALUE": "application/vnd.sap.adt.checkmessages+xml; charset=utf-8"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time=16197"
+          }
+        ],
+        "MESSAGE_BODY": "<?xml version=\"1.0\" encoding=\"utf-8\"?><chkrun:checkRunReports xmlns:chkrun=\"http://www.sap.com/adt/checkrun\"><chkrun:checkReport chkrun:reporter=\"abapCheckRun\" chkrun:triggeringUri=\"/sap/bc/adt/oo/interfaces/zfi_cliente1\" chkrun:status=\"processed\" chkrun:statusText=\"Object ZFI_CLIENTE1 has been checked\"><chkrun:checkMessageList><chkrun:checkMessage chkrun:uri=\"/sap/bc/adt/oo/interfaces/zfi_cliente1/source/main#start=3,4;end=3,17\" chkrun:type=\"E\" chkrun:shortText=\"The current statement cannot be used between &quot;INTERFACE&quot; and &quot;ENDINTERFACE&quot;.\" chkrun:code=\"MESSAGE(G0T)\"/></chkrun:checkMessageList></chkrun:checkReport></chkrun:checkRunReports>"
+      }
+    }
+  },
+  {
+    "LOGID": 522,
+    "JSON": {
+      "REQUEST": {
+        "REQUEST_LINE": {
+          "METHOD": "POST",
+          "URI": "/sap/bc/adt/oo/interfaces/$codeprediction",
+          "VERSION": "HTTP/1.1"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "sap-adt-request-id",
+            "VALUE": "ae1ff38206894e589edda9818964572d"
+          },
+          {
+            "NAME": "Content-Type",
+            "VALUE": "application/vnd.sap.adt.ideactions.runtime.input.v1+xml"
+          },
+          {
+            "NAME": "Accept",
+            "VALUE": "application/vnd.sap.adt.ideactions.runtime.headless.result.v1+xml, application/vnd.sap.adt.codeCompletionProposals.v4+xml"
+          },
+          {
+            "NAME": "User-Agent",
+            "VALUE": "Eclipse/4.39.0.v20260226-0420 (win32; x86_64; Java 21.0.10) ADT/3.56.0 (devedition)"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time"
+          }
+        ],
+        "MESSAGE_BODY": "<?xml version=\"1.0\" encoding=\"UTF-8\"?><ideactions:input xmlns:ideactions=\"http://www.sap.com/adt/ideaction\"><ideactions:configuration/><idecontext:resources xmlns:idecontext=\"http://www.sap.com/adt/idecontext\"><idecontext:resource idecontext:isFocused=\"true\" idecontext:isDirty=\"true\"><idecontext:uri>/sap/bc/adt/oo/interfaces/zfi_cliente1/source/main?version=active#start=3,17</idecontext:uri><idecontext:name>ZFI_CLIENTE1</idecontext:name><idecontext:type>INTF/OI</idecontext:type><adtcore:content xmlns:adtcore=\"http://www.sap.com/adt/core\" adtcore:type=\"text/plain; charset=utf-8\" adtcore:encoding=\"base64\">SU5URVJGQUNFIHpmaV9jbGllbnRlMQogIFBVQkxJQyAuCiAgICBNRVRIT0QgdGVzdDEuCgpFTkRJTlRFUkZBQ0Uu</adtcore:content></idecontext:resource><idecontext:resource idecontext:isSelected=\"true\" idecontext:isDirty=\"false\"><idecontext:uri>/sap/bc/adt/oo/interfaces/zfi_cliente1?version=active</idecontext:uri><idecontext:name>ZFI_CLIENTE1</idecontext:name><idecontext:type>INTF/OI</idecontext:type></idecontext:resource><idecontext:resource idecontext:isSelected=\"true\" idecontext:isDirty=\"false\"><idecontext:uri>/sap/bc/adt/oo/interfaces/zfi_cliente1/source/main?version=active#start=3,11;end=3,16</idecontext:uri><idecontext:name>TEST1</idecontext:name><idecontext:type>INTF/IO</idecontext:type></idecontext:resource></idecontext:resources></ideactions:input>"
+      },
+      "RESPONSE": {
+        "STATUS_LINE": {
+          "VERSION": "HTTP/1.1",
+          "STATUS_CODE": "200 ",
+          "REASON_PHRASE": "OK"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "~server_protocol",
+            "VALUE": "HTTP/1.1"
+          },
+          {
+            "NAME": "Content-Type",
+            "VALUE": "application/vnd.sap.adt.codeCompletionProposals.v4+xml; charset=utf-8"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time=542368"
+          }
+        ],
+        "MESSAGE_BODY": "<?xml version=\"1.0\" encoding=\"utf-8\"?><completion:codeCompletionProposals completion:listIsIncomplete=\"false\" xmlns:completion=\"http://www.sap.com/adt/completion\"><completion:codeCompletionProposal completion:completionKind=\"codePrediction\"><completion:replacementString>CiAgICBFTkRNRVRIT0Qu</completion:replacementString></completion:codeCompletionProposal></completion:codeCompletionProposals>"
+      }
+    }
+  },
+  {
+    "LOGID": 523,
+    "JSON": {
+      "REQUEST": {
+        "REQUEST_LINE": {
+          "METHOD": "POST",
+          "URI": "/sap/bc/adt/checkruns?reporters=abapCheckRun",
+          "VERSION": "HTTP/1.1"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "sap-adt-request-id",
+            "VALUE": "3ce0d496f4b44be0907c666c4b668a56"
+          },
+          {
+            "NAME": "Content-Type",
+            "VALUE": "application/vnd.sap.adt.checkobjects+xml"
+          },
+          {
+            "NAME": "Accept",
+            "VALUE": "application/vnd.sap.adt.checkmessages+xml"
+          },
+          {
+            "NAME": "User-Agent",
+            "VALUE": "Eclipse/4.39.0.v20260226-0420 (win32; x86_64; Java 21.0.10) ADT/3.56.0 (devedition)"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time"
+          }
+        ],
+        "MESSAGE_BODY": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<chkrun:checkObjectList xmlns:adtcore=\"http://www.sap.com/adt/core\" xmlns:chkrun=\"http://www.sap.com/adt/checkrun\">\r\n  <chkrun:checkObject adtcore:uri=\"/sap/bc/adt/oo/interfaces/zfi_cliente1\" chkrun:version=\"active\">\r\n    <chkrun:artifacts>\r\n      <chkrun:artifact chkrun:contentType=\"text/plain; charset=utf-8\" chkrun:uri=\"/sap/bc/adt/oo/interfaces/zfi_cliente1/source/main\">\r\n        <chkrun:content>SU5URVJGQUNFIHpmaV9jbGllbnRlMQ0KICBQVUJMSUMgLg0KICAgIE1FVEhPRHMgdGVzdDEuDQoNCkVORElOVEVSRkFDRS4=</chkrun:content>\r\n      </chkrun:artifact>\r\n    </chkrun:artifacts>\r\n  </chkrun:checkObject>\r\n</chkrun:checkObjectList>"
+      },
+      "RESPONSE": {
+        "STATUS_LINE": {
+          "VERSION": "HTTP/1.1",
+          "STATUS_CODE": "200 ",
+          "REASON_PHRASE": "OK"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "~server_protocol",
+            "VALUE": "HTTP/1.1"
+          },
+          {
+            "NAME": "Content-Type",
+            "VALUE": "application/vnd.sap.adt.checkmessages+xml; charset=utf-8"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time=12265"
+          }
+        ],
+        "MESSAGE_BODY": "<?xml version=\"1.0\" encoding=\"utf-8\"?><chkrun:checkRunReports xmlns:chkrun=\"http://www.sap.com/adt/checkrun\"><chkrun:checkReport chkrun:reporter=\"abapCheckRun\" chkrun:triggeringUri=\"/sap/bc/adt/oo/interfaces/zfi_cliente1\" chkrun:status=\"processed\" chkrun:statusText=\"Object ZFI_CLIENTE1 has been checked\"/></chkrun:checkRunReports>"
+      }
+    }
+  },
+  {
+    "LOGID": 524,
+    "JSON": {
+      "REQUEST": {
+        "REQUEST_LINE": {
+          "METHOD": "POST",
+          "URI": "/sap/bc/adt/oo/interfaces/$codeprediction",
+          "VERSION": "HTTP/1.1"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "sap-adt-request-id",
+            "VALUE": "dadd5c30f4de4c90ab80d6409e563402"
+          },
+          {
+            "NAME": "Content-Type",
+            "VALUE": "application/vnd.sap.adt.ideactions.runtime.input.v1+xml"
+          },
+          {
+            "NAME": "Accept",
+            "VALUE": "application/vnd.sap.adt.ideactions.runtime.headless.result.v1+xml, application/vnd.sap.adt.codeCompletionProposals.v4+xml"
+          },
+          {
+            "NAME": "User-Agent",
+            "VALUE": "Eclipse/4.39.0.v20260226-0420 (win32; x86_64; Java 21.0.10) ADT/3.56.0 (devedition)"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time"
+          }
+        ],
+        "MESSAGE_BODY": "<?xml version=\"1.0\" encoding=\"UTF-8\"?><ideactions:input xmlns:ideactions=\"http://www.sap.com/adt/ideaction\"><ideactions:configuration/><idecontext:resources xmlns:idecontext=\"http://www.sap.com/adt/idecontext\"><idecontext:resource idecontext:isFocused=\"true\" idecontext:isDirty=\"true\"><idecontext:uri>/sap/bc/adt/oo/interfaces/zfi_cliente1/source/main?version=active#start=3,11</idecontext:uri><idecontext:name>ZFI_CLIENTE1</idecontext:name><idecontext:type>INTF/OI</idecontext:type><adtcore:content xmlns:adtcore=\"http://www.sap.com/adt/core\" adtcore:type=\"text/plain; charset=utf-8\" adtcore:encoding=\"base64\">SU5URVJGQUNFIHpmaV9jbGllbnRlMQogIFBVQkxJQyAuCiAgICBNRVRIT0RzIHRlc3QxLgoKRU5ESU5URVJGQUNFLg==</adtcore:content></idecontext:resource><idecontext:resource idecontext:isSelected=\"true\" idecontext:isDirty=\"false\"><idecontext:uri>/sap/bc/adt/oo/interfaces/zfi_cliente1?version=active</idecontext:uri><idecontext:name>ZFI_CLIENTE1</idecontext:name><idecontext:type>INTF/OI</idecontext:type></idecontext:resource><idecontext:resource idecontext:isSelected=\"true\" idecontext:isDirty=\"false\"><idecontext:uri>/sap/bc/adt/oo/interfaces/zfi_cliente1/source/main?version=active#start=3,12;end=3,17</idecontext:uri><idecontext:name>TEST1</idecontext:name><idecontext:type>INTF/IO</idecontext:type></idecontext:resource></idecontext:resources></ideactions:input>"
+      },
+      "RESPONSE": {
+        "STATUS_LINE": {
+          "VERSION": "HTTP/1.1",
+          "STATUS_CODE": "200 ",
+          "REASON_PHRASE": "OK"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "~server_protocol",
+            "VALUE": "HTTP/1.1"
+          },
+          {
+            "NAME": "Content-Type",
+            "VALUE": "application/vnd.sap.adt.codeCompletionProposals.v4+xml; charset=utf-8"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time=469106"
+          }
+        ],
+        "MESSAGE_BODY": "<?xml version=\"1.0\" encoding=\"utf-8\"?><completion:codeCompletionProposals completion:listIsIncomplete=\"false\" xmlns:completion=\"http://www.sap.com/adt/completion\"/>"
+      }
+    }
+  },
+  {
+    "LOGID": 525,
+    "JSON": {
+      "REQUEST": {
+        "REQUEST_LINE": {
+          "METHOD": "PUT",
+          "URI": "/sap/bc/adt/oo/interfaces/zfi_cliente1/source/main?lockHandle=E89CAADA1C29B4233168465AF84FE37AE787F1A0&corrNr=A4HK900148",
+          "VERSION": "HTTP/1.1"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "sap-adt-request-id",
+            "VALUE": "f54f316d3e5147949aaaf6f772a9a48d"
+          },
+          {
+            "NAME": "Content-Type",
+            "VALUE": "text/plain; charset=utf-8"
+          },
+          {
+            "NAME": "User-Agent",
+            "VALUE": "Eclipse/4.39.0.v20260226-0420 (win32; x86_64; Java 21.0.10) ADT/3.56.0 (devedition)"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time"
+          }
+        ],
+        "MESSAGE_BODY": "INTERFACE zfi_cliente1\r\n  PUBLIC.\r\n    METHODs test1.\r\n\r\nENDINTERFACE."
+      },
+      "RESPONSE": {
+        "STATUS_LINE": {
+          "VERSION": "HTTP/1.1",
+          "STATUS_CODE": "200 ",
+          "REASON_PHRASE": "OK"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "~server_protocol",
+            "VALUE": "HTTP/1.1"
+          },
+          {
+            "NAME": "Last-Modified",
+            "VALUE": "Mon, 07 Sep 2026 17:17:42 GMT"
+          },
+          {
+            "NAME": "ETag",
+            "VALUE": "202609071717420001"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time=321594"
+          }
+        ],
+        "MESSAGE_BODY": ""
+      }
+    }
+  },
+  {
+    "LOGID": 526,
+    "JSON": {
+      "REQUEST": {
+        "REQUEST_LINE": {
+          "METHOD": "GET",
+          "URI": "/sap/bc/adt/oo/interfaces/zfi_cliente1?version=inactive",
+          "VERSION": "HTTP/1.1"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "If-None-Match",
+            "VALUE": "202609071717260015"
+          },
+          {
+            "NAME": "sap-adt-request-id",
+            "VALUE": "ef4fd36658fe4e76a1c67ed0939fea71"
+          },
+          {
+            "NAME": "Accept",
+            "VALUE": "application/vnd.sap.adt.oo.interfaces.v5+xml, application/vnd.sap.adt.oo.interfaces.v4+xml, application/vnd.sap.adt.oo.interfaces.v3+xml, application/vnd.sap.adt.oo.interfaces.v2+xml, application/vnd.sap.adt.oo.interfaces+xml"
+          },
+          {
+            "NAME": "User-Agent",
+            "VALUE": "Eclipse/4.39.0.v20260226-0420 (win32; x86_64; Java 21.0.10) ADT/3.56.0 (devedition)"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time"
+          }
+        ],
+        "MESSAGE_BODY": ""
+      },
+      "RESPONSE": {
+        "STATUS_LINE": {
+          "VERSION": "HTTP/1.1",
+          "STATUS_CODE": "200 ",
+          "REASON_PHRASE": "OK"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "~server_protocol",
+            "VALUE": "HTTP/1.1"
+          },
+          {
+            "NAME": "Content-Type",
+            "VALUE": "application/vnd.sap.adt.oo.interfaces.v5+xml; charset=utf-8"
+          },
+          {
+            "NAME": "Last-Modified",
+            "VALUE": "Mon, 07 Sep 2026 17:17:42 GMT"
+          },
+          {
+            "NAME": "ETag",
+            "VALUE": "202609071717420005"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time=8986"
+          }
+        ],
+        "MESSAGE_BODY": "<?xml version=\"1.0\" encoding=\"utf-8\"?><intf:abapInterface abapoo:modeled=\"false\" abapsource:sourceUri=\"source/main\" abapsource:fixPointArithmetic=\"false\" abapsource:activeUnicodeCheck=\"true\" adtcore:responsible=\"DEVELOPER\" adtcore:masterLanguage=\"EN\" adtcore:masterSystem=\"A4H\" adtcore:abapLanguageVersion=\"standard\" adtcore:name=\"ZFI_CLIENTE1\" adtcore:type=\"INTF/OI\" adtcore:changedAt=\"2026-09-07T17:17:42Z\" adtcore:version=\"inactive\" adtcore:createdAt=\"2026-09-07T00:00:00Z\" adtcore:changedBy=\"DEVELOPER\" adtcore:createdBy=\"DEVELOPER\" adtcore:description=\"Teste de Interface\" adtcore:descriptionTextLimit=\"60\" adtcore:language=\"EN\" xmlns:intf=\"http://www.sap.com/adt/oo/interfaces\" xmlns:abapoo=\"http://www.sap.com/adt/oo\" xmlns:abapsource=\"http://www.sap.com/adt/abapsource\" xmlns:adtcore=\"http://www.sap.com/adt/core\"><atom:link href=\"source/main/versions\" rel=\"http://www.sap.com/adt/relations/versions\" xmlns:atom=\"http://www.w3.org/2005/Atom\"/><atom:link href=\"source/main\" rel=\"http://www.sap.com/adt/relations/source\" type=\"text/plain\" etag=\"202609071717420001\" xmlns:atom=\"http://www.w3.org/2005/Atom\"/><atom:link href=\"source/main\" rel=\"http://www.sap.com/adt/relations/source\" type=\"text/html\" etag=\"202609071717420001\" xmlns:atom=\"http://www.w3.org/2005/Atom\"/><atom:link href=\"objectstructure\" rel=\"http://www.sap.com/adt/relations/objectstructure\" type=\"application/vnd.sap.adt.objectstructure.v2+xml\" xmlns:atom=\"http://www.w3.org/2005/Atom\"/><atom:link href=\"/sap/bc/adt/oo/interfaces/zfi_cliente1/source/main?withAbapDocFromShortTexts=true\" rel=\"http://www.sap.com/adt/relations/sources/withabapdocfromshorttexts\" type=\"text/plain\" title=\"Source with ABAP Doc\" xmlns:atom=\"http://www.w3.org/2005/Atom\"/><atom:link href=\"/sap/bc/adt/oo/interfaces/zfi_cliente1/source/main?version=active\" rel=\"http://www.sap.com/adt/relations/objectstates\" title=\"Reference to active or inactive version\" xmlns:atom=\"http://www.w3.org/2005/Atom\"/><atom:link href=\"/sap/bc/adt/repository/informationsystem/abaplanguageversions?uri=%2Fsap%2Fbc%2Fadt%2Foo%2Finterfaces%2Fzfi_cliente1\" rel=\"http://www.sap.com/adt/relations/informationsystem/abaplanguageversions\" type=\"application/vnd.sap.adt.nameditems.v1+xml\" title=\"Allowed ABAP language versions\" xmlns:atom=\"http://www.w3.org/2005/Atom\"/><adtcore:packageRef adtcore:uri=\"/sap/bc/adt/packages/zcliente1\" adtcore:type=\"DEVC/K\" adtcore:name=\"ZCLIENTE1\"/><abapsource:syntaxConfiguration><abapsource:language><abapsource:version>X</abapsource:version><abapsource:description>Standard ABAP</abapsource:description><atom:link href=\"/sap/bc/adt/abapsource/parsers/rnd/grammar\" rel=\"http://www.sap.com/adt/relations/abapsource/parser\" type=\"text/plain\" title=\"Standard ABAP\" etag=\"816\" xmlns:atom=\"http://www.w3.org/2005/Atom\"/></abapsource:language></abapsource:syntaxConfiguration></intf:abapInterface>"
+      }
+    }
+  },
+  {
+    "LOGID": 527,
+    "JSON": {
+      "REQUEST": {
+        "REQUEST_LINE": {
+          "METHOD": "POST",
+          "URI": "/sap/bc/adt/checkruns?reporters=abapCheckRun",
+          "VERSION": "HTTP/1.1"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "sap-adt-request-id",
+            "VALUE": "e31a15bdd59f43c1a1851453b8289ce0"
+          },
+          {
+            "NAME": "Content-Type",
+            "VALUE": "application/vnd.sap.adt.checkobjects+xml"
+          },
+          {
+            "NAME": "Accept",
+            "VALUE": "application/vnd.sap.adt.checkmessages+xml"
+          },
+          {
+            "NAME": "User-Agent",
+            "VALUE": "Eclipse/4.39.0.v20260226-0420 (win32; x86_64; Java 21.0.10) ADT/3.56.0 (devedition)"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time"
+          }
+        ],
+        "MESSAGE_BODY": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<chkrun:checkObjectList xmlns:adtcore=\"http://www.sap.com/adt/core\" xmlns:chkrun=\"http://www.sap.com/adt/checkrun\">\r\n  <chkrun:checkObject adtcore:uri=\"/sap/bc/adt/oo/interfaces/zfi_cliente1\" chkrun:version=\"inactive\"/>\r\n</chkrun:checkObjectList>"
+      },
+      "RESPONSE": {
+        "STATUS_LINE": {
+          "VERSION": "HTTP/1.1",
+          "STATUS_CODE": "200 ",
+          "REASON_PHRASE": "OK"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "~server_protocol",
+            "VALUE": "HTTP/1.1"
+          },
+          {
+            "NAME": "Content-Type",
+            "VALUE": "application/vnd.sap.adt.checkmessages+xml; charset=utf-8"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time=21920"
+          }
+        ],
+        "MESSAGE_BODY": "<?xml version=\"1.0\" encoding=\"utf-8\"?><chkrun:checkRunReports xmlns:chkrun=\"http://www.sap.com/adt/checkrun\"><chkrun:checkReport chkrun:reporter=\"abapCheckRun\" chkrun:triggeringUri=\"/sap/bc/adt/oo/interfaces/zfi_cliente1\" chkrun:status=\"processed\" chkrun:statusText=\"Object ZFI_CLIENTE1 has been checked\"/></chkrun:checkRunReports>"
+      }
+    }
+  },
+  {
+    "LOGID": 528,
+    "JSON": {
+      "REQUEST": {
+        "REQUEST_LINE": {
+          "METHOD": "POST",
+          "URI": "/sap/bc/adt/oo/interfaces/$codeprediction",
+          "VERSION": "HTTP/1.1"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "sap-adt-request-id",
+            "VALUE": "138b70fb6c6e4faaa0fbff0ac75e16f0"
+          },
+          {
+            "NAME": "Content-Type",
+            "VALUE": "application/vnd.sap.adt.ideactions.runtime.input.v1+xml"
+          },
+          {
+            "NAME": "Accept",
+            "VALUE": "application/vnd.sap.adt.ideactions.runtime.headless.result.v1+xml, application/vnd.sap.adt.codeCompletionProposals.v4+xml"
+          },
+          {
+            "NAME": "User-Agent",
+            "VALUE": "Eclipse/4.39.0.v20260226-0420 (win32; x86_64; Java 21.0.10) ADT/3.56.0 (devedition)"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time"
+          }
+        ],
+        "MESSAGE_BODY": "<?xml version=\"1.0\" encoding=\"UTF-8\"?><ideactions:input xmlns:ideactions=\"http://www.sap.com/adt/ideaction\"><ideactions:configuration/><idecontext:resources xmlns:idecontext=\"http://www.sap.com/adt/idecontext\"><idecontext:resource idecontext:isFocused=\"true\" idecontext:isDirty=\"true\"><idecontext:uri>/sap/bc/adt/oo/interfaces/zfi_cliente1/source/main?version=active#start=2,8</idecontext:uri><idecontext:name>ZFI_CLIENTE1</idecontext:name><idecontext:type>INTF/OI</idecontext:type><adtcore:content xmlns:adtcore=\"http://www.sap.com/adt/core\" adtcore:type=\"text/plain; charset=utf-8\" adtcore:encoding=\"base64\">SU5URVJGQUNFIHpmaV9jbGllbnRlMQogIFBVQkxJQy4KICAgIE1FVEhPRHMgdGVzdDEuCgpFTkRJTlRFUkZBQ0Uu</adtcore:content></idecontext:resource><idecontext:resource idecontext:isSelected=\"true\" idecontext:isDirty=\"false\"><idecontext:uri>/sap/bc/adt/oo/interfaces/zfi_cliente1?version=active</idecontext:uri><idecontext:name>ZFI_CLIENTE1</idecontext:name><idecontext:type>INTF/OI</idecontext:type></idecontext:resource><idecontext:resource idecontext:isSelected=\"true\" idecontext:isDirty=\"false\"><idecontext:uri>/sap/bc/adt/oo/interfaces/zfi_cliente1/source/main?version=active#start=1,10;end=1,22</idecontext:uri><idecontext:name>ZFI_CLIENTE1</idecontext:name><idecontext:type>INTF/OI</idecontext:type></idecontext:resource></idecontext:resources></ideactions:input>"
+      },
+      "RESPONSE": {
+        "STATUS_LINE": {
+          "VERSION": "HTTP/1.1",
+          "STATUS_CODE": "200 ",
+          "REASON_PHRASE": "OK"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "~server_protocol",
+            "VALUE": "HTTP/1.1"
+          },
+          {
+            "NAME": "Content-Type",
+            "VALUE": "application/vnd.sap.adt.codeCompletionProposals.v4+xml; charset=utf-8"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time=78632"
+          }
+        ],
+        "MESSAGE_BODY": "<?xml version=\"1.0\" encoding=\"utf-8\"?><completion:codeCompletionProposals completion:listIsIncomplete=\"false\" xmlns:completion=\"http://www.sap.com/adt/completion\"/>"
+      }
+    }
+  },
+  {
+    "LOGID": 529,
+    "JSON": {
+      "REQUEST": {
+        "REQUEST_LINE": {
+          "METHOD": "POST",
+          "URI": "/sap/bc/adt/oo/interfaces/zfi_cliente1?_action=UNLOCK&lockHandle=E89CAADA1C29B4233168465AF84FE37AE787F1A0",
+          "VERSION": "HTTP/1.1"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "sap-adt-request-id",
+            "VALUE": "5503b7edc24748c3a51587967610d020"
+          },
+          {
+            "NAME": "User-Agent",
+            "VALUE": "Eclipse/4.39.0.v20260226-0420 (win32; x86_64; Java 21.0.10) ADT/3.56.0 (devedition)"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time"
+          }
+        ],
+        "MESSAGE_BODY": ""
+      },
+      "RESPONSE": {
+        "STATUS_LINE": {
+          "VERSION": "HTTP/1.1",
+          "STATUS_CODE": "200 ",
+          "REASON_PHRASE": "OK"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "~server_protocol",
+            "VALUE": "HTTP/1.1"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time=1227"
+          }
+        ],
+        "MESSAGE_BODY": ""
+      }
+    }
+  },
+  {
+    "LOGID": 530,
+    "JSON": {
+      "REQUEST": {
+        "REQUEST_LINE": {
+          "METHOD": "POST",
+          "URI": "/sap/bc/adt/activation?method=activate&preauditRequested=true",
+          "VERSION": "HTTP/1.1"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "sap-adt-request-id",
+            "VALUE": "741df1ba0bd6498d896f41a137579f60"
+          },
+          {
+            "NAME": "Content-Type",
+            "VALUE": "application/xml"
+          },
+          {
+            "NAME": "Accept",
+            "VALUE": "application/xml"
+          },
+          {
+            "NAME": "User-Agent",
+            "VALUE": "Eclipse/4.39.0.v20260226-0420 (win32; x86_64; Java 21.0.10) ADT/3.56.0 (devedition)"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time"
+          }
+        ],
+        "MESSAGE_BODY": "<?xml version=\"1.0\" encoding=\"UTF-8\"?><adtcore:objectReferences xmlns:adtcore=\"http://www.sap.com/adt/core\"><adtcore:objectReference adtcore:uri=\"/sap/bc/adt/oo/interfaces/zfi_cliente1\" adtcore:name=\"ZFI_CLIENTE1\"/></adtcore:objectReferences>"
+      },
+      "RESPONSE": {
+        "STATUS_LINE": {
+          "VERSION": "HTTP/1.1",
+          "STATUS_CODE": "200 ",
+          "REASON_PHRASE": "OK"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "~server_protocol",
+            "VALUE": "HTTP/1.1"
+          },
+          {
+            "NAME": "Content-Type",
+            "VALUE": "application/xml; charset=utf-8"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time=162438"
+          }
+        ],
+        "MESSAGE_BODY": "<?xml version=\"1.0\" encoding=\"utf-8\"?><chkl:messages xmlns:chkl=\"http://www.sap.com/abapxml/checklist\"><chkl:properties checkExecuted=\"true\" activationExecuted=\"true\" generationExecuted=\"true\"/></chkl:messages>"
+      }
+    }
+  },
+  {
+    "LOGID": 531,
+    "JSON": {
+      "REQUEST": {
+        "REQUEST_LINE": {
+          "METHOD": "GET",
+          "URI": "/sap/bc/adt/oo/interfaces/zfi_cliente1?version=workingArea",
+          "VERSION": "HTTP/1.1"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "If-None-Match",
+            "VALUE": "202609071717420005"
+          },
+          {
+            "NAME": "sap-adt-request-id",
+            "VALUE": "9ed7d44f492c450996eccf3f18ab2edb"
+          },
+          {
+            "NAME": "Accept",
+            "VALUE": "application/vnd.sap.adt.oo.interfaces.v5+xml, application/vnd.sap.adt.oo.interfaces.v4+xml, application/vnd.sap.adt.oo.interfaces.v3+xml, application/vnd.sap.adt.oo.interfaces.v2+xml, application/vnd.sap.adt.oo.interfaces+xml"
+          },
+          {
+            "NAME": "User-Agent",
+            "VALUE": "Eclipse/4.39.0.v20260226-0420 (win32; x86_64; Java 21.0.10) ADT/3.56.0 (devedition)"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time"
+          }
+        ],
+        "MESSAGE_BODY": ""
+      },
+      "RESPONSE": {
+        "STATUS_LINE": {
+          "VERSION": "HTTP/1.1",
+          "STATUS_CODE": "200 ",
+          "REASON_PHRASE": "OK"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "~server_protocol",
+            "VALUE": "HTTP/1.1"
+          },
+          {
+            "NAME": "Content-Type",
+            "VALUE": "application/vnd.sap.adt.oo.interfaces.v5+xml; charset=utf-8"
+          },
+          {
+            "NAME": "Last-Modified",
+            "VALUE": "Mon, 07 Sep 2026 17:17:44 GMT"
+          },
+          {
+            "NAME": "ETag",
+            "VALUE": "202609071717440015"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time=7150"
+          }
+        ],
+        "MESSAGE_BODY": "<?xml version=\"1.0\" encoding=\"utf-8\"?><intf:abapInterface abapoo:modeled=\"false\" abapsource:sourceUri=\"source/main\" abapsource:fixPointArithmetic=\"false\" abapsource:activeUnicodeCheck=\"true\" adtcore:responsible=\"DEVELOPER\" adtcore:masterLanguage=\"EN\" adtcore:masterSystem=\"A4H\" adtcore:abapLanguageVersion=\"standard\" adtcore:name=\"ZFI_CLIENTE1\" adtcore:type=\"INTF/OI\" adtcore:changedAt=\"2026-09-07T17:17:44Z\" adtcore:version=\"active\" adtcore:createdAt=\"2026-09-07T00:00:00Z\" adtcore:changedBy=\"DEVELOPER\" adtcore:createdBy=\"DEVELOPER\" adtcore:description=\"Teste de Interface\" adtcore:descriptionTextLimit=\"60\" adtcore:language=\"EN\" xmlns:intf=\"http://www.sap.com/adt/oo/interfaces\" xmlns:abapoo=\"http://www.sap.com/adt/oo\" xmlns:abapsource=\"http://www.sap.com/adt/abapsource\" xmlns:adtcore=\"http://www.sap.com/adt/core\"><atom:link href=\"source/main/versions\" rel=\"http://www.sap.com/adt/relations/versions\" xmlns:atom=\"http://www.w3.org/2005/Atom\"/><atom:link href=\"source/main\" rel=\"http://www.sap.com/adt/relations/source\" type=\"text/plain\" etag=\"202609071717440011\" xmlns:atom=\"http://www.w3.org/2005/Atom\"/><atom:link href=\"source/main\" rel=\"http://www.sap.com/adt/relations/source\" type=\"text/html\" etag=\"202609071717440011\" xmlns:atom=\"http://www.w3.org/2005/Atom\"/><atom:link href=\"objectstructure\" rel=\"http://www.sap.com/adt/relations/objectstructure\" type=\"application/vnd.sap.adt.objectstructure.v2+xml\" xmlns:atom=\"http://www.w3.org/2005/Atom\"/><atom:link href=\"/sap/bc/adt/oo/interfaces/zfi_cliente1/source/main?withAbapDocFromShortTexts=true\" rel=\"http://www.sap.com/adt/relations/sources/withabapdocfromshorttexts\" type=\"text/plain\" title=\"Source with ABAP Doc\" xmlns:atom=\"http://www.w3.org/2005/Atom\"/><atom:link href=\"/sap/bc/adt/repository/informationsystem/abaplanguageversions?uri=%2Fsap%2Fbc%2Fadt%2Foo%2Finterfaces%2Fzfi_cliente1\" rel=\"http://www.sap.com/adt/relations/informationsystem/abaplanguageversions\" type=\"application/vnd.sap.adt.nameditems.v1+xml\" title=\"Allowed ABAP language versions\" xmlns:atom=\"http://www.w3.org/2005/Atom\"/><adtcore:packageRef adtcore:uri=\"/sap/bc/adt/packages/zcliente1\" adtcore:type=\"DEVC/K\" adtcore:name=\"ZCLIENTE1\"/><abapsource:syntaxConfiguration><abapsource:language><abapsource:version>X</abapsource:version><abapsource:description>Standard ABAP</abapsource:description><atom:link href=\"/sap/bc/adt/abapsource/parsers/rnd/grammar\" rel=\"http://www.sap.com/adt/relations/abapsource/parser\" type=\"text/plain\" title=\"Standard ABAP\" etag=\"816\" xmlns:atom=\"http://www.w3.org/2005/Atom\"/></abapsource:language></abapsource:syntaxConfiguration></intf:abapInterface>"
+      }
+    }
+  },
+  {
+    "LOGID": 532,
+    "JSON": {
+      "REQUEST": {
+        "REQUEST_LINE": {
+          "METHOD": "GET",
+          "URI": "/sap/bc/adt/oo/interfaces/zfi_cliente1/source/main?version=workingArea",
+          "VERSION": "HTTP/1.1"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "Cache-Control",
+            "VALUE": "no-cache"
+          },
+          {
+            "NAME": "sap-adt-request-id",
+            "VALUE": "7b888df2763448b986099730146e16ee"
+          },
+          {
+            "NAME": "Accept",
+            "VALUE": "text/plain"
+          },
+          {
+            "NAME": "User-Agent",
+            "VALUE": "Eclipse/4.39.0.v20260226-0420 (win32; x86_64; Java 21.0.10) ADT/3.56.0 (devedition)"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time"
+          }
+        ],
+        "MESSAGE_BODY": ""
+      },
+      "RESPONSE": {
+        "STATUS_LINE": {
+          "VERSION": "HTTP/1.1",
+          "STATUS_CODE": "200 ",
+          "REASON_PHRASE": "OK"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "~server_protocol",
+            "VALUE": "HTTP/1.1"
+          },
+          {
+            "NAME": "Content-Type",
+            "VALUE": "text/plain; charset=utf-8"
+          },
+          {
+            "NAME": "Last-Modified",
+            "VALUE": "Mon, 07 Sep 2026 17:17:44 GMT"
+          },
+          {
+            "NAME": "ETag",
+            "VALUE": "202609071717440011"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time=8044"
+          }
+        ],
+        "MESSAGE_BODY": "INTERFACE zfi_cliente1\r\n  PUBLIC.\r\n    METHODs test1.\r\n\r\nENDINTERFACE."
+      }
+    }
+  },
+  {
+    "LOGID": 533,
+    "JSON": {
+      "REQUEST": {
+        "REQUEST_LINE": {
+          "METHOD": "GET",
+          "URI": "/sap/bc/adt/oo/interfaces/zfi_cliente1/objectstructure?version=active&withShortDescriptions=true",
+          "VERSION": "HTTP/1.1"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "sap-adt-request-id",
+            "VALUE": "07fa483225914c4b9842237a7ce02544"
+          },
+          {
+            "NAME": "Accept",
+            "VALUE": "application/xml;q=0.8, application/vnd.sap.adt.objectstructure+xml;q=0.9, application/vnd.sap.adt.objectstructure.v2+xml"
+          },
+          {
+            "NAME": "User-Agent",
+            "VALUE": "Eclipse/4.39.0.v20260226-0420 (win32; x86_64; Java 21.0.10) ADT/3.56.0 (devedition)"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time"
+          }
+        ],
+        "MESSAGE_BODY": ""
+      },
+      "RESPONSE": {
+        "STATUS_LINE": {
+          "VERSION": "HTTP/1.1",
+          "STATUS_CODE": "200 ",
+          "REASON_PHRASE": "OK"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "~server_protocol",
+            "VALUE": "HTTP/1.1"
+          },
+          {
+            "NAME": "Content-Type",
+            "VALUE": "application/vnd.sap.adt.objectstructure.v2+xml"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time=18613"
+          }
+        ],
+        "MESSAGE_BODY": "<abapsource:objectStructureElement xml:base=\"/sap/bc/adt/oo/interfaces/zfi_cliente1/objectstructure?version=active&amp;withShortDescriptions=true\" adtcore:name=\"ZFI_CLIENTE1\" adtcore:type=\"INTF/OI\" xmlns:adtcore=\"http://www.sap.com/adt/core\" xmlns:abapsource=\"http://www.sap.com/adt/abapsource\" xmlns:atom=\"http://www.w3.org/2005/Atom\"><atom:link rel=\"http://www.sap.com/adt/relations/source/definitionIdentifier\" href=\"./source/main#start=1,10;end=1,22\"/><atom:link rel=\"http://www.sap.com/adt/relations/source/definitionBlock\" href=\"./source/main#start=1,0;end=5,12\"/><abapsource:objectStructureElement adtcore:type=\"INTF/IO\" adtcore:name=\"TEST1\" level=\"instance\" clif_name=\"ZFI_CLIENTE1\" visibility=\"public\"><atom:link rel=\"http://www.sap.com/adt/relations/source/definitionIdentifier\" href=\"./source/main#start=3,12;end=3,17\" type=\"INTF/IO\"/><atom:link rel=\"http://www.sap.com/adt/relations/source/definitionBlock\" href=\"./source/main#start=3,4;end=3,17\"/></abapsource:objectStructureElement></abapsource:objectStructureElement>"
+      }
+    }
+  },
+  {
+    "LOGID": 534,
+    "JSON": {
+      "REQUEST": {
+        "REQUEST_LINE": {
+          "METHOD": "POST",
+          "URI": "/sap/bc/adt/checkruns?reporters=abapCheckRun",
+          "VERSION": "HTTP/1.1"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "sap-adt-request-id",
+            "VALUE": "110e163b1482435c92e50e7899b42b21"
+          },
+          {
+            "NAME": "Content-Type",
+            "VALUE": "application/vnd.sap.adt.checkobjects+xml"
+          },
+          {
+            "NAME": "Accept",
+            "VALUE": "application/vnd.sap.adt.checkmessages+xml"
+          },
+          {
+            "NAME": "User-Agent",
+            "VALUE": "Eclipse/4.39.0.v20260226-0420 (win32; x86_64; Java 21.0.10) ADT/3.56.0 (devedition)"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time"
+          }
+        ],
+        "MESSAGE_BODY": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<chkrun:checkObjectList xmlns:adtcore=\"http://www.sap.com/adt/core\" xmlns:chkrun=\"http://www.sap.com/adt/checkrun\">\r\n  <chkrun:checkObject adtcore:uri=\"/sap/bc/adt/oo/interfaces/zfi_cliente1\" chkrun:version=\"active\"/>\r\n</chkrun:checkObjectList>"
+      },
+      "RESPONSE": {
+        "STATUS_LINE": {
+          "VERSION": "HTTP/1.1",
+          "STATUS_CODE": "200 ",
+          "REASON_PHRASE": "OK"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "~server_protocol",
+            "VALUE": "HTTP/1.1"
+          },
+          {
+            "NAME": "Content-Type",
+            "VALUE": "application/vnd.sap.adt.checkmessages+xml; charset=utf-8"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time=10807"
+          }
+        ],
+        "MESSAGE_BODY": "<?xml version=\"1.0\" encoding=\"utf-8\"?><chkrun:checkRunReports xmlns:chkrun=\"http://www.sap.com/adt/checkrun\"><chkrun:checkReport chkrun:reporter=\"abapCheckRun\" chkrun:triggeringUri=\"/sap/bc/adt/oo/interfaces/zfi_cliente1\" chkrun:status=\"processed\" chkrun:statusText=\"Object ZFI_CLIENTE1 has been checked\"/></chkrun:checkRunReports>"
+      }
+    }
+  },
+  {
+    "LOGID": 535,
+    "JSON": {
+      "REQUEST": {
+        "REQUEST_LINE": {
+          "METHOD": "GET",
+          "URI": "/sap/bc/adt/oo/interfaces/zfi_cliente1?version=workingArea",
+          "VERSION": "HTTP/1.1"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "If-None-Match",
+            "VALUE": "202609071717440015"
+          },
+          {
+            "NAME": "sap-adt-request-id",
+            "VALUE": "6a97179a50ee44cf82ca96064ca977d1"
+          },
+          {
+            "NAME": "Accept",
+            "VALUE": "application/vnd.sap.adt.oo.interfaces.v5+xml, application/vnd.sap.adt.oo.interfaces.v4+xml, application/vnd.sap.adt.oo.interfaces.v3+xml, application/vnd.sap.adt.oo.interfaces.v2+xml, application/vnd.sap.adt.oo.interfaces+xml"
+          },
+          {
+            "NAME": "User-Agent",
+            "VALUE": "Eclipse/4.39.0.v20260226-0420 (win32; x86_64; Java 21.0.10) ADT/3.56.0 (devedition)"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time"
+          }
+        ],
+        "MESSAGE_BODY": ""
+      },
+      "RESPONSE": {
+        "STATUS_LINE": {
+          "VERSION": "HTTP/1.1",
+          "STATUS_CODE": "304 ",
+          "REASON_PHRASE": "Not Modified"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "~server_protocol",
+            "VALUE": "HTTP/1.1"
+          },
+          {
+            "NAME": "ETag",
+            "VALUE": "202609071717440015"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time=7096"
+          }
+        ],
+        "MESSAGE_BODY": ""
+      }
+    }
+  },
+  {
+    "LOGID": 536,
+    "JSON": {
+      "REQUEST": {
+        "REQUEST_LINE": {
+          "METHOD": "GET",
+          "URI": "/sap/bc/adt/oo/interfaces/zfi_cliente1/objectstructure?version=active&withShortDescriptions=true",
+          "VERSION": "HTTP/1.1"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "sap-adt-request-id",
+            "VALUE": "c4abbd1953f74763befa8dc8a008e925"
+          },
+          {
+            "NAME": "Accept",
+            "VALUE": "application/xml;q=0.8, application/vnd.sap.adt.objectstructure+xml;q=0.9, application/vnd.sap.adt.objectstructure.v2+xml"
+          },
+          {
+            "NAME": "User-Agent",
+            "VALUE": "Eclipse/4.39.0.v20260226-0420 (win32; x86_64; Java 21.0.10) ADT/3.56.0 (devedition)"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time"
+          }
+        ],
+        "MESSAGE_BODY": ""
+      },
+      "RESPONSE": {
+        "STATUS_LINE": {
+          "VERSION": "HTTP/1.1",
+          "STATUS_CODE": "200 ",
+          "REASON_PHRASE": "OK"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "~server_protocol",
+            "VALUE": "HTTP/1.1"
+          },
+          {
+            "NAME": "Content-Type",
+            "VALUE": "application/vnd.sap.adt.objectstructure.v2+xml"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time=8444"
+          }
+        ],
+        "MESSAGE_BODY": "<abapsource:objectStructureElement xml:base=\"/sap/bc/adt/oo/interfaces/zfi_cliente1/objectstructure?version=active&amp;withShortDescriptions=true\" adtcore:name=\"ZFI_CLIENTE1\" adtcore:type=\"INTF/OI\" xmlns:adtcore=\"http://www.sap.com/adt/core\" xmlns:abapsource=\"http://www.sap.com/adt/abapsource\" xmlns:atom=\"http://www.w3.org/2005/Atom\"><atom:link rel=\"http://www.sap.com/adt/relations/source/definitionIdentifier\" href=\"./source/main#start=1,10;end=1,22\"/><atom:link rel=\"http://www.sap.com/adt/relations/source/definitionBlock\" href=\"./source/main#start=1,0;end=5,12\"/><abapsource:objectStructureElement adtcore:type=\"INTF/IO\" adtcore:name=\"TEST1\" level=\"instance\" clif_name=\"ZFI_CLIENTE1\" visibility=\"public\"><atom:link rel=\"http://www.sap.com/adt/relations/source/definitionIdentifier\" href=\"./source/main#start=3,12;end=3,17\" type=\"INTF/IO\"/><atom:link rel=\"http://www.sap.com/adt/relations/source/definitionBlock\" href=\"./source/main#start=3,4;end=3,17\"/></abapsource:objectStructureElement></abapsource:objectStructureElement>"
+      }
+    }
+  },
+  {
+    "LOGID": 537,
+    "JSON": {
+      "REQUEST": {
+        "REQUEST_LINE": {
+          "METHOD": "POST",
+          "URI": "/sap/bc/adt/checkruns?reporters=abapCheckRun",
+          "VERSION": "HTTP/1.1"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "sap-adt-request-id",
+            "VALUE": "f04f5466b23349a99dec679a8b54259c"
+          },
+          {
+            "NAME": "Content-Type",
+            "VALUE": "application/vnd.sap.adt.checkobjects+xml"
+          },
+          {
+            "NAME": "Accept",
+            "VALUE": "application/vnd.sap.adt.checkmessages+xml"
+          },
+          {
+            "NAME": "User-Agent",
+            "VALUE": "Eclipse/4.39.0.v20260226-0420 (win32; x86_64; Java 21.0.10) ADT/3.56.0 (devedition)"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time"
+          }
+        ],
+        "MESSAGE_BODY": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<chkrun:checkObjectList xmlns:adtcore=\"http://www.sap.com/adt/core\" xmlns:chkrun=\"http://www.sap.com/adt/checkrun\">\r\n  <chkrun:checkObject adtcore:uri=\"/sap/bc/adt/oo/interfaces/zfi_cliente1\" chkrun:version=\"active\"/>\r\n</chkrun:checkObjectList>"
+      },
+      "RESPONSE": {
+        "STATUS_LINE": {
+          "VERSION": "HTTP/1.1",
+          "STATUS_CODE": "200 ",
+          "REASON_PHRASE": "OK"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "~server_protocol",
+            "VALUE": "HTTP/1.1"
+          },
+          {
+            "NAME": "Content-Type",
+            "VALUE": "application/vnd.sap.adt.checkmessages+xml; charset=utf-8"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time=10733"
+          }
+        ],
+        "MESSAGE_BODY": "<?xml version=\"1.0\" encoding=\"utf-8\"?><chkrun:checkRunReports xmlns:chkrun=\"http://www.sap.com/adt/checkrun\"><chkrun:checkReport chkrun:reporter=\"abapCheckRun\" chkrun:triggeringUri=\"/sap/bc/adt/oo/interfaces/zfi_cliente1\" chkrun:status=\"processed\" chkrun:statusText=\"Object ZFI_CLIENTE1 has been checked\"/></chkrun:checkRunReports>"
+      }
+    }
+  },
+  {
+    "LOGID": 538,
+    "JSON": {
+      "REQUEST": {
+        "REQUEST_LINE": {
+          "METHOD": "GET",
+          "URI": "/sap/bc/adt/apireleases/meta/supportedcontracts",
+          "VERSION": "HTTP/1.1"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "sap-adt-request-id",
+            "VALUE": "347e6feb5eab49218b1156812e43df74"
+          },
+          {
+            "NAME": "Accept",
+            "VALUE": "application/vnd.sap.adt.apireleasecontractsupports+xml, application/vnd.sap.adt.apireleasecontractsupports.v2+xml, application/vnd.sap.adt.apireleasecontractsupports.v3+xml"
+          },
+          {
+            "NAME": "User-Agent",
+            "VALUE": "Eclipse/4.39.0.v20260226-0420 (win32; x86_64; Java 21.0.10) ADT/3.56.0 (devedition)"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time"
+          }
+        ],
+        "MESSAGE_BODY": ""
+      },
+      "RESPONSE": {
+        "STATUS_LINE": {
+          "VERSION": "HTTP/1.1",
+          "STATUS_CODE": "200 ",
+          "REASON_PHRASE": "OK"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "~server_protocol",
+            "VALUE": "HTTP/1.1"
+          },
+          {
+            "NAME": "Content-Type",
+            "VALUE": "application/vnd.sap.adt.apireleasecontractsupports.v3+xml; charset=utf-8"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time=96776"
+          }
+        ],
+        "MESSAGE_BODY": "<?xml version=\"1.0\" encoding=\"utf-8\"?><arsmeta:contractSupports xmlns:arsmeta=\"http://www.sap.com/adt/ars/meta\"><arsmeta:contractSupport arsmeta:releasableObjectType=\"AIFI\" arsmeta:wbObjType=\"AIFI/TYP\" arsmeta:c0Supported=\"true\" arsmeta:c1Supported=\"false\" arsmeta:c2Supported=\"false\" arsmeta:c3Supported=\"false\" arsmeta:c4Supported=\"false\"><arsmeta:allowedSuccessors><arsmeta:allowedSuccessor arsmeta:releasableObjectType=\"AIFI\" arsmeta:wbObjType=\"AIFI/TYP\"/></arsmeta:allowedSuccessors></arsmeta:contractSupport><arsmeta:contractSupport arsmeta:releasableObjectType=\"AUTH\" arsmeta:wbObjType=\"AUTH\" arsmeta:c0Supported=\"false\" arsmeta:c1Supported=\"true\" arsmeta:c2Supported=\"false\" arsmeta:c3Supported=\"false\" arsmeta:c4Supported=\"false\"><arsmeta:allowedSuccessors><arsmeta:allowedSuccessor arsmeta:releasableObjectType=\"AUTH\" arsmeta:wbObjType=\"AUTH\"/></arsmeta:allowedSuccessors></arsmeta:contractSupport><arsmeta:contractSupport arsmeta:releasableObjectType=\"BDEF\" arsmeta:wbObjType=\"BDEF/BDO\" arsmeta:c0Supported=\"true\" arsmeta:c1Supported=\"true\" arsmeta:c2Supported=\"false\" arsmeta:c3Supported=\"false\" arsmeta:c4Supported=\"false\"><arsmeta:allowedSuccessors><arsmeta:allowedSuccessor arsmeta:releasableObjectType=\"BDEF\" arsmeta:wbObjType=\"BDEF/BDO\"/></arsmeta:allowedSuccessors></arsmeta:contractSupport><arsmeta:contractSupport arsmeta:releasableObjectType=\"BGQC\" arsmeta:wbObjType=\"BGQC/TYP\" arsmeta:c0Supported=\"false\" arsmeta:c1Supported=\"true\" arsmeta:c2Supported=\"false\" arsmeta:c3Supported=\"false\" arsmeta:c4Supported=\"false\"><arsmeta:allowedSuccessors><arsmeta:allowedSuccessor arsmeta:releasableObjectType=\"BGQC\" arsmeta:wbObjType=\"BGQC/TYP\"/></arsmeta:allowedSuccessors></arsmeta:contractSupport><arsmeta:contractSupport arsmeta:releasableObjectType=\"CFDB\" arsmeta:wbObjType=\"CFDB\" arsmeta:c0Supported=\"false\" arsmeta:c1Supported=\"false\" arsmeta:c2Supported=\"false\" arsmeta:c3Supported=\"false\" arsmeta:c4Supported=\"false\"><arsmeta:allowedSuccessors/></arsmeta:contractSupport><arsmeta:contractSupport arsmeta:releasableObjectType=\"CFDC\" arsmeta:wbObjType=\"CFDC\" arsmeta:c0Supported=\"false\" arsmeta:c1Supported=\"false\" arsmeta:c2Supported=\"false\" arsmeta:c3Supported=\"false\" arsmeta:c4Supported=\"false\"><arsmeta:allowedSuccessors/></arsmeta:contractSupport><arsmeta:contractSupport arsmeta:releasableObjectType=\"CFDG\" arsmeta:wbObjType=\"CFDG\" arsmeta:c0Supported=\"false\" arsmeta:c1Supported=\"false\" arsmeta:c2Supported=\"false\" arsmeta:c3Supported=\"false\" arsmeta:c4Supported=\"false\"><arsmeta:allowedSuccessors/></arsmeta:contractSupport><arsmeta:contractSupport arsmeta:releasableObjectType=\"CFDO\" arsmeta:wbObjType=\"CFDO\" arsmeta:c0Supported=\"false\" arsmeta:c1Supported=\"false\" arsmeta:c2Supported=\"false\" arsmeta:c3Supported=\"false\" arsmeta:c4Supported=\"false\"><arsmeta:allowedSuccessors/></arsmeta:contractSupport><arsmeta:contractSupport arsmeta:releasableObjectType=\"CFDP\" arsmeta:wbObjType=\"CFDP\" arsmeta:c0Supported=\"false\" arsmeta:c1Supported=\"false\" arsmeta:c2Supported=\"false\" arsmeta:c3Supported=\"false\" arsmeta:c4Supported=\"false\"><arsmeta:allowedSuccessors/></arsmeta:contractSupport><arsmeta:contractSupport arsmeta:releasableObjectType=\"CFDR\" arsmeta:wbObjType=\"CFDR\" arsmeta:c0Supported=\"false\" arsmeta:c1Supported=\"false\" arsmeta:c2Supported=\"false\" arsmeta:c3Supported=\"false\" arsmeta:c4Supported=\"false\"><arsmeta:allowedSuccessors/></arsmeta:contractSupport><arsmeta:contractSupport arsmeta:releasableObjectType=\"CFDT\" arsmeta:wbObjType=\"CFDT\" arsmeta:c0Supported=\"false\" arsmeta:c1Supported=\"false\" arsmeta:c2Supported=\"false\" arsmeta:c3Supported=\"false\" arsmeta:c4Supported=\"false\"><arsmeta:allowedSuccessors/></arsmeta:contractSupport><arsmeta:contractSupport arsmeta:releasableObjectType=\"CHAR\" arsmeta:wbObjType=\"CHAR/8B\" arsmeta:c0Supported=\"false\" arsmeta:c1Supported=\"true\" arsmeta:c2Supported=\"false\" arsmeta:c3Supported=\"false\" arsmeta:c4Supported=\"false\"><arsmeta:allowedSuccessors><arsmeta:allowedSuccessor arsmeta:releasableObjectType=\"CHAR\" arsmeta:wbObjType=\"CHAR/8B\"/></arsmeta:allowedSuccessors></arsmeta:contractSupport><arsmeta:contractSupport arsmeta:releasableObjectType=\"CHKC\" arsmeta:wbObjType=\"CHKC/TYP\" arsmeta:c0Supported=\"false\" arsmeta:c1Supported=\"true\" arsmeta:c2Supported=\"false\" arsmeta:c3Supported=\"false\" arsmeta:c4Supported=\"false\"><arsmeta:allowedSuccessors><arsmeta:allowedSuccessor arsmeta:releasableObjectType=\"CHKC\" arsmeta:wbObjType=\"CHKC/TYP\"/></arsmeta:allowedSuccessors></arsmeta:contractSupport><arsmeta:contractSupport arsmeta:releasableObjectType=\"CHKO\" arsmeta:wbObjType=\"CHKO/TYP\" arsmeta:c0Supported=\"false\" arsmeta:c1Supported=\"true\" arsmeta:c2Supported=\"false\" arsmeta:c3Supported=\"false\" arsmeta:c4Supported=\"false\"><arsmeta:allowedSuccessors><arsmeta:allowedSuccessor arsmeta:releasableObjectType=\"CHKO\" arsmeta:wbObjType=\"CHKO/TYP\"/></arsmeta:allowedSuccessors></arsmeta:contractSupport><arsmeta:contractSupport arsmeta:releasableObjectType=\"CHKV\" arsmeta:wbObjType=\"CHKV/TYP\" arsmeta:c0Supported=\"false\" arsmeta:c1Supported=\"true\" arsmeta:c2Supported=\"false\" arsmeta:c3Supported=\"false\" arsmeta:c4Supported=\"false\"><arsmeta:allowedSuccessors><arsmeta:allowedSuccessor arsmeta:releasableObjectType=\"CHKV\" arsmeta:wbObjType=\"CHKV/TYP\"/></arsmeta:allowedSuccessors></arsmeta:contractSupport><arsmeta:contractSupport arsmeta:releasableObjectType=\"CLAS\" arsmeta:wbObjType=\"CLAS/OC\" arsmeta:c0Supported=\"false\" arsmeta:c1Supported=\"true\" arsmeta:c2Supported=\"false\" arsmeta:c3Supported=\"false\" arsmeta:c4Supported=\"true\"><arsmeta:allowedSuccessors><arsmeta:allowedSuccessor arsmeta:releasableObjectType=\"BDEF\" arsmeta:wbObjType=\"BDEF/BDO\"/><arsmeta:allowedSuccessor arsmeta:releasableObjectType=\"CDS_STOB\" arsmeta:wbObjType=\"DDLS/DF\"/><arsmeta:allowedSuccessor arsmeta:releasableObjectType=\"CLAS\" arsmeta:wbObjType=\"CLAS/OC\"/></arsmeta:allowedSuccessors></arsmeta:contractSupport><arsmeta:contractSupport arsmeta:releasableObjectType=\"CDS_STOB\" arsmeta:wbObjType=\"DDLS/DF\" arsmeta:c0Supported=\"true\" arsmeta:c1Supported=\"true\" arsmeta:c2Supported=\"true\" arsmeta:c3Supported=\"false\" arsmeta:c4Supported=\"false\"><arsmeta:allowedSuccessors><arsmeta:allowedSuccessor arsmeta:releasableObjectType=\"BDEF\" arsmeta:wbObjType=\"BDEF/BDO\"/><arsmeta:allowedSuccessor arsmeta:releasableObjectType=\"CDS_STOB\" arsmeta:wbObjType=\"DDLS/DF\"/><arsmeta:allowedSuccessor arsmeta:releasableObjectType=\"CLAS\" arsmeta:wbObjType=\"CLAS/OC\"/></arsmeta:allowedSuccessors></arsmeta:contractSupport><arsmeta:contractSupport arsmeta:releasableObjectType=\"DOMA\" arsmeta:wbObjType=\"DOMA/DD\" arsmeta:c0Supported=\"false\" arsmeta:c1Supported=\"true\" arsmeta:c2Supported=\"false\" arsmeta:c3Supported=\"false\" arsmeta:c4Supported=\"false\"><arsmeta:allowedSuccessors><arsmeta:allowedSuccessor arsmeta:releasableObjectType=\"DOMA\" arsmeta:wbObjType=\"DOMA/DD\"/></arsmeta:allowedSuccessors></arsmeta:contractSupport><arsmeta:contractSupport arsmeta:releasableObjectType=\"DRTY\" arsmeta:wbObjType=\"DRTY/STY\" arsmeta:c0Supported=\"false\" arsmeta:c1Supported=\"true\" arsmeta:c2Supported=\"true\" arsmeta:c3Supported=\"false\" arsmeta:c4Supported=\"false\"><arsmeta:allowedSuccessors><arsmeta:allowedSuccessor arsmeta:releasableObjectType=\"DRTY\" arsmeta:wbObjType=\"DRTY/STY\"/></arsmeta:allowedSuccessors></arsmeta:contractSupport><arsmeta:contractSupport arsmeta:releasableObjectType=\"DSFD\" arsmeta:wbObjType=\"DSFD/SCF\" arsmeta:c0Supported=\"false\" arsmeta:c1Supported=\"true\" arsmeta:c2Supported=\"true\" arsmeta:c3Supported=\"false\" arsmeta:c4Supported=\"false\"><arsmeta:allowedSuccessors><arsmeta:allowedSuccessor arsmeta:releasableObjectType=\"DSFD\" arsmeta:wbObjType=\"DSFD/SCF\"/></arsmeta:allowedSuccessors></arsmeta:contractSupport><arsmeta:contractSupport arsmeta:releasableObjectType=\"DSFI\" arsmeta:wbObjType=\"DSFI/SFI\" arsmeta:c0Supported=\"false\" arsmeta:c1Supported=\"true\" arsmeta:c2Supported=\"true\" arsmeta:c3Supported=\"false\" arsmeta:c4Supported=\"false\"><arsmeta:allowedSuccessors><arsmeta:allowedSuccessor arsmeta:releasableObjectType=\"DSFI\" arsmeta:wbObjType=\"DSFI/SFI\"/></arsmeta:allowedSuccessors></arsmeta:contractSupport><arsmeta:contractSupport arsmeta:releasableObjectType=\"DTEL\" arsmeta:wbObjType=\"DTEL/DE\" arsmeta:c0Supported=\"false\" arsmeta:c1Supported=\"true\" arsmeta:c2Supported=\"false\" arsmeta:c3Supported=\"false\" arsmeta:c4Supported=\"false\"><arsmeta:allowedSuccessors><arsmeta:allowedSuccessor arsmeta:releasableObjectType=\"DTEL\" arsmeta:wbObjType=\"DTEL/DE\"/></arsmeta:allowedSuccessors></arsmeta:contractSupport><arsmeta:contractSupport arsmeta:releasableObjectType=\"EEEC\" arsmeta:wbObjType=\"EEEC/EVC\" arsmeta:c0Supported=\"false\" arsmeta:c1Supported=\"true\" arsmeta:c2Supported=\"false\" arsmeta:c3Supported=\"false\" arsmeta:c4Supported=\"false\"><arsmeta:allowedSuccessors><arsmeta:allowedSuccessor arsmeta:releasableObjectType=\"EEEC\" arsmeta:wbObjType=\"EEEC/EVC\"/></arsmeta:allowedSuccessors></arsmeta:contractSupport><arsmeta:contractSupport arsmeta:releasableObjectType=\"BADI_DEF\" arsmeta:wbObjType=\"ENHS/XB\" arsmeta:c0Supported=\"false\" arsmeta:c1Supported=\"true\" arsmeta:c2Supported=\"false\" arsmeta:c3Supported=\"false\" arsmeta:c4Supported=\"true\"><arsmeta:allowedSuccessors><arsmeta:allowedSuccessor arsmeta:releasableObjectType=\"BADI_DEF\" arsmeta:wbObjType=\"ENHS/XB\"/></arsmeta:allowedSuccessors></arsmeta:contractSupport><arsmeta:contractSupport arsmeta:releasableObjectType=\"EVV\" arsmeta:wbObjType=\"EVTB/EVV\" arsmeta:c0Supported=\"false\" arsmeta:c1Supported=\"false\" arsmeta:c2Supported=\"true\" arsmeta:c3Supported=\"false\" arsmeta:c4Supported=\"false\"><arsmeta:allowedSuccessors><arsmeta:allowedSuccessor arsmeta:releasableObjectType=\"EVV\" arsmeta:wbObjType=\"EVTB/EVV\"/></arsmeta:allowedSuccessors></arsmeta:contractSupport><arsmeta:contractSupport arsmeta:releasableObjectType=\"EVTO\" arsmeta:wbObjType=\"EVTO/EVO\" arsmeta:c0Supported=\"false\" arsmeta:c1Supported=\"false\" arsmeta:c2Supported=\"true\" arsmeta:c3Supported=\"false\" arsmeta:c4Supported=\"false\"><arsmeta:allowedSuccessors><arsmeta:allowedSuccessor arsmeta:releasableObjectType=\"EVTO\" arsmeta:wbObjType=\"EVTO/EVO\"/></arsmeta:allowedSuccessors></arsmeta:contractSupport><arsmeta:contractSupport arsmeta:releasableObjectType=\"FDT0\" arsmeta:wbObjType=\"FDT0\" arsmeta:c0Supported=\"false\" arsmeta:c1Supported=\"true\" arsmeta:c2Supported=\"false\" arsmeta:c3Supported=\"false\" arsmeta:c4Supported=\"false\"><arsmeta:allowedSuccessors><arsmeta:allowedSuccessor arsmeta:releasableObjectType=\"FDT0\" arsmeta:wbObjType=\"FDT0\"/></arsmeta:allowedSuccessors></arsmeta:contractSupport><arsmeta:contractSupport arsmeta:releasableObjectType=\"FUNC\" arsmeta:wbObjType=\"FUGR/FF\" arsmeta:c0Supported=\"true\" arsmeta:c1Supported=\"true\" arsmeta:c2Supported=\"false\" arsmeta:c3Supported=\"false\" arsmeta:c4Supported=\"false\"><arsmeta:allowedSuccessors><arsmeta:allowedSuccessor arsmeta:releasableObjectType=\"BDEF\" arsmeta:wbObjType=\"BDEF/BDO\"/><arsmeta:allowedSuccessor arsmeta:releasableObjectType=\"CDS_STOB\" arsmeta:wbObjType=\"DDLS/DF\"/><arsmeta:allowedSuccessor arsmeta:releasableObjectType=\"CLAS\" arsmeta:wbObjType=\"CLAS/OC\"/><arsmeta:allowedSuccessor arsmeta:releasableObjectType=\"FUNC\" arsmeta:wbObjType=\"FUGR/FF\"/></arsmeta:allowedSuccessors></arsmeta:contractSupport><arsmeta:contractSupport arsmeta:releasableObjectType=\"G4S\" arsmeta:wbObjType=\"G4BA/G4S\" arsmeta:c0Supported=\"false\" arsmeta:c1Supported=\"true\" arsmeta:c2Supported=\"true\" arsmeta:c3Supported=\"false\" arsmeta:c4Supported=\"false\"><arsmeta:allowedSuccessors><arsmeta:allowedSuccessor arsmeta:releasableObjectType=\"G4S\" arsmeta:wbObjType=\"G4BA/G4S\"/></arsmeta:allowedSuccessors></arsmeta:contractSupport><arsmeta:contractSupport arsmeta:releasableObjectType=\"INTF\" arsmeta:wbObjType=\"INTF/OI\" arsmeta:c0Supported=\"false\" arsmeta:c1Supported=\"true\" arsmeta:c2Supported=\"false\" arsmeta:c3Supported=\"false\" arsmeta:c4Supported=\"true\"><arsmeta:allowedSuccessors><arsmeta:allowedSuccessor arsmeta:releasableObjectType=\"CLAS\" arsmeta:wbObjType=\"CLAS/OC\"/><arsmeta:allowedSuccessor arsmeta:releasableObjectType=\"INTF\" arsmeta:wbObjType=\"INTF/OI\"/></arsmeta:allowedSuccessors></arsmeta:contractSupport><arsmeta:contractSupport arsmeta:releasableObjectType=\"IWSV\" arsmeta:wbObjType=\"IWSV\" arsmeta:c0Supported=\"false\" arsmeta:c1Supported=\"true\" arsmeta:c2Supported=\"true\" arsmeta:c3Supported=\"false\" arsmeta:c4Supported=\"false\"><arsmeta:allowedSuccessors><arsmeta:allowedSuccessor arsmeta:releasableObjectType=\"G4S\" arsmeta:wbObjType=\"G4BA/G4S\"/><arsmeta:allowedSuccessor arsmeta:releasableObjectType=\"IWSV\" arsmeta:wbObjType=\"IWSV\"/></arsmeta:allowedSuccessors></arsmeta:contractSupport><arsmeta:contractSupport arsmeta:releasableObjectType=\"MSAG\" arsmeta:wbObjType=\"MSAG/N\" arsmeta:c0Supported=\"false\" arsmeta:c1Supported=\"true\" arsmeta:c2Supported=\"false\" arsmeta:c3Supported=\"false\" arsmeta:c4Supported=\"false\"><arsmeta:allowedSuccessors><arsmeta:allowedSuccessor arsmeta:releasableObjectType=\"MSAG\" arsmeta:wbObjType=\"MSAG/N\"/></arsmeta:allowedSuccessors></arsmeta:contractSupport><arsmeta:contractSupport arsmeta:releasableObjectType=\"NONT\" arsmeta:wbObjType=\"NONT/NOT\" arsmeta:c0Supported=\"false\" arsmeta:c1Supported=\"true\" arsmeta:c2Supported=\"false\" arsmeta:c3Supported=\"false\" arsmeta:c4Supported=\"false\"><arsmeta:allowedSuccessors/></arsmeta:contractSupport><arsmeta:contractSupport arsmeta:releasableObjectType=\"NROB\" arsmeta:wbObjType=\"NROB/NRO\" arsmeta:c0Supported=\"false\" arsmeta:c1Supported=\"true\" arsmeta:c2Supported=\"false\" arsmeta:c3Supported=\"false\" arsmeta:c4Supported=\"false\"><arsmeta:allowedSuccessors><arsmeta:allowedSuccessor arsmeta:releasableObjectType=\"NROB\" arsmeta:wbObjType=\"NROB/NRO\"/></arsmeta:allowedSuccessors></arsmeta:contractSupport><arsmeta:contractSupport arsmeta:releasableObjectType=\"PCFN\" arsmeta:wbObjType=\"PCFN/PCF\" arsmeta:c0Supported=\"false\" arsmeta:c1Supported=\"true\" arsmeta:c2Supported=\"false\" arsmeta:c3Supported=\"false\" arsmeta:c4Supported=\"false\"><arsmeta:allowedSuccessors/></arsmeta:contractSupport><arsmeta:contractSupport arsmeta:releasableObjectType=\"RONT\" arsmeta:wbObjType=\"RONT/ROT\" arsmeta:c0Supported=\"false\" arsmeta:c1Supported=\"true\" arsmeta:c2Supported=\"false\" arsmeta:c3Supported=\"false\" arsmeta:c4Supported=\"false\"><arsmeta:allowedSuccessors/></arsmeta:contractSupport><arsmeta:contractSupport arsmeta:releasableObjectType=\"SAJC\" arsmeta:wbObjType=\"SAJC\" arsmeta:c0Supported=\"false\" arsmeta:c1Supported=\"true\" arsmeta:c2Supported=\"false\" arsmeta:c3Supported=\"false\" arsmeta:c4Supported=\"false\"><arsmeta:allowedSuccessors><arsmeta:allowedSuccessor arsmeta:releasableObjectType=\"SAJC\" arsmeta:wbObjType=\"SAJC\"/></arsmeta:allowedSuccessors></arsmeta:contractSupport><arsmeta:contractSupport arsmeta:releasableObjectType=\"SAJT\" arsmeta:wbObjType=\"SAJT\" arsmeta:c0Supported=\"false\" arsmeta:c1Supported=\"true\" arsmeta:c2Supported=\"false\" arsmeta:c3Supported=\"false\" arsmeta:c4Supported=\"false\"><arsmeta:allowedSuccessors><arsmeta:allowedSuccessor arsmeta:releasableObjectType=\"SAJT\" arsmeta:wbObjType=\"SAJT\"/></arsmeta:allowedSuccessors></arsmeta:contractSupport><arsmeta:contractSupport arsmeta:releasableObjectType=\"SHLP\" arsmeta:wbObjType=\"SHLP/DH\" arsmeta:c0Supported=\"false\" arsmeta:c1Supported=\"true\" arsmeta:c2Supported=\"false\" arsmeta:c3Supported=\"false\" arsmeta:c4Supported=\"false\"><arsmeta:allowedSuccessors><arsmeta:allowedSuccessor arsmeta:releasableObjectType=\"SHLP\" arsmeta:wbObjType=\"SHLP/DH\"/></arsmeta:allowedSuccessors></arsmeta:contractSupport><arsmeta:contractSupport arsmeta:releasableObjectType=\"SMTG\" arsmeta:wbObjType=\"SMTG\" arsmeta:c0Supported=\"false\" arsmeta:c1Supported=\"true\" arsmeta:c2Supported=\"false\" arsmeta:c3Supported=\"false\" arsmeta:c4Supported=\"false\"><arsmeta:allowedSuccessors><arsmeta:allowedSuccessor arsmeta:releasableObjectType=\"SMTG\" arsmeta:wbObjType=\"SMTG\"/></arsmeta:allowedSuccessors></arsmeta:contractSupport><arsmeta:contractSupport arsmeta:releasableObjectType=\"SPRX\" arsmeta:wbObjType=\"SPRX/3P\" arsmeta:c0Supported=\"false\" arsmeta:c1Supported=\"false\" arsmeta:c2Supported=\"true\" arsmeta:c3Supported=\"false\" arsmeta:c4Supported=\"false\"><arsmeta:allowedSuccessors/></arsmeta:contractSupport><arsmeta:contractSupport arsmeta:releasableObjectType=\"SQL1\" arsmeta:wbObjType=\"SQL1/SQL\" arsmeta:c0Supported=\"false\" arsmeta:c1Supported=\"true\" arsmeta:c2Supported=\"true\" arsmeta:c3Supported=\"false\" arsmeta:c4Supported=\"false\"><arsmeta:allowedSuccessors><arsmeta:allowedSuccessor arsmeta:releasableObjectType=\"SQL1\" arsmeta:wbObjType=\"SQL1/SQL\"/></arsmeta:allowedSuccessors></arsmeta:contractSupport><arsmeta:contractSupport arsmeta:releasableObjectType=\"SRVD\" arsmeta:wbObjType=\"SRVD/SRV\" arsmeta:c0Supported=\"true\" arsmeta:c1Supported=\"false\" arsmeta:c2Supported=\"false\" arsmeta:c3Supported=\"false\" arsmeta:c4Supported=\"false\"><arsmeta:allowedSuccessors><arsmeta:allowedSuccessor arsmeta:releasableObjectType=\"SRVD\" arsmeta:wbObjType=\"SRVD/SRV\"/></arsmeta:allowedSuccessors></arsmeta:contractSupport><arsmeta:contractSupport arsmeta:releasableObjectType=\"SUSO\" arsmeta:wbObjType=\"SUSO/B\" arsmeta:c0Supported=\"false\" arsmeta:c1Supported=\"true\" arsmeta:c2Supported=\"false\" arsmeta:c3Supported=\"false\" arsmeta:c4Supported=\"false\"><arsmeta:allowedSuccessors><arsmeta:allowedSuccessor arsmeta:releasableObjectType=\"SUSO\" arsmeta:wbObjType=\"SUSO/B\"/></arsmeta:allowedSuccessors></arsmeta:contractSupport><arsmeta:contractSupport arsmeta:releasableObjectType=\"SWCR\" arsmeta:wbObjType=\"SWCR/TYP\" arsmeta:c0Supported=\"false\" arsmeta:c1Supported=\"false\" arsmeta:c2Supported=\"false\" arsmeta:c3Supported=\"false\" arsmeta:c4Supported=\"false\"><arsmeta:allowedSuccessors/></arsmeta:contractSupport><arsmeta:contractSupport arsmeta:releasableObjectType=\"TABL\" arsmeta:wbObjType=\"TABL/DS\" arsmeta:c0Supported=\"true\" arsmeta:c1Supported=\"true\" arsmeta:c2Supported=\"false\" arsmeta:c3Supported=\"false\" arsmeta:c4Supported=\"false\"><arsmeta:allowedSuccessors><arsmeta:allowedSuccessor arsmeta:releasableObjectType=\"TABL\" arsmeta:wbObjType=\"TABL/DS\"/></arsmeta:allowedSuccessors></arsmeta:contractSupport><arsmeta:contractSupport arsmeta:releasableObjectType=\"TABL\" arsmeta:wbObjType=\"TABL/DT\" arsmeta:c0Supported=\"true\" arsmeta:c1Supported=\"true\" arsmeta:c2Supported=\"false\" arsmeta:c3Supported=\"true\" arsmeta:c4Supported=\"false\"><arsmeta:allowedSuccessors><arsmeta:allowedSuccessor arsmeta:releasableObjectType=\"BDEF\" arsmeta:wbObjType=\"BDEF/BDO\"/><arsmeta:allowedSuccessor arsmeta:releasableObjectType=\"CDS_STOB\" arsmeta:wbObjType=\"DDLS/DF\"/><arsmeta:allowedSuccessor arsmeta:releasableObjectType=\"CLAS\" arsmeta:wbObjType=\"CLAS/OC\"/><arsmeta:allowedSuccessor arsmeta:releasableObjectType=\"FUNC\" arsmeta:wbObjType=\"FUGR/FF\"/><arsmeta:allowedSuccessor arsmeta:releasableObjectType=\"TABL\" arsmeta:wbObjType=\"TABL/DT\"/></arsmeta:allowedSuccessors></arsmeta:contractSupport><arsmeta:contractSupport arsmeta:releasableObjectType=\"TTYP\" arsmeta:wbObjType=\"TTYP/DA\" arsmeta:c0Supported=\"false\" arsmeta:c1Supported=\"true\" arsmeta:c2Supported=\"false\" arsmeta:c3Supported=\"false\" arsmeta:c4Supported=\"false\"><arsmeta:allowedSuccessors><arsmeta:allowedSuccessor arsmeta:releasableObjectType=\"TTYP\" arsmeta:wbObjType=\"TTYP/DA\"/></arsmeta:allowedSuccessors></arsmeta:contractSupport><arsmeta:contractSupport arsmeta:releasableObjectType=\"TYPE\" arsmeta:wbObjType=\"TYPE/DG\" arsmeta:c0Supported=\"false\" arsmeta:c1Supported=\"true\" arsmeta:c2Supported=\"false\" arsmeta:c3Supported=\"false\" arsmeta:c4Supported=\"false\"><arsmeta:allowedSuccessors><arsmeta:allowedSuccessor arsmeta:releasableObjectType=\"TYPE\" arsmeta:wbObjType=\"TYPE/DG\"/></arsmeta:allowedSuccessors></arsmeta:contractSupport><arsmeta:contractSupport arsmeta:releasableObjectType=\"VIEW\" arsmeta:wbObjType=\"VIEW/DV\" arsmeta:c0Supported=\"false\" arsmeta:c1Supported=\"false\" arsmeta:c2Supported=\"false\" arsmeta:c3Supported=\"true\" arsmeta:c4Supported=\"false\"><arsmeta:allowedSuccessors><arsmeta:allowedSuccessor arsmeta:releasableObjectType=\"VIEW\" arsmeta:wbObjType=\"VIEW/DV\"/></arsmeta:allowedSuccessors></arsmeta:contractSupport><arsmeta:contractSupport arsmeta:releasableObjectType=\"WAPA\" arsmeta:wbObjType=\"WAPA/WO\" arsmeta:c0Supported=\"true\" arsmeta:c1Supported=\"false\" arsmeta:c2Supported=\"false\" arsmeta:c3Supported=\"false\" arsmeta:c4Supported=\"false\"><arsmeta:allowedSuccessors><arsmeta:allowedSuccessor arsmeta:releasableObjectType=\"WAPA\" arsmeta:wbObjType=\"WAPA/WO\"/></arsmeta:allowedSuccessors></arsmeta:contractSupport><arsmeta:contractSupport arsmeta:releasableObjectType=\"WDCA\" arsmeta:wbObjType=\"WDCA/Y01\" arsmeta:c0Supported=\"true\" arsmeta:c1Supported=\"false\" arsmeta:c2Supported=\"false\" arsmeta:c3Supported=\"false\" arsmeta:c4Supported=\"false\"><arsmeta:allowedSuccessors><arsmeta:allowedSuccessor arsmeta:releasableObjectType=\"WDCA\" arsmeta:wbObjType=\"WDCA/Y01\"/></arsmeta:allowedSuccessors></arsmeta:contractSupport><arsmeta:contractSupport arsmeta:releasableObjectType=\"WDCA\" arsmeta:wbObjType=\"WDCA/YA\" arsmeta:c0Supported=\"true\" arsmeta:c1Supported=\"false\" arsmeta:c2Supported=\"false\" arsmeta:c3Supported=\"false\" arsmeta:c4Supported=\"false\"><arsmeta:allowedSuccessors><arsmeta:allowedSuccessor arsmeta:releasableObjectType=\"WDCA\" arsmeta:wbObjType=\"WDCA/YA\"/></arsmeta:allowedSuccessors></arsmeta:contractSupport><arsmeta:contractSupport arsmeta:releasableObjectType=\"WDYA\" arsmeta:wbObjType=\"WDYA/Y20\" arsmeta:c0Supported=\"true\" arsmeta:c1Supported=\"false\" arsmeta:c2Supported=\"false\" arsmeta:c3Supported=\"false\" arsmeta:c4Supported=\"false\"><arsmeta:allowedSuccessors><arsmeta:allowedSuccessor arsmeta:releasableObjectType=\"WDYA\" arsmeta:wbObjType=\"WDYA/Y20\"/></arsmeta:allowedSuccessors></arsmeta:contractSupport><arsmeta:contractSupport arsmeta:releasableObjectType=\"WDYA\" arsmeta:wbObjType=\"WDYA/YY\" arsmeta:c0Supported=\"true\" arsmeta:c1Supported=\"false\" arsmeta:c2Supported=\"false\" arsmeta:c3Supported=\"false\" arsmeta:c4Supported=\"false\"><arsmeta:allowedSuccessors><arsmeta:allowedSuccessor arsmeta:releasableObjectType=\"WDYA\" arsmeta:wbObjType=\"WDYA/YY\"/></arsmeta:allowedSuccessors></arsmeta:contractSupport><arsmeta:contractSupport arsmeta:releasableObjectType=\"WEBI\" arsmeta:wbObjType=\"WEBI\" arsmeta:c0Supported=\"false\" arsmeta:c1Supported=\"false\" arsmeta:c2Supported=\"true\" arsmeta:c3Supported=\"false\" arsmeta:c4Supported=\"false\"><arsmeta:allowedSuccessors/></arsmeta:contractSupport><arsmeta:contractSupport arsmeta:releasableObjectType=\"XSLT\" arsmeta:wbObjType=\"XSLT/VT\" arsmeta:c0Supported=\"false\" arsmeta:c1Supported=\"true\" arsmeta:c2Supported=\"false\" arsmeta:c3Supported=\"false\" arsmeta:c4Supported=\"false\"><arsmeta:allowedSuccessors><arsmeta:allowedSuccessor arsmeta:releasableObjectType=\"XSLT\" arsmeta:wbObjType=\"XSLT/VT\"/></arsmeta:allowedSuccessors></arsmeta:contractSupport></arsmeta:contractSupports>"
+      }
+    }
+  },
+  {
+    "LOGID": 539,
+    "JSON": {
+      "REQUEST": {
+        "REQUEST_LINE": {
+          "METHOD": "GET",
+          "URI": "/sap/bc/adt/apireleases/%2Fsap%2Fbc%2Fadt%2Foo%2Finterfaces%2Fzfi_cliente1",
+          "VERSION": "HTTP/1.1"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "sap-adt-request-id",
+            "VALUE": "d976cd41e168434d90be43e07c13563a"
+          },
+          {
+            "NAME": "Accept",
+            "VALUE": "application/vnd.sap.adt.apirelease+xml, application/vnd.sap.adt.apirelease.v2+xml, application/vnd.sap.adt.apirelease.v3+xml, application/vnd.sap.adt.apirelease.v4+xml, application/vnd.sap.adt.apirelease.v5+xml, application/vnd.sap.adt.apirelease.v6+xml, application/vnd.sap.adt.apirelease.v7+xml, application/vnd.sap.adt.apirelease.v8+xml, application/vnd.sap.adt.apirelease.v9+xml, application/vnd.sap.adt.apirelease.v10+xml, application/vnd.sap.adt.apirelease.v11+xml"
+          },
+          {
+            "NAME": "User-Agent",
+            "VALUE": "Eclipse/4.39.0.v20260226-0420 (win32; x86_64; Java 21.0.10) ADT/3.56.0 (devedition)"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time"
+          }
+        ],
+        "MESSAGE_BODY": ""
+      },
+      "RESPONSE": {
+        "STATUS_LINE": {
+          "VERSION": "HTTP/1.1",
+          "STATUS_CODE": "200 ",
+          "REASON_PHRASE": "OK"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "~server_protocol",
+            "VALUE": "HTTP/1.1"
+          },
+          {
+            "NAME": "Content-Type",
+            "VALUE": "application/vnd.sap.adt.apirelease.v11+xml; charset=utf-8"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time=1640035"
+          }
+        ],
+        "MESSAGE_BODY": "<?xml version=\"1.0\" encoding=\"utf-8\"?><ars:apiRelease xmlns:ars=\"http://www.sap.com/adt/ars\"><ars:releasableObject adtcore:uri=\"/sap/bc/adt/oo/interfaces/zfi_cliente1\" adtcore:type=\"INTF/OI\" adtcore:name=\"ZFI_CLIENTE1\" xmlns:adtcore=\"http://www.sap.com/adt/core\"/><ars:behaviour ars:create=\"true\" ars:commentEnabled=\"false\"><ars:c0Release ars:create=\"false\" ars:read=\"false\" ars:update=\"false\" ars:delete=\"false\" ars:useInKeyUserAppsDefault=\"false\" ars:useInKeyUserAppsReadOnly=\"false\" ars:useInSAPCloudPlatformDefault=\"false\" ars:useInSAPCloudPlatformReadOnly=\"false\" ars:authValuesEnabled=\"false\"/><ars:c1Release ars:create=\"true\" ars:read=\"false\" ars:update=\"false\" ars:delete=\"false\" ars:useInKeyUserAppsDefault=\"false\" ars:useInKeyUserAppsReadOnly=\"false\" ars:useInSAPCloudPlatformDefault=\"true\" ars:useInSAPCloudPlatformReadOnly=\"false\" ars:authValuesEnabled=\"false\"/><ars:c2Release ars:create=\"false\" ars:read=\"false\" ars:update=\"false\" ars:delete=\"false\" ars:useInKeyUserAppsDefault=\"false\" ars:useInKeyUserAppsReadOnly=\"false\" ars:useInSAPCloudPlatformDefault=\"false\" ars:useInSAPCloudPlatformReadOnly=\"false\" ars:authValuesEnabled=\"false\"/><ars:c3Release ars:create=\"false\" ars:read=\"false\" ars:update=\"false\" ars:delete=\"false\" ars:useInKeyUserAppsDefault=\"false\" ars:useInKeyUserAppsReadOnly=\"false\" ars:useInSAPCloudPlatformDefault=\"false\" ars:useInSAPCloudPlatformReadOnly=\"false\" ars:authValuesEnabled=\"false\"/><ars:c4Release ars:create=\"true\" ars:read=\"false\" ars:update=\"false\" ars:delete=\"false\" ars:useInKeyUserAppsDefault=\"false\" ars:useInKeyUserAppsReadOnly=\"false\" ars:useInSAPCloudPlatformDefault=\"false\" ars:useInSAPCloudPlatformReadOnly=\"false\" ars:authValuesEnabled=\"false\"/></ars:behaviour><ars:c1Release ars:contract=\"C1\" ars:useInKeyUserApps=\"false\" ars:useInSAPCloudPlatform=\"false\" ars:comment=\"\" ars:featureToggle=\"\" ars:createAuthValues=\"false\" adtcore:name=\"sap_bc_adt_oo_interfaces_zfi_cliente1_C1\" xmlns:adtcore=\"http://www.sap.com/adt/core\"><atom:link href=\"/sap/bc/adt/apireleases/%2fsap%2fbc%2fadt%2foo%2finterfaces%2fzfi_cliente1/c1\" rel=\"self\" type=\"application/vnd.sap.adt.apirelease.v6+xml\" title=\"API Release Contract\" xmlns:atom=\"http://www.w3.org/2005/Atom\"/><atom:link href=\"/sap/bc/adt/apireleases/%2fsap%2fbc%2fadt%2foo%2finterfaces%2fzfi_cliente1/c1/validationrun\" rel=\"validation\" type=\"application/vnd.sap.adt.apireleasecontractvalidation+xml\" title=\"Contract Validation\" xmlns:atom=\"http://www.w3.org/2005/Atom\"/><ars:status ars:state=\"NOT_RELEASED\" ars:stateDescription=\"Not Released\"/><ars:useConceptAsSuccessor>false</ars:useConceptAsSuccessor><ars:successors/><ars:successorConceptName/><ars:stateTransitions><ars:status ars:state=\"NOT_RELEASED\" ars:stateDescription=\"Not Released\"/><ars:status ars:state=\"NOT_TO_BE_RELEASED\" ars:stateDescription=\"Not to Be Released\"/><ars:status ars:state=\"NOT_TO_BE_RELEASED_STABLE\" ars:stateDescription=\"Not to Be Released, Stable\"/><ars:status ars:state=\"RELEASED\" ars:stateDescription=\"Released\"/></ars:stateTransitions><ars:transportObject adtcore:uri=\"/sap/bc/adt/apireleases/apis/ZFI_CLIENTE1%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20INTF\" adtcore:type=\"APIS\" adtcore:name=\"ZFI_CLIENTE1                        INTF\" adtcore:packageName=\"ZCLIENTE1\"/><ars:authValueObject/></ars:c1Release><ars:c4Release ars:contract=\"C4\" ars:useInKeyUserApps=\"false\" ars:useInSAPCloudPlatform=\"false\" ars:comment=\"\" ars:featureToggle=\"\" ars:createAuthValues=\"false\" adtcore:name=\"sap_bc_adt_oo_interfaces_zfi_cliente1_C4\" xmlns:adtcore=\"http://www.sap.com/adt/core\"><atom:link href=\"/sap/bc/adt/apireleases/%2fsap%2fbc%2fadt%2foo%2finterfaces%2fzfi_cliente1/c4\" rel=\"self\" type=\"application/vnd.sap.adt.apirelease.v6+xml\" title=\"API Release Contract\" xmlns:atom=\"http://www.w3.org/2005/Atom\"/><atom:link href=\"/sap/bc/adt/apireleases/%2fsap%2fbc%2fadt%2foo%2finterfaces%2fzfi_cliente1/c4/validationrun\" rel=\"validation\" type=\"application/vnd.sap.adt.apireleasecontractvalidation+xml\" title=\"Contract Validation\" xmlns:atom=\"http://www.w3.org/2005/Atom\"/><ars:status ars:state=\"NOT_RELEASED\" ars:stateDescription=\"Not Released\"/><ars:useConceptAsSuccessor>false</ars:useConceptAsSuccessor><ars:successors/><ars:successorConceptName/><ars:stateTransitions><ars:status ars:state=\"NOT_RELEASED\" ars:stateDescription=\"Not Released\"/><ars:status ars:state=\"NOT_TO_BE_RELEASED\" ars:stateDescription=\"Not to Be Released\"/><ars:status ars:state=\"NOT_TO_BE_RELEASED_STABLE\" ars:stateDescription=\"Not to Be Released, Stable\"/><ars:status ars:state=\"RELEASED\" ars:stateDescription=\"Released\"/></ars:stateTransitions><ars:transportObject adtcore:uri=\"/sap/bc/adt/apireleases/apis/ZFI_CLIENTE1%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20INTF\" adtcore:type=\"APIS\" adtcore:name=\"ZFI_CLIENTE1                        INTF\" adtcore:packageName=\"ZCLIENTE1\"/><ars:authValueObject/></ars:c4Release><ars:apiCatalogData ars:isAnyAssignmentPossible=\"false\" ars:isAnyContractReleased=\"false\"><ars:ApiCatalogs/></ars:apiCatalogData></ars:apiRelease>"
+      }
+    }
+  },
+  {
+    "LOGID": 540,
+    "JSON": {
+      "REQUEST": {
+        "REQUEST_LINE": {
+          "METHOD": "POST",
+          "URI": "/sap/bc/adt/activation?method=activate&preauditRequested=true",
+          "VERSION": "HTTP/1.1"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "sap-adt-request-id",
+            "VALUE": "55cf2bf4472e428184ae14d09ee28811"
+          },
+          {
+            "NAME": "Content-Type",
+            "VALUE": "application/xml"
+          },
+          {
+            "NAME": "Accept",
+            "VALUE": "application/xml"
+          },
+          {
+            "NAME": "User-Agent",
+            "VALUE": "Eclipse/4.39.0.v20260226-0420 (win32; x86_64; Java 21.0.10) ADT/3.56.0 (devedition)"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time"
+          }
+        ],
+        "MESSAGE_BODY": "<?xml version=\"1.0\" encoding=\"UTF-8\"?><adtcore:objectReferences xmlns:adtcore=\"http://www.sap.com/adt/core\"><adtcore:objectReference adtcore:uri=\"/sap/bc/adt/oo/interfaces/zfi_cliente1\" adtcore:type=\"INTF/OI\" adtcore:name=\"ZFI_CLIENTE1\" adtcore:description=\"Teste de Interface\"/></adtcore:objectReferences>"
+      },
+      "RESPONSE": {
+        "STATUS_LINE": {
+          "VERSION": "HTTP/1.1",
+          "STATUS_CODE": "200 ",
+          "REASON_PHRASE": "OK"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "~server_protocol",
+            "VALUE": "HTTP/1.1"
+          },
+          {
+            "NAME": "Content-Type",
+            "VALUE": "application/xml; charset=utf-8"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time=23359"
+          }
+        ],
+        "MESSAGE_BODY": "<?xml version=\"1.0\" encoding=\"utf-8\"?><chkl:messages xmlns:chkl=\"http://www.sap.com/abapxml/checklist\"><chkl:properties checkExecuted=\"false\" activationExecuted=\"false\" generationExecuted=\"true\"/></chkl:messages>"
+      }
+    }
+  },
+  {
+    "LOGID": 541,
+    "JSON": {
+      "REQUEST": {
+        "REQUEST_LINE": {
+          "METHOD": "GET",
+          "URI": "/sap/bc/adt/oo/interfaces/zfi_cliente1?version=workingArea",
+          "VERSION": "HTTP/1.1"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "If-None-Match",
+            "VALUE": "202609071717440015"
+          },
+          {
+            "NAME": "sap-adt-request-id",
+            "VALUE": "b0a60270ad184899a95de44739dac003"
+          },
+          {
+            "NAME": "Accept",
+            "VALUE": "application/vnd.sap.adt.oo.interfaces.v5+xml, application/vnd.sap.adt.oo.interfaces.v4+xml, application/vnd.sap.adt.oo.interfaces.v3+xml, application/vnd.sap.adt.oo.interfaces.v2+xml, application/vnd.sap.adt.oo.interfaces+xml"
+          },
+          {
+            "NAME": "User-Agent",
+            "VALUE": "Eclipse/4.39.0.v20260226-0420 (win32; x86_64; Java 21.0.10) ADT/3.56.0 (devedition)"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time"
+          }
+        ],
+        "MESSAGE_BODY": ""
+      },
+      "RESPONSE": {
+        "STATUS_LINE": {
+          "VERSION": "HTTP/1.1",
+          "STATUS_CODE": "304 ",
+          "REASON_PHRASE": "Not Modified"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "~server_protocol",
+            "VALUE": "HTTP/1.1"
+          },
+          {
+            "NAME": "ETag",
+            "VALUE": "202609071717440015"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time=5838"
+          }
+        ],
+        "MESSAGE_BODY": ""
+      }
+    }
+  },
+  {
+    "LOGID": 542,
+    "JSON": {
+      "REQUEST": {
+        "REQUEST_LINE": {
+          "METHOD": "GET",
+          "URI": "/sap/bc/adt/oo/interfaces/zfi_cliente1?version=workingArea",
+          "VERSION": "HTTP/1.1"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "If-None-Match",
+            "VALUE": "202609071717440015"
+          },
+          {
+            "NAME": "sap-adt-request-id",
+            "VALUE": "13bc8fee1c464290b11dcff63581a0a1"
+          },
+          {
+            "NAME": "Accept",
+            "VALUE": "application/vnd.sap.adt.oo.interfaces.v5+xml, application/vnd.sap.adt.oo.interfaces.v4+xml, application/vnd.sap.adt.oo.interfaces.v3+xml, application/vnd.sap.adt.oo.interfaces.v2+xml, application/vnd.sap.adt.oo.interfaces+xml"
+          },
+          {
+            "NAME": "User-Agent",
+            "VALUE": "Eclipse/4.39.0.v20260226-0420 (win32; x86_64; Java 21.0.10) ADT/3.56.0 (devedition)"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time"
+          }
+        ],
+        "MESSAGE_BODY": ""
+      },
+      "RESPONSE": {
+        "STATUS_LINE": {
+          "VERSION": "HTTP/1.1",
+          "STATUS_CODE": "304 ",
+          "REASON_PHRASE": "Not Modified"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "~server_protocol",
+            "VALUE": "HTTP/1.1"
+          },
+          {
+            "NAME": "ETag",
+            "VALUE": "202609071717440015"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time=6681"
+          }
+        ],
+        "MESSAGE_BODY": ""
+      }
+    }
+  },
+  {
+    "LOGID": 543,
+    "JSON": {
+      "REQUEST": {
+        "REQUEST_LINE": {
+          "METHOD": "GET",
+          "URI": "/sap/bc/adt/oo/interfaces/zfi_cliente1/objectstructure?version=active&withShortDescriptions=true",
+          "VERSION": "HTTP/1.1"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "sap-adt-request-id",
+            "VALUE": "0a32e086879c4870a43b997346055e8a"
+          },
+          {
+            "NAME": "Accept",
+            "VALUE": "application/xml;q=0.8, application/vnd.sap.adt.objectstructure+xml;q=0.9, application/vnd.sap.adt.objectstructure.v2+xml"
+          },
+          {
+            "NAME": "User-Agent",
+            "VALUE": "Eclipse/4.39.0.v20260226-0420 (win32; x86_64; Java 21.0.10) ADT/3.56.0 (devedition)"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time"
+          }
+        ],
+        "MESSAGE_BODY": ""
+      },
+      "RESPONSE": {
+        "STATUS_LINE": {
+          "VERSION": "HTTP/1.1",
+          "STATUS_CODE": "200 ",
+          "REASON_PHRASE": "OK"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "~server_protocol",
+            "VALUE": "HTTP/1.1"
+          },
+          {
+            "NAME": "Content-Type",
+            "VALUE": "application/vnd.sap.adt.objectstructure.v2+xml"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time=9108"
+          }
+        ],
+        "MESSAGE_BODY": "<abapsource:objectStructureElement xml:base=\"/sap/bc/adt/oo/interfaces/zfi_cliente1/objectstructure?version=active&amp;withShortDescriptions=true\" adtcore:name=\"ZFI_CLIENTE1\" adtcore:type=\"INTF/OI\" xmlns:adtcore=\"http://www.sap.com/adt/core\" xmlns:abapsource=\"http://www.sap.com/adt/abapsource\" xmlns:atom=\"http://www.w3.org/2005/Atom\"><atom:link rel=\"http://www.sap.com/adt/relations/source/definitionIdentifier\" href=\"./source/main#start=1,10;end=1,22\"/><atom:link rel=\"http://www.sap.com/adt/relations/source/definitionBlock\" href=\"./source/main#start=1,0;end=5,12\"/><abapsource:objectStructureElement adtcore:type=\"INTF/IO\" adtcore:name=\"TEST1\" level=\"instance\" clif_name=\"ZFI_CLIENTE1\" visibility=\"public\"><atom:link rel=\"http://www.sap.com/adt/relations/source/definitionIdentifier\" href=\"./source/main#start=3,12;end=3,17\" type=\"INTF/IO\"/><atom:link rel=\"http://www.sap.com/adt/relations/source/definitionBlock\" href=\"./source/main#start=3,4;end=3,17\"/></abapsource:objectStructureElement></abapsource:objectStructureElement>"
+      }
+    }
+  },
+  {
+    "LOGID": 544,
+    "JSON": {
+      "REQUEST": {
+        "REQUEST_LINE": {
+          "METHOD": "POST",
+          "URI": "/sap/bc/adt/checkruns?reporters=abapCheckRun",
+          "VERSION": "HTTP/1.1"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "sap-adt-request-id",
+            "VALUE": "ad23a04ca14d4ecb9274a2c4c42e98da"
+          },
+          {
+            "NAME": "Content-Type",
+            "VALUE": "application/vnd.sap.adt.checkobjects+xml"
+          },
+          {
+            "NAME": "Accept",
+            "VALUE": "application/vnd.sap.adt.checkmessages+xml"
+          },
+          {
+            "NAME": "User-Agent",
+            "VALUE": "Eclipse/4.39.0.v20260226-0420 (win32; x86_64; Java 21.0.10) ADT/3.56.0 (devedition)"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time"
+          }
+        ],
+        "MESSAGE_BODY": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<chkrun:checkObjectList xmlns:adtcore=\"http://www.sap.com/adt/core\" xmlns:chkrun=\"http://www.sap.com/adt/checkrun\">\r\n  <chkrun:checkObject adtcore:uri=\"/sap/bc/adt/oo/interfaces/zfi_cliente1\" chkrun:version=\"active\"/>\r\n</chkrun:checkObjectList>"
+      },
+      "RESPONSE": {
+        "STATUS_LINE": {
+          "VERSION": "HTTP/1.1",
+          "STATUS_CODE": "200 ",
+          "REASON_PHRASE": "OK"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "~server_protocol",
+            "VALUE": "HTTP/1.1"
+          },
+          {
+            "NAME": "Content-Type",
+            "VALUE": "application/vnd.sap.adt.checkmessages+xml; charset=utf-8"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time=10777"
+          }
+        ],
+        "MESSAGE_BODY": "<?xml version=\"1.0\" encoding=\"utf-8\"?><chkrun:checkRunReports xmlns:chkrun=\"http://www.sap.com/adt/checkrun\"><chkrun:checkReport chkrun:reporter=\"abapCheckRun\" chkrun:triggeringUri=\"/sap/bc/adt/oo/interfaces/zfi_cliente1\" chkrun:status=\"processed\" chkrun:statusText=\"Object ZFI_CLIENTE1 has been checked\"/></chkrun:checkRunReports>"
+      }
+    }
+  },
+  {
+    "LOGID": 545,
+    "JSON": {
+      "REQUEST": {
+        "REQUEST_LINE": {
+          "METHOD": "POST",
+          "URI": "/sap/bc/adt/oo/interfaces/zfi_cliente1?_action=LOCK&accessMode=MODIFY",
+          "VERSION": "HTTP/1.1"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "Accept",
+            "VALUE": "application/vnd.sap.as+xml;charset=UTF-8;dataname=com.sap.adt.lock.result;q=0.8, application/vnd.sap.as+xml;charset=UTF-8;dataname=com.sap.adt.lock.result2;q=0.9"
+          },
+          {
+            "NAME": "sap-adt-request-id",
+            "VALUE": "16df7081dd174bfcb3ac602b18dbd61f"
+          },
+          {
+            "NAME": "User-Agent",
+            "VALUE": "Eclipse/4.39.0.v20260226-0420 (win32; x86_64; Java 21.0.10) ADT/3.56.0 (devedition)"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time"
+          }
+        ],
+        "MESSAGE_BODY": ""
+      },
+      "RESPONSE": {
+        "STATUS_LINE": {
+          "VERSION": "HTTP/1.1",
+          "STATUS_CODE": "200 ",
+          "REASON_PHRASE": "OK"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "~server_protocol",
+            "VALUE": "HTTP/1.1"
+          },
+          {
+            "NAME": "Content-Type",
+            "VALUE": "application/vnd.sap.as+xml; charset=utf-8; dataname=com.sap.adt.lock.Result"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time=14503"
+          }
+        ],
+        "MESSAGE_BODY": "<?xml version=\"1.0\" encoding=\"utf-8\"?><asx:abap version=\"1.0\" xmlns:asx=\"http://www.sap.com/abapxml\"><asx:values><DATA><LOCK_HANDLE>E89CAADA1C29B4233168465AF84FE37AE787F1A0</LOCK_HANDLE><CORRNR>A4HK900148</CORRNR><CORRUSER>DEVELOPER</CORRUSER><CORRTEXT>Request para criação de pacotes 3</CORRTEXT><IS_LOCAL/><IS_LINK_UP/><MODIFICATION_SUPPORT>NoModification</MODIFICATION_SUPPORT><SCOPE_MESSAGES/></DATA></asx:values></asx:abap>"
+      }
+    }
+  },
+  {
+    "LOGID": 546,
+    "JSON": {
+      "REQUEST": {
+        "REQUEST_LINE": {
+          "METHOD": "GET",
+          "URI": "/sap/bc/adt/oo/interfaces/zfi_cliente1?version=inactive",
+          "VERSION": "HTTP/1.1"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "If-None-Match",
+            "VALUE": "202609071717440015"
+          },
+          {
+            "NAME": "sap-adt-request-id",
+            "VALUE": "4944db11aecd4ce390d3ca15a973da1b"
+          },
+          {
+            "NAME": "Accept",
+            "VALUE": "application/vnd.sap.adt.oo.interfaces.v5+xml, application/vnd.sap.adt.oo.interfaces.v4+xml, application/vnd.sap.adt.oo.interfaces.v3+xml, application/vnd.sap.adt.oo.interfaces.v2+xml, application/vnd.sap.adt.oo.interfaces+xml"
+          },
+          {
+            "NAME": "User-Agent",
+            "VALUE": "Eclipse/4.39.0.v20260226-0420 (win32; x86_64; Java 21.0.10) ADT/3.56.0 (devedition)"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time"
+          }
+        ],
+        "MESSAGE_BODY": ""
+      },
+      "RESPONSE": {
+        "STATUS_LINE": {
+          "VERSION": "HTTP/1.1",
+          "STATUS_CODE": "304 ",
+          "REASON_PHRASE": "Not Modified"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "~server_protocol",
+            "VALUE": "HTTP/1.1"
+          },
+          {
+            "NAME": "ETag",
+            "VALUE": "202609071717440015"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time=6633"
+          }
+        ],
+        "MESSAGE_BODY": ""
+      }
+    }
+  },
+  {
+    "LOGID": 547,
+    "JSON": {
+      "REQUEST": {
+        "REQUEST_LINE": {
+          "METHOD": "GET",
+          "URI": "/sap/bc/adt/oo/interfaces/zfi_cliente1/objectstructure?version=active&withShortDescriptions=true",
+          "VERSION": "HTTP/1.1"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "sap-adt-request-id",
+            "VALUE": "d72f23deecd84e6a9dfc843d8c9028c7"
+          },
+          {
+            "NAME": "Accept",
+            "VALUE": "application/xml;q=0.8, application/vnd.sap.adt.objectstructure+xml;q=0.9, application/vnd.sap.adt.objectstructure.v2+xml"
+          },
+          {
+            "NAME": "User-Agent",
+            "VALUE": "Eclipse/4.39.0.v20260226-0420 (win32; x86_64; Java 21.0.10) ADT/3.56.0 (devedition)"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time"
+          }
+        ],
+        "MESSAGE_BODY": ""
+      },
+      "RESPONSE": {
+        "STATUS_LINE": {
+          "VERSION": "HTTP/1.1",
+          "STATUS_CODE": "200 ",
+          "REASON_PHRASE": "OK"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "~server_protocol",
+            "VALUE": "HTTP/1.1"
+          },
+          {
+            "NAME": "Content-Type",
+            "VALUE": "application/vnd.sap.adt.objectstructure.v2+xml"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time=8492"
+          }
+        ],
+        "MESSAGE_BODY": "<abapsource:objectStructureElement xml:base=\"/sap/bc/adt/oo/interfaces/zfi_cliente1/objectstructure?version=active&amp;withShortDescriptions=true\" adtcore:name=\"ZFI_CLIENTE1\" adtcore:type=\"INTF/OI\" xmlns:adtcore=\"http://www.sap.com/adt/core\" xmlns:abapsource=\"http://www.sap.com/adt/abapsource\" xmlns:atom=\"http://www.w3.org/2005/Atom\"><atom:link rel=\"http://www.sap.com/adt/relations/source/definitionIdentifier\" href=\"./source/main#start=1,10;end=1,22\"/><atom:link rel=\"http://www.sap.com/adt/relations/source/definitionBlock\" href=\"./source/main#start=1,0;end=5,12\"/><abapsource:objectStructureElement adtcore:type=\"INTF/IO\" adtcore:name=\"TEST1\" level=\"instance\" clif_name=\"ZFI_CLIENTE1\" visibility=\"public\"><atom:link rel=\"http://www.sap.com/adt/relations/source/definitionIdentifier\" href=\"./source/main#start=3,12;end=3,17\" type=\"INTF/IO\"/><atom:link rel=\"http://www.sap.com/adt/relations/source/definitionBlock\" href=\"./source/main#start=3,4;end=3,17\"/></abapsource:objectStructureElement></abapsource:objectStructureElement>"
+      }
+    }
+  },
+  {
+    "LOGID": 548,
+    "JSON": {
+      "REQUEST": {
+        "REQUEST_LINE": {
+          "METHOD": "POST",
+          "URI": "/sap/bc/adt/checkruns?reporters=abapCheckRun",
+          "VERSION": "HTTP/1.1"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "sap-adt-request-id",
+            "VALUE": "5825469c5031438a85a512f67f476422"
+          },
+          {
+            "NAME": "Content-Type",
+            "VALUE": "application/vnd.sap.adt.checkobjects+xml"
+          },
+          {
+            "NAME": "Accept",
+            "VALUE": "application/vnd.sap.adt.checkmessages+xml"
+          },
+          {
+            "NAME": "User-Agent",
+            "VALUE": "Eclipse/4.39.0.v20260226-0420 (win32; x86_64; Java 21.0.10) ADT/3.56.0 (devedition)"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time"
+          }
+        ],
+        "MESSAGE_BODY": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<chkrun:checkObjectList xmlns:adtcore=\"http://www.sap.com/adt/core\" xmlns:chkrun=\"http://www.sap.com/adt/checkrun\">\r\n  <chkrun:checkObject adtcore:uri=\"/sap/bc/adt/oo/interfaces/zfi_cliente1\" chkrun:version=\"active\">\r\n    <chkrun:artifacts>\r\n      <chkrun:artifact chkrun:contentType=\"text/plain; charset=utf-8\" chkrun:uri=\"/sap/bc/adt/oo/interfaces/zfi_cliente1/source/main\">\r\n        <chkrun:content>SU5URVJGQUNFIHpmaV9jbGllbnRlMQ0KICBQVUJMSUMuDQogICAgDQoNCkVORElOVEVSRkFDRS4=</chkrun:content>\r\n      </chkrun:artifact>\r\n    </chkrun:artifacts>\r\n  </chkrun:checkObject>\r\n</chkrun:checkObjectList>"
+      },
+      "RESPONSE": {
+        "STATUS_LINE": {
+          "VERSION": "HTTP/1.1",
+          "STATUS_CODE": "200 ",
+          "REASON_PHRASE": "OK"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "~server_protocol",
+            "VALUE": "HTTP/1.1"
+          },
+          {
+            "NAME": "Content-Type",
+            "VALUE": "application/vnd.sap.adt.checkmessages+xml; charset=utf-8"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time=11759"
+          }
+        ],
+        "MESSAGE_BODY": "<?xml version=\"1.0\" encoding=\"utf-8\"?><chkrun:checkRunReports xmlns:chkrun=\"http://www.sap.com/adt/checkrun\"><chkrun:checkReport chkrun:reporter=\"abapCheckRun\" chkrun:triggeringUri=\"/sap/bc/adt/oo/interfaces/zfi_cliente1\" chkrun:status=\"processed\" chkrun:statusText=\"Object ZFI_CLIENTE1 has been checked\"/></chkrun:checkRunReports>"
+      }
+    }
+  },
+  {
+    "LOGID": 549,
+    "JSON": {
+      "REQUEST": {
+        "REQUEST_LINE": {
+          "METHOD": "PUT",
+          "URI": "/sap/bc/adt/oo/interfaces/zfi_cliente1/source/main?lockHandle=E89CAADA1C29B4233168465AF84FE37AE787F1A0&corrNr=A4HK900148",
+          "VERSION": "HTTP/1.1"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "sap-adt-request-id",
+            "VALUE": "f7eee01cd79748e38789f0a82031b958"
+          },
+          {
+            "NAME": "Content-Type",
+            "VALUE": "text/plain; charset=utf-8"
+          },
+          {
+            "NAME": "User-Agent",
+            "VALUE": "Eclipse/4.39.0.v20260226-0420 (win32; x86_64; Java 21.0.10) ADT/3.56.0 (devedition)"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time"
+          }
+        ],
+        "MESSAGE_BODY": "INTERFACE zfi_cliente1\r\n  PUBLIC.\r\n\r\nENDINTERFACE."
+      },
+      "RESPONSE": {
+        "STATUS_LINE": {
+          "VERSION": "HTTP/1.1",
+          "STATUS_CODE": "200 ",
+          "REASON_PHRASE": "OK"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "~server_protocol",
+            "VALUE": "HTTP/1.1"
+          },
+          {
+            "NAME": "Last-Modified",
+            "VALUE": "Mon, 07 Sep 2026 17:18:08 GMT"
+          },
+          {
+            "NAME": "ETag",
+            "VALUE": "202609071718080001"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time=156909"
+          }
+        ],
+        "MESSAGE_BODY": ""
+      }
+    }
+  },
+  {
+    "LOGID": 550,
+    "JSON": {
+      "REQUEST": {
+        "REQUEST_LINE": {
+          "METHOD": "GET",
+          "URI": "/sap/bc/adt/oo/interfaces/zfi_cliente1?version=inactive",
+          "VERSION": "HTTP/1.1"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "If-None-Match",
+            "VALUE": "202609071717440015"
+          },
+          {
+            "NAME": "sap-adt-request-id",
+            "VALUE": "8149a1ea10d848b690332632a4d51e75"
+          },
+          {
+            "NAME": "Accept",
+            "VALUE": "application/vnd.sap.adt.oo.interfaces.v5+xml, application/vnd.sap.adt.oo.interfaces.v4+xml, application/vnd.sap.adt.oo.interfaces.v3+xml, application/vnd.sap.adt.oo.interfaces.v2+xml, application/vnd.sap.adt.oo.interfaces+xml"
+          },
+          {
+            "NAME": "User-Agent",
+            "VALUE": "Eclipse/4.39.0.v20260226-0420 (win32; x86_64; Java 21.0.10) ADT/3.56.0 (devedition)"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time"
+          }
+        ],
+        "MESSAGE_BODY": ""
+      },
+      "RESPONSE": {
+        "STATUS_LINE": {
+          "VERSION": "HTTP/1.1",
+          "STATUS_CODE": "200 ",
+          "REASON_PHRASE": "OK"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "~server_protocol",
+            "VALUE": "HTTP/1.1"
+          },
+          {
+            "NAME": "Content-Type",
+            "VALUE": "application/vnd.sap.adt.oo.interfaces.v5+xml; charset=utf-8"
+          },
+          {
+            "NAME": "Last-Modified",
+            "VALUE": "Mon, 07 Sep 2026 17:18:08 GMT"
+          },
+          {
+            "NAME": "ETag",
+            "VALUE": "202609071718080005"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time=7606"
+          }
+        ],
+        "MESSAGE_BODY": "<?xml version=\"1.0\" encoding=\"utf-8\"?><intf:abapInterface abapoo:modeled=\"false\" abapsource:sourceUri=\"source/main\" abapsource:fixPointArithmetic=\"false\" abapsource:activeUnicodeCheck=\"true\" adtcore:responsible=\"DEVELOPER\" adtcore:masterLanguage=\"EN\" adtcore:masterSystem=\"A4H\" adtcore:abapLanguageVersion=\"standard\" adtcore:name=\"ZFI_CLIENTE1\" adtcore:type=\"INTF/OI\" adtcore:changedAt=\"2026-09-07T17:18:08Z\" adtcore:version=\"inactive\" adtcore:createdAt=\"2026-09-07T00:00:00Z\" adtcore:changedBy=\"DEVELOPER\" adtcore:createdBy=\"DEVELOPER\" adtcore:description=\"Teste de Interface\" adtcore:descriptionTextLimit=\"60\" adtcore:language=\"EN\" xmlns:intf=\"http://www.sap.com/adt/oo/interfaces\" xmlns:abapoo=\"http://www.sap.com/adt/oo\" xmlns:abapsource=\"http://www.sap.com/adt/abapsource\" xmlns:adtcore=\"http://www.sap.com/adt/core\"><atom:link href=\"source/main/versions\" rel=\"http://www.sap.com/adt/relations/versions\" xmlns:atom=\"http://www.w3.org/2005/Atom\"/><atom:link href=\"source/main\" rel=\"http://www.sap.com/adt/relations/source\" type=\"text/plain\" etag=\"202609071718080001\" xmlns:atom=\"http://www.w3.org/2005/Atom\"/><atom:link href=\"source/main\" rel=\"http://www.sap.com/adt/relations/source\" type=\"text/html\" etag=\"202609071718080001\" xmlns:atom=\"http://www.w3.org/2005/Atom\"/><atom:link href=\"objectstructure\" rel=\"http://www.sap.com/adt/relations/objectstructure\" type=\"application/vnd.sap.adt.objectstructure.v2+xml\" xmlns:atom=\"http://www.w3.org/2005/Atom\"/><atom:link href=\"/sap/bc/adt/oo/interfaces/zfi_cliente1/source/main?withAbapDocFromShortTexts=true\" rel=\"http://www.sap.com/adt/relations/sources/withabapdocfromshorttexts\" type=\"text/plain\" title=\"Source with ABAP Doc\" xmlns:atom=\"http://www.w3.org/2005/Atom\"/><atom:link href=\"/sap/bc/adt/oo/interfaces/zfi_cliente1/source/main?version=active\" rel=\"http://www.sap.com/adt/relations/objectstates\" title=\"Reference to active or inactive version\" xmlns:atom=\"http://www.w3.org/2005/Atom\"/><atom:link href=\"/sap/bc/adt/repository/informationsystem/abaplanguageversions?uri=%2Fsap%2Fbc%2Fadt%2Foo%2Finterfaces%2Fzfi_cliente1\" rel=\"http://www.sap.com/adt/relations/informationsystem/abaplanguageversions\" type=\"application/vnd.sap.adt.nameditems.v1+xml\" title=\"Allowed ABAP language versions\" xmlns:atom=\"http://www.w3.org/2005/Atom\"/><adtcore:packageRef adtcore:uri=\"/sap/bc/adt/packages/zcliente1\" adtcore:type=\"DEVC/K\" adtcore:name=\"ZCLIENTE1\"/><abapsource:syntaxConfiguration><abapsource:language><abapsource:version>X</abapsource:version><abapsource:description>Standard ABAP</abapsource:description><atom:link href=\"/sap/bc/adt/abapsource/parsers/rnd/grammar\" rel=\"http://www.sap.com/adt/relations/abapsource/parser\" type=\"text/plain\" title=\"Standard ABAP\" etag=\"816\" xmlns:atom=\"http://www.w3.org/2005/Atom\"/></abapsource:language></abapsource:syntaxConfiguration></intf:abapInterface>"
+      }
+    }
+  },
+  {
+    "LOGID": 551,
+    "JSON": {
+      "REQUEST": {
+        "REQUEST_LINE": {
+          "METHOD": "POST",
+          "URI": "/sap/bc/adt/checkruns?reporters=abapCheckRun",
+          "VERSION": "HTTP/1.1"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "sap-adt-request-id",
+            "VALUE": "198c900af34141beb244b1631f228d23"
+          },
+          {
+            "NAME": "Content-Type",
+            "VALUE": "application/vnd.sap.adt.checkobjects+xml"
+          },
+          {
+            "NAME": "Accept",
+            "VALUE": "application/vnd.sap.adt.checkmessages+xml"
+          },
+          {
+            "NAME": "User-Agent",
+            "VALUE": "Eclipse/4.39.0.v20260226-0420 (win32; x86_64; Java 21.0.10) ADT/3.56.0 (devedition)"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time"
+          }
+        ],
+        "MESSAGE_BODY": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<chkrun:checkObjectList xmlns:adtcore=\"http://www.sap.com/adt/core\" xmlns:chkrun=\"http://www.sap.com/adt/checkrun\">\r\n  <chkrun:checkObject adtcore:uri=\"/sap/bc/adt/oo/interfaces/zfi_cliente1\" chkrun:version=\"inactive\"/>\r\n</chkrun:checkObjectList>"
+      },
+      "RESPONSE": {
+        "STATUS_LINE": {
+          "VERSION": "HTTP/1.1",
+          "STATUS_CODE": "200 ",
+          "REASON_PHRASE": "OK"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "~server_protocol",
+            "VALUE": "HTTP/1.1"
+          },
+          {
+            "NAME": "Content-Type",
+            "VALUE": "application/vnd.sap.adt.checkmessages+xml; charset=utf-8"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time=11112"
+          }
+        ],
+        "MESSAGE_BODY": "<?xml version=\"1.0\" encoding=\"utf-8\"?><chkrun:checkRunReports xmlns:chkrun=\"http://www.sap.com/adt/checkrun\"><chkrun:checkReport chkrun:reporter=\"abapCheckRun\" chkrun:triggeringUri=\"/sap/bc/adt/oo/interfaces/zfi_cliente1\" chkrun:status=\"processed\" chkrun:statusText=\"Object ZFI_CLIENTE1 has been checked\"/></chkrun:checkRunReports>"
+      }
+    }
+  },
+  {
+    "LOGID": 552,
+    "JSON": {
+      "REQUEST": {
+        "REQUEST_LINE": {
+          "METHOD": "POST",
+          "URI": "/sap/bc/adt/oo/interfaces/zfi_cliente1?_action=UNLOCK&lockHandle=E89CAADA1C29B4233168465AF84FE37AE787F1A0",
+          "VERSION": "HTTP/1.1"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "sap-adt-request-id",
+            "VALUE": "dcc2ffb42041451593b1222f023fe5dc"
+          },
+          {
+            "NAME": "User-Agent",
+            "VALUE": "Eclipse/4.39.0.v20260226-0420 (win32; x86_64; Java 21.0.10) ADT/3.56.0 (devedition)"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time"
+          }
+        ],
+        "MESSAGE_BODY": ""
+      },
+      "RESPONSE": {
+        "STATUS_LINE": {
+          "VERSION": "HTTP/1.1",
+          "STATUS_CODE": "200 ",
+          "REASON_PHRASE": "OK"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "~server_protocol",
+            "VALUE": "HTTP/1.1"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time=1190"
+          }
+        ],
+        "MESSAGE_BODY": ""
+      }
+    }
+  },
+  {
+    "LOGID": 553,
+    "JSON": {
+      "REQUEST": {
+        "REQUEST_LINE": {
+          "METHOD": "POST",
+          "URI": "/sap/bc/adt/activation?method=activate&preauditRequested=true",
+          "VERSION": "HTTP/1.1"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "sap-adt-request-id",
+            "VALUE": "a08cc813df7548f8825229c65d39a1f5"
+          },
+          {
+            "NAME": "Content-Type",
+            "VALUE": "application/xml"
+          },
+          {
+            "NAME": "Accept",
+            "VALUE": "application/xml"
+          },
+          {
+            "NAME": "User-Agent",
+            "VALUE": "Eclipse/4.39.0.v20260226-0420 (win32; x86_64; Java 21.0.10) ADT/3.56.0 (devedition)"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time"
+          }
+        ],
+        "MESSAGE_BODY": "<?xml version=\"1.0\" encoding=\"UTF-8\"?><adtcore:objectReferences xmlns:adtcore=\"http://www.sap.com/adt/core\"><adtcore:objectReference adtcore:uri=\"/sap/bc/adt/oo/interfaces/zfi_cliente1\" adtcore:name=\"ZFI_CLIENTE1\"/></adtcore:objectReferences>"
+      },
+      "RESPONSE": {
+        "STATUS_LINE": {
+          "VERSION": "HTTP/1.1",
+          "STATUS_CODE": "200 ",
+          "REASON_PHRASE": "OK"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "~server_protocol",
+            "VALUE": "HTTP/1.1"
+          },
+          {
+            "NAME": "Content-Type",
+            "VALUE": "application/xml; charset=utf-8"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time=143874"
+          }
+        ],
+        "MESSAGE_BODY": "<?xml version=\"1.0\" encoding=\"utf-8\"?><chkl:messages xmlns:chkl=\"http://www.sap.com/abapxml/checklist\"><chkl:properties checkExecuted=\"true\" activationExecuted=\"true\" generationExecuted=\"true\"/></chkl:messages>"
+      }
+    }
+  },
+  {
+    "LOGID": 554,
+    "JSON": {
+      "REQUEST": {
+        "REQUEST_LINE": {
+          "METHOD": "GET",
+          "URI": "/sap/bc/adt/oo/interfaces/zfi_cliente1?version=workingArea",
+          "VERSION": "HTTP/1.1"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "If-None-Match",
+            "VALUE": "202609071718080005"
+          },
+          {
+            "NAME": "sap-adt-request-id",
+            "VALUE": "89b07bddba754c79a38c6cf507bd7c49"
+          },
+          {
+            "NAME": "Accept",
+            "VALUE": "application/vnd.sap.adt.oo.interfaces.v5+xml, application/vnd.sap.adt.oo.interfaces.v4+xml, application/vnd.sap.adt.oo.interfaces.v3+xml, application/vnd.sap.adt.oo.interfaces.v2+xml, application/vnd.sap.adt.oo.interfaces+xml"
+          },
+          {
+            "NAME": "User-Agent",
+            "VALUE": "Eclipse/4.39.0.v20260226-0420 (win32; x86_64; Java 21.0.10) ADT/3.56.0 (devedition)"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time"
+          }
+        ],
+        "MESSAGE_BODY": ""
+      },
+      "RESPONSE": {
+        "STATUS_LINE": {
+          "VERSION": "HTTP/1.1",
+          "STATUS_CODE": "200 ",
+          "REASON_PHRASE": "OK"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "~server_protocol",
+            "VALUE": "HTTP/1.1"
+          },
+          {
+            "NAME": "Content-Type",
+            "VALUE": "application/vnd.sap.adt.oo.interfaces.v5+xml; charset=utf-8"
+          },
+          {
+            "NAME": "Last-Modified",
+            "VALUE": "Mon, 07 Sep 2026 17:18:10 GMT"
+          },
+          {
+            "NAME": "ETag",
+            "VALUE": "202609071718100015"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time=7091"
+          }
+        ],
+        "MESSAGE_BODY": "<?xml version=\"1.0\" encoding=\"utf-8\"?><intf:abapInterface abapoo:modeled=\"false\" abapsource:sourceUri=\"source/main\" abapsource:fixPointArithmetic=\"false\" abapsource:activeUnicodeCheck=\"true\" adtcore:responsible=\"DEVELOPER\" adtcore:masterLanguage=\"EN\" adtcore:masterSystem=\"A4H\" adtcore:abapLanguageVersion=\"standard\" adtcore:name=\"ZFI_CLIENTE1\" adtcore:type=\"INTF/OI\" adtcore:changedAt=\"2026-09-07T17:18:10Z\" adtcore:version=\"active\" adtcore:createdAt=\"2026-09-07T00:00:00Z\" adtcore:changedBy=\"DEVELOPER\" adtcore:createdBy=\"DEVELOPER\" adtcore:description=\"Teste de Interface\" adtcore:descriptionTextLimit=\"60\" adtcore:language=\"EN\" xmlns:intf=\"http://www.sap.com/adt/oo/interfaces\" xmlns:abapoo=\"http://www.sap.com/adt/oo\" xmlns:abapsource=\"http://www.sap.com/adt/abapsource\" xmlns:adtcore=\"http://www.sap.com/adt/core\"><atom:link href=\"source/main/versions\" rel=\"http://www.sap.com/adt/relations/versions\" xmlns:atom=\"http://www.w3.org/2005/Atom\"/><atom:link href=\"source/main\" rel=\"http://www.sap.com/adt/relations/source\" type=\"text/plain\" etag=\"202609071718100011\" xmlns:atom=\"http://www.w3.org/2005/Atom\"/><atom:link href=\"source/main\" rel=\"http://www.sap.com/adt/relations/source\" type=\"text/html\" etag=\"202609071718100011\" xmlns:atom=\"http://www.w3.org/2005/Atom\"/><atom:link href=\"objectstructure\" rel=\"http://www.sap.com/adt/relations/objectstructure\" type=\"application/vnd.sap.adt.objectstructure.v2+xml\" xmlns:atom=\"http://www.w3.org/2005/Atom\"/><atom:link href=\"/sap/bc/adt/oo/interfaces/zfi_cliente1/source/main?withAbapDocFromShortTexts=true\" rel=\"http://www.sap.com/adt/relations/sources/withabapdocfromshorttexts\" type=\"text/plain\" title=\"Source with ABAP Doc\" xmlns:atom=\"http://www.w3.org/2005/Atom\"/><atom:link href=\"/sap/bc/adt/repository/informationsystem/abaplanguageversions?uri=%2Fsap%2Fbc%2Fadt%2Foo%2Finterfaces%2Fzfi_cliente1\" rel=\"http://www.sap.com/adt/relations/informationsystem/abaplanguageversions\" type=\"application/vnd.sap.adt.nameditems.v1+xml\" title=\"Allowed ABAP language versions\" xmlns:atom=\"http://www.w3.org/2005/Atom\"/><adtcore:packageRef adtcore:uri=\"/sap/bc/adt/packages/zcliente1\" adtcore:type=\"DEVC/K\" adtcore:name=\"ZCLIENTE1\"/><abapsource:syntaxConfiguration><abapsource:language><abapsource:version>X</abapsource:version><abapsource:description>Standard ABAP</abapsource:description><atom:link href=\"/sap/bc/adt/abapsource/parsers/rnd/grammar\" rel=\"http://www.sap.com/adt/relations/abapsource/parser\" type=\"text/plain\" title=\"Standard ABAP\" etag=\"816\" xmlns:atom=\"http://www.w3.org/2005/Atom\"/></abapsource:language></abapsource:syntaxConfiguration></intf:abapInterface>"
+      }
+    }
+  },
+  {
+    "LOGID": 555,
+    "JSON": {
+      "REQUEST": {
+        "REQUEST_LINE": {
+          "METHOD": "GET",
+          "URI": "/sap/bc/adt/oo/interfaces/zfi_cliente1/source/main?version=workingArea",
+          "VERSION": "HTTP/1.1"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "Cache-Control",
+            "VALUE": "no-cache"
+          },
+          {
+            "NAME": "sap-adt-request-id",
+            "VALUE": "e1f7e7694ca947cd93488cf770e79bc3"
+          },
+          {
+            "NAME": "Accept",
+            "VALUE": "text/plain"
+          },
+          {
+            "NAME": "User-Agent",
+            "VALUE": "Eclipse/4.39.0.v20260226-0420 (win32; x86_64; Java 21.0.10) ADT/3.56.0 (devedition)"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time"
+          }
+        ],
+        "MESSAGE_BODY": ""
+      },
+      "RESPONSE": {
+        "STATUS_LINE": {
+          "VERSION": "HTTP/1.1",
+          "STATUS_CODE": "200 ",
+          "REASON_PHRASE": "OK"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "~server_protocol",
+            "VALUE": "HTTP/1.1"
+          },
+          {
+            "NAME": "Content-Type",
+            "VALUE": "text/plain; charset=utf-8"
+          },
+          {
+            "NAME": "Last-Modified",
+            "VALUE": "Mon, 07 Sep 2026 17:18:10 GMT"
+          },
+          {
+            "NAME": "ETag",
+            "VALUE": "202609071718100011"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time=8036"
+          }
+        ],
+        "MESSAGE_BODY": "INTERFACE zfi_cliente1\r\n  PUBLIC.\r\n\r\nENDINTERFACE."
+      }
+    }
+  },
+  {
+    "LOGID": 556,
+    "JSON": {
+      "REQUEST": {
+        "REQUEST_LINE": {
+          "METHOD": "GET",
+          "URI": "/sap/bc/adt/oo/interfaces/zfi_cliente1/objectstructure?version=active&withShortDescriptions=true",
+          "VERSION": "HTTP/1.1"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "sap-adt-request-id",
+            "VALUE": "44a47765bb8e4639afc5b4635ba8084f"
+          },
+          {
+            "NAME": "Accept",
+            "VALUE": "application/xml;q=0.8, application/vnd.sap.adt.objectstructure+xml;q=0.9, application/vnd.sap.adt.objectstructure.v2+xml"
+          },
+          {
+            "NAME": "User-Agent",
+            "VALUE": "Eclipse/4.39.0.v20260226-0420 (win32; x86_64; Java 21.0.10) ADT/3.56.0 (devedition)"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time"
+          }
+        ],
+        "MESSAGE_BODY": ""
+      },
+      "RESPONSE": {
+        "STATUS_LINE": {
+          "VERSION": "HTTP/1.1",
+          "STATUS_CODE": "200 ",
+          "REASON_PHRASE": "OK"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "~server_protocol",
+            "VALUE": "HTTP/1.1"
+          },
+          {
+            "NAME": "Content-Type",
+            "VALUE": "application/vnd.sap.adt.objectstructure.v2+xml"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time=7416"
+          }
+        ],
+        "MESSAGE_BODY": "<abapsource:objectStructureElement xml:base=\"/sap/bc/adt/oo/interfaces/zfi_cliente1/objectstructure?version=active&amp;withShortDescriptions=true\" adtcore:name=\"ZFI_CLIENTE1\" adtcore:type=\"INTF/OI\" xmlns:adtcore=\"http://www.sap.com/adt/core\" xmlns:abapsource=\"http://www.sap.com/adt/abapsource\" xmlns:atom=\"http://www.w3.org/2005/Atom\"><atom:link rel=\"http://www.sap.com/adt/relations/source/definitionIdentifier\" href=\"./source/main#start=1,10;end=1,22\"/><atom:link rel=\"http://www.sap.com/adt/relations/source/definitionBlock\" href=\"./source/main#start=1,0;end=4,12\"/></abapsource:objectStructureElement>"
+      }
+    }
+  },
+  {
+    "LOGID": 557,
+    "JSON": {
+      "REQUEST": {
+        "REQUEST_LINE": {
+          "METHOD": "POST",
+          "URI": "/sap/bc/adt/checkruns?reporters=abapCheckRun",
+          "VERSION": "HTTP/1.1"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "sap-adt-request-id",
+            "VALUE": "2ef44ce94c9d4fbe961288dfb2f355c0"
+          },
+          {
+            "NAME": "Content-Type",
+            "VALUE": "application/vnd.sap.adt.checkobjects+xml"
+          },
+          {
+            "NAME": "Accept",
+            "VALUE": "application/vnd.sap.adt.checkmessages+xml"
+          },
+          {
+            "NAME": "User-Agent",
+            "VALUE": "Eclipse/4.39.0.v20260226-0420 (win32; x86_64; Java 21.0.10) ADT/3.56.0 (devedition)"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time"
+          }
+        ],
+        "MESSAGE_BODY": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<chkrun:checkObjectList xmlns:adtcore=\"http://www.sap.com/adt/core\" xmlns:chkrun=\"http://www.sap.com/adt/checkrun\">\r\n  <chkrun:checkObject adtcore:uri=\"/sap/bc/adt/oo/interfaces/zfi_cliente1\" chkrun:version=\"active\"/>\r\n</chkrun:checkObjectList>"
+      },
+      "RESPONSE": {
+        "STATUS_LINE": {
+          "VERSION": "HTTP/1.1",
+          "STATUS_CODE": "200 ",
+          "REASON_PHRASE": "OK"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "~server_protocol",
+            "VALUE": "HTTP/1.1"
+          },
+          {
+            "NAME": "Content-Type",
+            "VALUE": "application/vnd.sap.adt.checkmessages+xml; charset=utf-8"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time=11108"
+          }
+        ],
+        "MESSAGE_BODY": "<?xml version=\"1.0\" encoding=\"utf-8\"?><chkrun:checkRunReports xmlns:chkrun=\"http://www.sap.com/adt/checkrun\"><chkrun:checkReport chkrun:reporter=\"abapCheckRun\" chkrun:triggeringUri=\"/sap/bc/adt/oo/interfaces/zfi_cliente1\" chkrun:status=\"processed\" chkrun:statusText=\"Object ZFI_CLIENTE1 has been checked\"/></chkrun:checkRunReports>"
+      }
+    }
+  },
+  {
+    "LOGID": 558,
+    "JSON": {
+      "REQUEST": {
+        "REQUEST_LINE": {
+          "METHOD": "POST",
+          "URI": "/sap/bc/adt/debugger/listeners?debuggingMode=user&requestUser=DEVELOPER&terminalId=1AE9FB948EC7455CB8B5C4903BD97641&ideId=990F046C34D0A948FEC0752DF3315604&checkConflict=true&isNotifiedOnConflict=true",
+          "VERSION": "HTTP/1.1"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "sap-adt-request-id",
+            "VALUE": "472eb060b36144d38ec3f80ab15724db"
+          },
+          {
+            "NAME": "Accept",
+            "VALUE": "application/vnd.sap.as+xml;charset=UTF-8;dataname=com.sap.adt.debugger.DebuggeesList"
+          },
+          {
+            "NAME": "User-Agent",
+            "VALUE": "Eclipse/4.39.0.v20260226-0420 (win32; x86_64; Java 21.0.10) ADT/3.56.0 (devedition)"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time"
+          }
+        ],
+        "MESSAGE_BODY": ""
+      },
+      "RESPONSE": {
+        "STATUS_LINE": {
+          "VERSION": "HTTP/1.1",
+          "STATUS_CODE": "200 ",
+          "REASON_PHRASE": "OK"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "~server_protocol",
+            "VALUE": "HTTP/1.1"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time=240023689"
+          }
+        ],
+        "MESSAGE_BODY": ""
+      }
+    }
+  },
+  {
+    "LOGID": 559,
+    "JSON": {
+      "REQUEST": {
+        "REQUEST_LINE": {
+          "METHOD": "POST",
+          "URI": "/sap/bc/adt/deletion/check",
+          "VERSION": "HTTP/1.1"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "sap-adt-request-id",
+            "VALUE": "ea16480e91034b70b1e7ea06617f8dc0"
+          },
+          {
+            "NAME": "Content-Type",
+            "VALUE": "application/vnd.sap.adt.deletion.check.request.v1+xml"
+          },
+          {
+            "NAME": "Accept",
+            "VALUE": "application/vnd.sap.adt.deletion.check.response.v1+xml"
+          },
+          {
+            "NAME": "User-Agent",
+            "VALUE": "Eclipse/4.39.0.v20260226-0420 (win32; x86_64; Java 21.0.10) ADT/3.56.0 (devedition)"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time"
+          }
+        ],
+        "MESSAGE_BODY": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<del:checkRequest xmlns:adtcore=\"http://www.sap.com/adt/core\" xmlns:del=\"http://www.sap.com/adt/deletion\">\r\n  <del:object adtcore:uri=\"/sap/bc/adt/oo/interfaces/zfi_cliente1\"/>\r\n</del:checkRequest>"
+      },
+      "RESPONSE": {
+        "STATUS_LINE": {
+          "VERSION": "HTTP/1.1",
+          "STATUS_CODE": "200 ",
+          "REASON_PHRASE": "OK"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "~server_protocol",
+            "VALUE": "HTTP/1.1"
+          },
+          {
+            "NAME": "Content-Type",
+            "VALUE": "application/vnd.sap.adt.deletion.check.response.v1+xml; charset=utf-8"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time=1569204"
+          }
+        ],
+        "MESSAGE_BODY": "<?xml version=\"1.0\" encoding=\"utf-8\"?><del:checkResponse xmlns:del=\"http://www.sap.com/adt/deletion\"><del:object del:externalStrongReferences=\"0\" del:externalWeakReferences=\"0\" del:isDeletable=\"true\" adtcore:uri=\"/sap/bc/adt/oo/interfaces/zfi_cliente1\" adtcore:type=\"INTF/OI\" adtcore:name=\"ZFI_CLIENTE1\" adtcore:packageName=\"ZCLIENTE1\" xmlns:adtcore=\"http://www.sap.com/adt/core\"><del:lockingTransport><del:recording>false</del:recording><del:result/><del:lockingTransport><del:trkorr>A4HK900148</del:trkorr><del:owner>KD</del:owner><del:description>DEVELOPER   20260905173441Request para criação de pacotes 3</del:description></del:lockingTransport><del:transportLayer>SAP</del:transportLayer></del:lockingTransport><del:message del:priority=\"0\" del:type=\"S\"><del:text/></del:message></del:object></del:checkResponse>"
+      }
+    }
+  },
+  {
+    "LOGID": 560,
+    "JSON": {
+      "REQUEST": {
+        "REQUEST_LINE": {
+          "METHOD": "POST",
+          "URI": "/sap/bc/adt/deletion/delete",
+          "VERSION": "HTTP/1.1"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "sap-adt-request-id",
+            "VALUE": "9ca22f1b8b8f4ef6b4a2ae0e2abe1e55"
+          },
+          {
+            "NAME": "Content-Type",
+            "VALUE": "application/vnd.sap.adt.deletion.request.v1+xml"
+          },
+          {
+            "NAME": "Accept",
+            "VALUE": "application/vnd.sap.adt.deletion.response.v1+xml"
+          },
+          {
+            "NAME": "User-Agent",
+            "VALUE": "Eclipse/4.39.0.v20260226-0420 (win32; x86_64; Java 21.0.10) ADT/3.56.0 (devedition)"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time"
+          }
+        ],
+        "MESSAGE_BODY": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<del:deletionRequest xmlns:adtcore=\"http://www.sap.com/adt/core\" xmlns:del=\"http://www.sap.com/adt/deletion\">\r\n  <del:object adtcore:uri=\"/sap/bc/adt/oo/interfaces/zfi_cliente1\">\r\n    <del:transportNumber>A4HK900148</del:transportNumber>\r\n  </del:object>\r\n</del:deletionRequest>"
+      },
+      "RESPONSE": {
+        "STATUS_LINE": {
+          "VERSION": "HTTP/1.1",
+          "STATUS_CODE": "200 ",
+          "REASON_PHRASE": "OK"
+        },
+        "HEADER_FIELDS": [
+          {
+            "NAME": "~server_protocol",
+            "VALUE": "HTTP/1.1"
+          },
+          {
+            "NAME": "Content-Type",
+            "VALUE": "application/vnd.sap.adt.deletion.response.v1+xml; charset=utf-8"
+          },
+          {
+            "NAME": "X-sap-adt-profiling",
+            "VALUE": "server-time=486740"
+          }
+        ],
+        "MESSAGE_BODY": "<?xml version=\"1.0\" encoding=\"utf-8\"?><del:deletionResult xmlns:del=\"http://www.sap.com/adt/deletion\"><del:object del:isDeleted=\"true\" adtcore:uri=\"/sap/bc/adt/oo/interfaces/zfi_cliente1\" adtcore:type=\"INTF/OI\" adtcore:name=\"ZFI_CLIENTE1\" adtcore:packageName=\"ZCLIENTE1\" xmlns:adtcore=\"http://www.sap.com/adt/core\"><del:message del:priority=\"0\" del:type=\"S\"><del:text/></del:message></del:object></del:deletionResult>"
+      }
+    }
+  }
+]

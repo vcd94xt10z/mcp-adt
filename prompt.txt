@@ -11,7 +11,7 @@ implementarmos uma nova função, vou te passar uma amostra de request/response 
 - Vou enviar o projeto atual zipado, leia o contéudo para entender como o projeto funciona
 - No diretório "log-chamadas-eclipse", você encontra o log das chamadas que o Eclipse faz ao SAP usando ADT. Isso é útil quando deseja saber como o Eclipse
 faz cada operação no SAP como criar classes, programas, pacotes, listar objetos, procurar objetos etc.
-- Reforçando, objetos locais não precisa de request, não peça request nesses casos
+- Reforçando, objetos locais não precisam um número de request pois não são transportáveis, não peça request nesses casos
 
 Padrões de Código
 - Use a POO para melhora a organização e reutilização do código

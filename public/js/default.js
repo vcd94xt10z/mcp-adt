@@ -78,7 +78,7 @@ class AppShell {
 
     // Abre uma categoria, carregando seu HTML, CSS e JavaScript apenas uma vez.
     async openPage(page) {
-        const pages = ['connections', 'requests', 'packages', 'classes', 'reports', 'log'];
+        const pages = ['connections', 'requests', 'packages', 'classes', 'interfaces', 'reports', 'log'];
         if (!pages.includes(page)) return;
 
         $('[data-page]').removeClass('active');

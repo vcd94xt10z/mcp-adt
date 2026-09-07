@@ -5,6 +5,7 @@ import { AdtHttpClient } from "../adt/http.js";
 import { PackageApi } from "../adt/packages.js";
 import { RequestApi } from "../adt/requests.js";
 import { ClassApi } from "../adt/classes.js";
+import { InterfaceApi } from "../adt/interfaces.js";
 import { ReportApi } from "../adt/reports.js";
 import { ActivationApi } from "../adt/activation.js";
 import { CheckRunApi } from "../adt/checkrun.js";
@@ -243,6 +244,61 @@ async function execute(res, connections, clients, payload) {
             break;
         case "class_delete":
             result = await new ClassApi(client).delete(required(input, "name"), optional(input, "transport"));
+            break;
+        case "interface_list":
+            result = await new InterfaceApi(client).list({ query: optional(input, "query") ?? "ZIF*", maxResults: Number(input.maxResults) || 100 });
+            break;
+        case "interface_get": {
+            const api = new InterfaceApi(client); const name = required(input, "name"); const version = optional(input, "version");
+            const [editData, transport] = await Promise.all([
+                version
+                    ? Promise.all([api.get(name, version), api.getSource(name, version)]).then(([interfaceData, source]) => ({ interface: interfaceData, source, version }))
+                    : api.getForEdit(name),
+                api.getTransport(name).catch(() => ({ number: "" }))
+            ]);
+            result = { ...editData, transport };
+            break;
+        }
+        case "interface_create": {
+            result = await new InterfaceApi(client).create({ name: required(input, "name"), description: String(input.description ?? ""), packageName: required(input, "packageName"), transport: optional(input, "transport"), language: optional(input, "language") ?? config.language ?? "EN", responsible: config.user, final: input.final === undefined ? true : Boolean(input.final), visibility: optional(input, "visibility") ?? "public", source: String(input.source ?? "") });
+            break;
+        }
+        case "interface_update":
+            result = await new InterfaceApi(client).update({
+                name: required(input, "name"),
+                description: String(input.description ?? ""),
+                packageName: optional(input, "packageName"),
+                transport: optional(input, "transport"),
+                language: optional(input, "language"),
+                responsible: optional(input, "responsible"),
+                final: input.final === undefined ? undefined : Boolean(input.final),
+                visibility: optional(input, "visibility"),
+                source: String(input.source ?? "")
+            });
+            break;
+        case "interface_update_source":
+            result = await new InterfaceApi(client).updateSource(required(input, "name"), String(input.source ?? ""), optional(input, "transport"), optional(input, "packageName"));
+            break;
+        case "interface_check_syntax": {
+            const name = required(input, "name").toUpperCase();
+            const source = optional(input, "source");
+            const version = optional(input, "version") ?? "active";
+            const api = new CheckRunApi(client);
+            result = source === undefined
+                ? await api.checkSyntax(`/sap/bc/adt/oo/interfaces/${encodeURIComponent(name.toLowerCase())}`, version)
+                : await api.checkSource(`/sap/bc/adt/oo/interfaces/${encodeURIComponent(name.toLowerCase())}`, source, version);
+            break;
+        }
+        case "interface_activate": {
+            const name = required(input, "name").toUpperCase();
+            result = await new ActivationApi(client).activate({ uri: `/sap/bc/adt/oo/interfaces/${encodeURIComponent(name.toLowerCase())}`, name });
+            break;
+        }
+        case "interface_delete_check":
+            result = await new InterfaceApi(client).checkDelete(required(input, "name"));
+            break;
+        case "interface_delete":
+            result = await new InterfaceApi(client).delete(required(input, "name"), optional(input, "transport"));
             break;
         case "report_list":
             result = await new ReportApi(client).list({ query: optional(input, "query") ?? "Z*", maxResults: Number(input.maxResults) || 100 });
