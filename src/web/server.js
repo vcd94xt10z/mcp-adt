@@ -304,9 +304,13 @@ async function execute(res, connections, clients, payload) {
         case "domain_list":
             result = await new DomainApi(client).list({ query: optional(input, "query") ?? "Z*", maxResults: Number(input.maxResults) || 100 });
             break;
-        case "domain_get":
-            result = await new DomainApi(client).get(required(input, "name"), optional(input, "version"));
+        case "domain_get": {
+            const api = new DomainApi(client);
+            const domain = await api.get(required(input, "name"), optional(input, "version"));
+            const transport = await api.getTransport(domain.name, domain.packageName).catch(() => ({ number: "" }));
+            result = { ...domain, transport };
             break;
+        }
         case "domain_create":
             result = await new DomainApi(client).create({ ...input, name: required(input, "name"), packageName: required(input, "packageName"), description: String(input.description ?? ""), language: optional(input, "language") ?? config.language ?? "EN", responsible: config.user });
             break;

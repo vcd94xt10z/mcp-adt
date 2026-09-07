@@ -38,6 +38,7 @@ nesse caso, deixe somente leitura
 Editar (Exibe o mesmo formulário, só que podendo editar os campos pertinentes), Excluir (Permite excluir, sempre coloque um popup modal de confirmação). Se o objeto em 
 questão tiver opção de ativação, coloque um botão para isso também.
 - Não gerar placeholders dentro de campos, aqueles textos que aparecem dentro do campo quando ele esta vazio
+- Se um campo é somente leitura, seu conteúdo não pode ser modificado, se tiver um botão para o value help, desse botão deve ficar desabilitado
 - Tecla de atalho F8: Se tiver um botão "Buscar", "Pesquisar" ou algo nesse sentido, a busca deve ser executada
 - Tecla de atalho F3: Voltar no histórico do navegador
 - Tecla de atalho F4: Se um campo com value help estiver selecionado ou com foco, abre o value help

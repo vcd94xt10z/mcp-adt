@@ -142,7 +142,7 @@ export function createMcpServer(initialConnections) {
     server.registerTool("domain_get", {
         title: "Get DDIC domain", description: "Read DDIC domain definition and technical properties.",
         inputSchema: connectionSchema.extend({ name: z.string().min(1), version: z.string().optional() })
-    }, async ({ connection, name, version }) => result(await new DomainApi(await client(connection)).get(name, version)));
+    }, async ({ connection, name, version }) => { const api = new DomainApi(await client(connection)); const domain = await api.get(name, version); return result({ ...domain, transport: await api.getTransport(domain.name, domain.packageName).catch(() => ({ number: "" })) }); });
     server.registerTool("domain_create", {
         title: "Create DDIC domain", description: "Create a DDIC domain following the Eclipse ADT validation and transport flow.",
         inputSchema: connectionSchema.extend({ name:z.string().min(1), description:z.string(), packageName:z.string().min(1), transport:z.string().optional(), language:z.string().optional(), datatype:z.string().optional(), length:z.number().optional(), decimals:z.number().optional(), outputLength:z.number().optional(), conversionExit:z.string().optional(), lowercase:z.boolean().optional(), signExists:z.boolean().optional(), valueTable:z.string().optional(), fixValues:z.array(z.object({low:z.string(),high:z.string().optional(),text:z.string()})).optional() })

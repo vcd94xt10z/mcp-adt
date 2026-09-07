@@ -43,7 +43,9 @@ class DomainsPage {
         $('#domainDeleteConfirm').on('click', () => this.deleteDomain());
 
         $(document).on('click', '#domainsPage .value-help-button', event => {
-            this.openValueHelp($(event.currentTarget).data('value-help'));
+            const button = $(event.currentTarget);
+            if (button.prop('disabled')) return;
+            this.openValueHelp(button.data('value-help'));
         });
 
         $(document).on('keydown', '#domainsPage input', event => {
@@ -111,6 +113,7 @@ class DomainsPage {
             domainName: domain.name,
             domainDescription: domain.description,
             domainPackage: domain.packageName,
+            domainTransport: domain.transport?.number || domain.transport || '',
             domainLanguage: domain.language || 'EN',
             domainDatatype: domain.datatype,
             domainLength: domain.length,
@@ -127,11 +130,12 @@ class DomainsPage {
 
         $('#domainName,#domainPackage,#domainLanguage,#domainTransport').prop('readonly', true);
         if (view) {
-            $('#domainForm').find('input,button').prop('disabled', true);
-            $('#domainForm .btn-close,#domainForm [data-bs-dismiss]').prop('disabled', false);
+            $('#domainForm').find('input,button,select,textarea').prop('disabled', true);
+            $('#domainModal .btn-close,#domainForm [data-bs-dismiss]').prop('disabled', false);
         } else {
-            $('#domainForm').find('input,button').prop('disabled', false);
+            $('#domainForm').find('input,button,select,textarea').prop('disabled', false);
             $('#domainName,#domainPackage,#domainLanguage,#domainTransport').prop('readonly', true);
+            $('#domainForm .value-help-button[data-value-help="package"],#domainForm .value-help-button[data-value-help="language"],#domainForm .value-help-button[data-value-help="request"]').prop('disabled', true);
         }
         $('#domainActivate').toggle(!view);
     }

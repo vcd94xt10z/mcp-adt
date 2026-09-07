@@ -165,6 +165,53 @@ export class DomainApi {
             }
         }
     }
+    // Extrai o número da request de respostas XML do ADT.
+    parseTransportNumber(raw) {
+        const source = String(raw ?? "");
+        const patterns = [
+            /<(?:[\w.-]+:)?TRKORR\b[^>]*>\s*([^<\s]+)\s*<\//i,
+            /<(?:[\w.-]+:)?(?:transportNumber|requestNumber|request)\b[^>]*>\s*([^<\s]+)\s*<\//i,
+            /(?:[\w.-]+:)?(?:trkorr|transportNumber|requestNumber|request)=['"]([^'"]+)['"]/i
+        ];
+        return patterns.map(pattern => source.match(pattern)?.[1] ?? "").find(Boolean)?.trim() ?? "";
+    }
+
+    // Consulta a request Workbench associada ao domínio. Pacotes locais não possuem request.
+    async getTransport(name, packageName = "") {
+        const domainName = normalizeDomainName(name);
+        if (localPackage(packageName)) return { name: domainName, number: "" };
+
+        const uri = `${DOMAINS_URL}/${encodeURIComponent(domainName.toLowerCase())}/transports`;
+        const accepts = [
+            "application/vnd.sap.as+xml;charset=utf-8;dataname=com.sap.adt.lock.result2",
+            "application/vnd.sap.as+xml; charset=utf-8",
+            "application/xml, text/xml"
+        ];
+        let lastError;
+
+        for (const accept of accepts) {
+            try {
+                const response = await this.http.request(uri, {
+                    headers: { Accept: accept, "X-sap-adt-sessiontype": "stateful" }
+                });
+                const number = this.parseTransportNumber(response.body);
+                if (number) return { name: domainName, number, status: response.status, durationMs: response.durationMs, raw: response.body };
+            } catch (error) {
+                lastError = error;
+            }
+        }
+
+        try {
+            const check = await this.checkDelete(domainName);
+            if (check.transport) return { name: domainName, number: check.transport, status: check.status, durationMs: check.durationMs, raw: check.raw };
+        } catch (error) {
+            lastError = error;
+        }
+
+        if (lastError) throw lastError;
+        return { name: domainName, number: "" };
+    }
+
     async checkDelete(name) { const domainName=normalizeDomainName(name); const uri=`${DOMAINS_URL}/${encodeURIComponent(domainName.toLowerCase())}`; const body=`<?xml version="1.0" encoding="UTF-8"?><del:checkRequest xmlns:adtcore="http://www.sap.com/adt/core" xmlns:del="http://www.sap.com/adt/deletion"><del:object adtcore:uri="${xmlEscape(uri)}"/></del:checkRequest>`; const response=await this.http.write("/sap/bc/adt/deletion/check",{headers:{"Content-Type":"application/vnd.sap.adt.deletion.check.request.v1+xml",Accept:"application/vnd.sap.adt.deletion.check.response.v1+xml"},body}); const transport=response.body.match(/<del:trkorr>\s*([^<]+)/i)?.[1]?.trim()??""; return {name:domainName,uri,isDeletable:/isDeletable=["']true/i.test(response.body),transport,raw:response.body}; }
     async delete(name,transport) { const check=await this.checkDelete(name); if(!check.isDeletable) throw new Error(`Domain '${check.name}' cannot be deleted.`); const request=String(transport??check.transport??"").trim(); const body=`<?xml version="1.0" encoding="UTF-8"?><del:deletionRequest xmlns:adtcore="http://www.sap.com/adt/core" xmlns:del="http://www.sap.com/adt/deletion"><del:object adtcore:uri="${xmlEscape(check.uri)}">${request?`<del:transportNumber>${xmlEscape(request)}</del:transportNumber>`:""}</del:object></del:deletionRequest>`; const response=await this.http.write("/sap/bc/adt/deletion/delete",{headers:{"Content-Type":"application/vnd.sap.adt.deletion.request.v1+xml",Accept:"application/vnd.sap.adt.deletion.response.v1+xml"},body}); return {name:check.name,deleted:/isDeleted=["']true/i.test(response.body),transport:request||undefined,raw:response.body}; }
 }
