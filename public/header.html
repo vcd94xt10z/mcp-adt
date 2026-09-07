@@ -16,10 +16,26 @@
             <a href="#" class="app-nav-link active" data-page="connections">Conexões</a>
             <a href="#" class="app-nav-link" data-page="requests">Requests</a>
             <a href="#" class="app-nav-link" data-page="packages">Pacotes</a>
-            <a href="#" class="app-nav-link" data-page="classes">Classes</a>
-            <a href="#" class="app-nav-link" data-page="interfaces">Interfaces</a>
-            <a href="#" class="app-nav-link" data-page="domains">Domínios</a>
-            <a href="#" class="app-nav-link" data-page="reports">Reports</a>
+
+            <div class="dropdown app-nav-dropdown">
+                <button class="app-nav-link dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Código Fonte
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#" data-page="reports">Reports</a></li>
+                    <li><a class="dropdown-item" href="#" data-page="classes">Classes</a></li>
+                    <li><a class="dropdown-item" href="#" data-page="interfaces">Interfaces</a></li>
+                </ul>
+            </div>
+
+            <div class="dropdown app-nav-dropdown">
+                <button class="app-nav-link dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Dicionário
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#" data-page="domains">Domínio</a></li>
+                </ul>
+            </div>
             <a href="#" class="app-nav-link" data-page="log">Log</a>
         </nav>
 
