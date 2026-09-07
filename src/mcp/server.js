@@ -5,6 +5,7 @@ import { PackageApi } from "../adt/packages.js";
 import { RequestApi } from "../adt/requests.js";
 import { ClassApi } from "../adt/classes.js";
 import { InterfaceApi } from "../adt/interfaces.js";
+import { DomainApi } from "../adt/domains.js";
 import { ReportApi } from "../adt/reports.js";
 import { ActivationApi } from "../adt/activation.js";
 import { CheckRunApi } from "../adt/checkrun.js";
@@ -134,6 +135,28 @@ export function createMcpServer(initialConnections) {
         title: "Delete ABAP interface", description: "Check and delete an ABAP interface through the Eclipse ADT deletion endpoints.",
         inputSchema: connectionSchema.extend({ name: z.string().min(1), transport: z.string().optional() })
     }, async ({ connection, name, transport }) => result(await new InterfaceApi(await client(connection)).delete(name, transport)));
+    server.registerTool("domain_list", {
+        title: "List DDIC domains", description: "Search ABAP Dictionary domains by name pattern.",
+        inputSchema: connectionSchema.extend({ query: z.string().optional(), maxResults: z.number().optional() })
+    }, async ({ connection, query, maxResults }) => result(await new DomainApi(await client(connection)).list({ query: query ?? "Z*", maxResults })));
+    server.registerTool("domain_get", {
+        title: "Get DDIC domain", description: "Read DDIC domain definition and technical properties.",
+        inputSchema: connectionSchema.extend({ name: z.string().min(1), version: z.string().optional() })
+    }, async ({ connection, name, version }) => result(await new DomainApi(await client(connection)).get(name, version)));
+    server.registerTool("domain_create", {
+        title: "Create DDIC domain", description: "Create a DDIC domain following the Eclipse ADT validation and transport flow.",
+        inputSchema: connectionSchema.extend({ name:z.string().min(1), description:z.string(), packageName:z.string().min(1), transport:z.string().optional(), language:z.string().optional(), datatype:z.string().optional(), length:z.number().optional(), decimals:z.number().optional(), outputLength:z.number().optional(), conversionExit:z.string().optional(), lowercase:z.boolean().optional(), signExists:z.boolean().optional(), valueTable:z.string().optional(), fixValues:z.array(z.object({low:z.string(),high:z.string().optional(),text:z.string()})).optional() })
+    }, async ({ connection, ...input }) => { const connections=await loadConnections(); return result(await new DomainApi(await client(connection)).create({...input,responsible:connections[connection]?.user})); });
+    server.registerTool("domain_update", {
+        title: "Update DDIC domain", description: "Update DDIC domain definition using lock, PUT and unlock.",
+        inputSchema: connectionSchema.extend({ name:z.string().min(1), description:z.string(), packageName:z.string().optional(), transport:z.string().optional(), language:z.string().optional(), datatype:z.string(), length:z.number(), decimals:z.number().optional(), outputLength:z.number().optional(), conversionExit:z.string().optional(), lowercase:z.boolean().optional(), signExists:z.boolean().optional(), valueTable:z.string().optional(), fixValues:z.array(z.object({low:z.string(),high:z.string().optional(),text:z.string()})).optional() })
+    }, async ({ connection, ...input }) => result(await new DomainApi(await client(connection)).update(input)));
+    server.registerTool("domain_activate", {
+        title: "Activate DDIC domain", description: "Activate a DDIC domain through SAP ADT.", inputSchema: connectionSchema.extend({ name:z.string().min(1) })
+    }, async ({connection,name}) => { const n=name.trim().toUpperCase(); return result(await new ActivationApi(await client(connection)).activate({uri:`/sap/bc/adt/ddic/domains/${encodeURIComponent(n.toLowerCase())}`,name:n})); });
+    server.registerTool("domain_delete", {
+        title:"Delete DDIC domain", description:"Check and delete a DDIC domain through Eclipse ADT deletion endpoints.", inputSchema:connectionSchema.extend({name:z.string().min(1),transport:z.string().optional()})
+    }, async ({connection,name,transport}) => result(await new DomainApi(await client(connection)).delete(name,transport)));
     server.registerTool("report_list", {
         title: "List ABAP reports", description: "Search executable ABAP reports by name pattern with * and ? wildcards.",
         inputSchema: connectionSchema.extend({ query: z.string().optional(), maxResults: z.number().optional() })

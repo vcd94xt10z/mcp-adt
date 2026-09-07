@@ -6,6 +6,7 @@ import { PackageApi } from "../adt/packages.js";
 import { RequestApi } from "../adt/requests.js";
 import { ClassApi } from "../adt/classes.js";
 import { InterfaceApi } from "../adt/interfaces.js";
+import { DomainApi } from "../adt/domains.js";
 import { ReportApi } from "../adt/reports.js";
 import { ActivationApi } from "../adt/activation.js";
 import { CheckRunApi } from "../adt/checkrun.js";
@@ -299,6 +300,29 @@ async function execute(res, connections, clients, payload) {
             break;
         case "interface_delete":
             result = await new InterfaceApi(client).delete(required(input, "name"), optional(input, "transport"));
+            break;
+        case "domain_list":
+            result = await new DomainApi(client).list({ query: optional(input, "query") ?? "Z*", maxResults: Number(input.maxResults) || 100 });
+            break;
+        case "domain_get":
+            result = await new DomainApi(client).get(required(input, "name"), optional(input, "version"));
+            break;
+        case "domain_create":
+            result = await new DomainApi(client).create({ ...input, name: required(input, "name"), packageName: required(input, "packageName"), description: String(input.description ?? ""), language: optional(input, "language") ?? config.language ?? "EN", responsible: config.user });
+            break;
+        case "domain_update":
+            result = await new DomainApi(client).update({ ...input, name: required(input, "name"), responsible: config.user });
+            break;
+        case "domain_activate": {
+            const name = required(input, "name").toUpperCase();
+            result = await new ActivationApi(client).activate({ uri: `/sap/bc/adt/ddic/domains/${encodeURIComponent(name.toLowerCase())}`, name });
+            break;
+        }
+        case "domain_delete_check":
+            result = await new DomainApi(client).checkDelete(required(input, "name"));
+            break;
+        case "domain_delete":
+            result = await new DomainApi(client).delete(required(input, "name"), optional(input, "transport"));
             break;
         case "report_list":
             result = await new ReportApi(client).list({ query: optional(input, "query") ?? "Z*", maxResults: Number(input.maxResults) || 100 });

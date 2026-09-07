@@ -1,0 +1,159 @@
+<section id="domainsPage" class="app-page d-none">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <div>
+            <h2 class="h4 mb-1">Domínios DDIC</h2>
+            <p class="text-secondary mb-0">Crie e mantenha domínios do Dicionário ABAP.</p>
+        </div>
+        <button id="domainCreate" class="btn btn-primary">Novo domínio</button>
+    </div>
+
+    <div class="card mb-3">
+        <div class="card-body">
+            <form id="domainSearchForm" class="row g-2">
+                <div class="col-md-6">
+                    <label class="form-label">Padrão</label>
+                    <input id="domainSearchQuery" class="form-control" value="Z*">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Máximo</label>
+                    <input id="domainSearchMax" type="number" class="form-control" value="100" min="1">
+                </div>
+                <div class="col-md-3 d-flex align-items-end">
+                    <button class="btn btn-primary w-100">Pesquisar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="domainResults" class="card card-body"></div>
+
+    <div class="modal fade" id="domainModal" tabindex="-1">
+        <div class="modal-dialog modal-xl modal-dialog-centered resizable-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 id="domainFormTitle">Domínio</h5>
+                    <button class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <form id="domainForm">
+                    <div class="modal-body">
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <label class="form-label">Nome *</label>
+                                <input id="domainName" required class="form-control">
+                            </div>
+                            <div class="col-md-5">
+                                <label class="form-label">Descrição *</label>
+                                <input id="domainDescription" required class="form-control">
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Idioma</label>
+                                <div class="input-group">
+                                    <input id="domainLanguage" class="form-control" value="EN">
+                                    <button type="button" class="btn btn-outline-secondary value-help-button" data-value-help="language">Selecionar</button>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <label class="form-label">Pacote *</label>
+                                <div class="input-group">
+                                    <input id="domainPackage" required class="form-control">
+                                    <button type="button" class="btn btn-outline-secondary value-help-button" data-value-help="package">Selecionar</button>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Request Workbench</label>
+                                <div class="input-group">
+                                    <input id="domainTransport" class="form-control">
+                                    <button type="button" class="btn btn-outline-secondary value-help-button" data-value-help="request">Selecionar</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr>
+                        <h6>Tipo</h6>
+                        <div class="row g-3">
+                            <div class="col-md-3">
+                                <label class="form-label">Tipo de dados *</label>
+                                <div class="input-group">
+                                    <input id="domainDatatype" required class="form-control" placeholder="CHAR">
+                                    <button type="button" class="btn btn-outline-secondary value-help-button" data-value-help="datatype">Selecionar</button>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label">Comprimento *</label>
+                                <input id="domainLength" required type="number" min="0" class="form-control">
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label">Decimais</label>
+                                <input id="domainDecimals" type="number" min="0" value="0" class="form-control">
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label">Comp. saída</label>
+                                <input id="domainOutputLength" type="number" min="0" class="form-control">
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Exit conversão</label>
+                                <input id="domainConversionExit" class="form-control">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Tabela de valores</label>
+                                <input id="domainValueTable" class="form-control">
+                            </div>
+                            <div class="col-md-3 form-check mt-4">
+                                <input id="domainLowercase" class="form-check-input" type="checkbox">
+                                <label class="form-check-label" for="domainLowercase">Minúsculas permitidas</label>
+                            </div>
+                            <div class="col-md-3 form-check mt-4">
+                                <input id="domainSignExists" class="form-check-input" type="checkbox">
+                                <label class="form-check-label" for="domainSignExists">Sinal permitido</label>
+                            </div>
+                        </div>
+
+                        <hr>
+                        <div class="d-flex justify-content-between">
+                            <h6>Valores fixos</h6>
+                            <button type="button" id="domainAddFix" class="btn btn-sm btn-outline-primary">Adicionar</button>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Valor inicial</th>
+                                        <th>Valor final</th>
+                                        <th>Texto</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="domainFixValues"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="domainActivate" type="button" class="btn btn-success">Ativar</button>
+                        <button type="submit" class="btn btn-primary">Salvar</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="domainDeleteModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5>Confirmar exclusão</h5>
+                    <button class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="domainDeleteText"></p>
+                    <label class="form-label">Request</label>
+                    <input id="domainDeleteTransport" class="form-control" readonly>
+                </div>
+                <div class="modal-footer">
+                    <button id="domainDeleteConfirm" class="btn btn-danger">Excluir</button>
+                    <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
