@@ -5,6 +5,7 @@ import { writeSapLog } from "../log.js";
 export class AdtHttpError extends Error {
     response;
     retryable;
+    userMessage;
     constructor(message, response, retryable) {
         super(message);
         this.response = response;
@@ -65,11 +66,37 @@ export class AdtHttpClient {
         }
         this.cookie = [...current.entries()].map(([k, v]) => `${k}=${v}`).join("; ");
     }
-    // Executa uma requisição HTTP/HTTPS usando as opções TLS da conexão.
-    async requestUrl(url, options, redirects = 0) {
+    // Executa uma requisição HTTP/HTTPS e aguarda até 30 segundos pela resposta do SAP.
+    async requestUrl(url, options, redirects = 0, deadline = Date.now() + 30000) {
         if (redirects > 5) {
-            throw new Error('Too many redirects.');
+            throw new Error("Too many redirects.");
         }
+
+        while (true) {
+            const remainingMs = deadline - Date.now();
+            if (remainingMs <= 0) {
+                throw this.createTimeoutError();
+            }
+
+            try {
+                return await this.requestUrlAttempt(url, options, redirects, deadline, remainingMs);
+            }
+            catch (error) {
+                if (error?.code === "SAP_TIMEOUT") {
+                    throw error;
+                }
+
+                if (Date.now() >= deadline) {
+                    throw this.createTimeoutError();
+                }
+
+                await new Promise(resolve => setTimeout(resolve, Math.min(250, Math.max(1, deadline - Date.now()))));
+            }
+        }
+    }
+
+    // Executa uma única tentativa de conexão com o SAP.
+    async requestUrlAttempt(url, options, redirects, deadline, timeoutMs) {
         return new Promise((resolve, reject) => {
             const transport = url.protocol === "https:" ? httpsRequest : httpRequest;
             const requestOptions = {
@@ -80,12 +107,15 @@ export class AdtHttpClient {
                 method: options.method ?? "GET",
                 headers: { ...options.headers }
             };
-            if (options.body !== undefined && options.body !== null && requestOptions.headers['Content-Length'] === undefined && requestOptions.headers['content-length'] === undefined) {
-                requestOptions.headers['Content-Length'] = Buffer.byteLength(String(options.body));
+
+            if (options.body !== undefined && options.body !== null && requestOptions.headers["Content-Length"] === undefined && requestOptions.headers["content-length"] === undefined) {
+                requestOptions.headers["Content-Length"] = Buffer.byteLength(String(options.body));
             }
+
             if (url.protocol === "https:") {
                 requestOptions.rejectUnauthorized = this.config.rejectUnauthorized !== false;
             }
+
             const request = transport(requestOptions, response => {
                 const chunks = [];
                 response.on("data", chunk => chunks.push(chunk));
@@ -94,23 +124,26 @@ export class AdtHttpClient {
                     for (const [name, value] of Object.entries(response.headers)) {
                         if (Array.isArray(value)) {
                             value.forEach(item => headers.append(name, item));
-                        } else if (value !== undefined) {
+                        }
+                        else if (value !== undefined) {
                             headers.set(name, String(value));
                         }
                     }
+
                     const status = response.statusCode ?? 0;
-                    const location = headers.get('location');
+                    const location = headers.get("location");
                     if ([301, 302, 303, 307, 308].includes(status) && location) {
                         const nextUrl = new URL(location, url);
-                        const nextMethod = status === 303 || ((status === 301 || status === 302) && options.method === 'POST') ? 'GET' : (options.method ?? 'GET');
-                        const nextBody = nextMethod === 'GET' || nextMethod === 'HEAD' ? undefined : options.body;
+                        const nextMethod = status === 303 || ((status === 301 || status === 302) && options.method === "POST") ? "GET" : (options.method ?? "GET");
+                        const nextBody = nextMethod === "GET" || nextMethod === "HEAD" ? undefined : options.body;
                         resolve(this.requestUrl(nextUrl, {
                             ...options,
                             method: nextMethod,
                             body: nextBody
-                        }, redirects + 1));
+                        }, redirects + 1, deadline));
                         return;
                     }
+
                     resolve({
                         status,
                         headers,
@@ -119,17 +152,26 @@ export class AdtHttpClient {
                     });
                 });
             });
-            const timeoutMs = Number(options.timeoutMs ?? this.config.timeoutMs ?? 30000);
-            if (Number.isFinite(timeoutMs) && timeoutMs > 0) {
-                request.setTimeout(timeoutMs, () => request.destroy(new Error(`Request timeout after ${timeoutMs}ms.`)));
-            }
+
+            request.setTimeout(timeoutMs, () => {
+                request.destroy(this.createTimeoutError());
+            });
             request.on("error", reject);
+
             if (options.body !== undefined && options.body !== null) {
                 request.write(options.body);
             }
             request.end();
         });
     }
+
+    // Cria o erro padrão usado quando o SAP não responde dentro de 30 segundos.
+    createTimeoutError() {
+        const error = new Error("O ambiente SAP não respondeu após 30 segundos, tente novamente");
+        error.code = "SAP_TIMEOUT";
+        return error;
+    }
+
     async rawRequest(path, options) {
         const url = this.buildUrl(path, options.query);
         const headers = { ...this.baseHeaders(), ...(options.headers ?? {}) };
@@ -159,7 +201,9 @@ export class AdtHttpClient {
                 error: message
             });
             const synthetic = { status: 0, headers: new Headers(), body: "", url: url.toString(), durationMs };
-            throw new AdtHttpError(`ADT network request failed: ${message}`, synthetic, true);
+            const adtError = new AdtHttpError(`ADT network request failed: ${message}`, synthetic, true);
+            if (error?.code === "SAP_TIMEOUT") adtError.userMessage = message;
+            throw adtError;
         }
         this.updateCookies(response.headers);
         const durationMs = Math.round(performance.now() - started);

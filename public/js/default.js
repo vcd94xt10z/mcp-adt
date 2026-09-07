@@ -5,6 +5,8 @@ class AppShell {
         this.environmentOptionsConnection = null;
         this.loadedPages = new Set();
         this.pendingHttpRequests = 0;
+        this.httpLoaderSeconds = 0;
+        this.httpLoaderTimer = null;
     }
 
     // Inicializa a aplicação, carrega o cabeçalho, os recursos compartilhados e a primeira tela.
@@ -22,7 +24,7 @@ class AppShell {
             <div id="httpLoader" class="app-loader" hidden aria-hidden="true" role="status" aria-live="polite">
                 <div class="app-loader-box">
                     <div class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></div>
-                    <span>Aguarde, processando...</span>
+                    <span id="httpLoaderMessage">Aguarde, processando 0s</span>
                 </div>
             </div>
             <div class="toast-container position-fixed top-0 end-0 p-3" id="toastContainer"></div>
@@ -190,9 +192,31 @@ class AppShell {
         }
     }
 
-    // Controla o indicador visual de processamento das chamadas HTTP.
+    // Controla o indicador visual e o contador de segundos das chamadas HTTP.
     setHttpLoader(visible) {
-        $('#httpLoader').prop('hidden', !visible).attr('aria-hidden', String(!visible));
+        const loader = $('#httpLoader');
+        loader.prop('hidden', !visible).attr('aria-hidden', String(!visible));
+
+        if (visible && !this.httpLoaderTimer) {
+            this.httpLoaderSeconds = 0;
+            this.updateHttpLoaderMessage();
+            this.httpLoaderTimer = setInterval(() => {
+                this.httpLoaderSeconds += 1;
+                this.updateHttpLoaderMessage();
+            }, 1000);
+            return;
+        }
+
+        if (!visible && this.httpLoaderTimer) {
+            clearInterval(this.httpLoaderTimer);
+            this.httpLoaderTimer = null;
+            this.httpLoaderSeconds = 0;
+        }
+    }
+
+    // Atualiza a mensagem do loader com o tempo decorrido.
+    updateHttpLoaderMessage() {
+        $('#httpLoaderMessage').text(`Aguarde, processando ${this.httpLoaderSeconds}s`);
     }
 
     // Exibe um erro técnico em uma janela compartilhada entre as telas.
