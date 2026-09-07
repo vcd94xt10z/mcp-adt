@@ -145,6 +145,12 @@ class AppShell {
         return data;
     }
 
+    // Retorna o idioma configurado para a conexão SAP atualmente selecionada.
+    async currentConnectionLanguage() {
+        const options = await this.loadEnvironmentOptions();
+        return String(options.language || '').trim().toUpperCase();
+    }
+
     // Executa uma operação MCP pela API web usando a conexão SAP atualmente selecionada.
     async executeOperation(operation, input = {}) {
         return this.api('/api/execute', {

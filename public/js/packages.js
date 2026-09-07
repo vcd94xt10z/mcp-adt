@@ -87,7 +87,8 @@ class PackagesPage {
             $('#packageForm')[0].reset();
             $('#packageName').prop('readonly', false).removeClass('readonly-field');
             $('#packageDescription').prop('readonly', false);
-            $('#packageLanguage, #packageType, #packageSoftware, #packageLayer').prop('disabled', false);
+            $('#packageType, #packageSoftware, #packageLayer').prop('disabled', false);
+            $('#packageLanguage').prop('readonly', true).addClass('readonly-field');
             $('#packageRecordChanges').prop('disabled', false).prop('checked', true);
             $('#packageSuper').prop('readonly', false).removeClass('readonly-field').val('');
             $('#packageModeHint').removeClass('alert-secondary').addClass('alert-info').text('Pacote não-local: selecione uma request Workbench. O console não cria requests automaticamente.');
@@ -109,7 +110,7 @@ class PackagesPage {
             $('#packageSubmit').text('Salvar');
             $('#packageName').val(this.editingName).prop('readonly', true).addClass('readonly-field');
             $('#packageDescription').val(packageData.description || '').prop('readonly', false);
-            $('#packageLanguage').empty().append($('<option>', { value: packageData.language || '', text: packageData.language || '' })).prop('disabled', true);
+            $('#packageLanguage').val(await this.app.currentConnectionLanguage()).prop('readonly', true).addClass('readonly-field');
             $('#packageType').val(packageData.packageType || packageData.type || '').prop('disabled', true);
             $('#packageSoftware').empty().append($('<option>', { value: packageData.softwareComponent || '', text: packageData.softwareComponent || '' })).prop('disabled', true);
             $('#packageSuper').val(packageData.superPackage || '').prop('readonly', true).addClass('readonly-field');
@@ -128,7 +129,7 @@ class PackagesPage {
     // Carrega idiomas, software components e transport layers disponíveis para criação.
     async populateCreateOptions() {
         const options = await this.app.loadEnvironmentOptions();
-        this.app.setSelectOptions('#packageLanguage', options.languages, 'Selecione um idioma', options.languages?.[0]?.code);
+        $('#packageLanguage').val(await this.app.currentConnectionLanguage()).prop('readonly', true).addClass('readonly-field');
         this.app.setSelectOptions('#packageSoftware', options.softwareComponents, 'Selecione um software component', 'HOME');
         this.app.setSelectOptions('#packageLayer', options.transportLayers, 'Selecione um transport layer', 'SAP');
         $('#packageTransport').empty().append($('<option>', { value: '', text: 'Selecione uma request Workbench' }));

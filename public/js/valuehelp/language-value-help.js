@@ -8,9 +8,10 @@ class LanguageValueHelp extends ValueHelp {
                 { label: 'Descrição', value: item => item.description || '' }
             ],
             loadItems: async query => {
-                const options = await window.app.loadEnvironmentOptions();
+                const connection = window.app.currentConnection();
+                const response = await window.app.api(`/api/languages?connection=${encodeURIComponent(connection)}`);
                 const text = query.toUpperCase();
-                return (options.languages || []).map(item => typeof item === 'string' ? { code: item } : item)
+                return (response.languages || []).map(item => typeof item === 'string' ? { code: item } : item)
                     .filter(item => !text || `${item.code} ${item.description || ''}`.toUpperCase().includes(text));
             }
         });

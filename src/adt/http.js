@@ -119,6 +119,10 @@ export class AdtHttpClient {
                     });
                 });
             });
+            const timeoutMs = Number(options.timeoutMs ?? this.config.timeoutMs ?? 30000);
+            if (Number.isFinite(timeoutMs) && timeoutMs > 0) {
+                request.setTimeout(timeoutMs, () => request.destroy(new Error(`Request timeout after ${timeoutMs}ms.`)));
+            }
             request.on("error", reject);
             if (options.body !== undefined && options.body !== null) {
                 request.write(options.body);
@@ -136,7 +140,8 @@ export class AdtHttpClient {
             response = await this.requestUrl(url, {
                 method: options.method ?? "GET",
                 headers,
-                body: options.body
+                body: options.body,
+                timeoutMs: options.timeoutMs
             });
         }
         catch (error) {

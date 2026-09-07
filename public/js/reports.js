@@ -8,7 +8,6 @@ class ReportsPage {
         await $.getScript('/js/valuehelp/value-help.js');
         await $.getScript('/js/valuehelp/package-value-help.js');
         await $.getScript('/js/valuehelp/request-value-help.js');
-        await $.getScript('/js/valuehelp/language-value-help.js');
         if (!window.AbapEditor) await $.getScript('/js/abap-editor.js');
         this.editor = new AbapEditor('#reportSource');
         this.resourcesLoaded = true;
@@ -39,7 +38,6 @@ class ReportsPage {
             return true;
         });
         if (type === 'request') return window.requestValueHelp.open(item => $('#reportTransport').val(item.number));
-        if (type === 'language') return window.languageValueHelp.open(item => $('#reportLanguage').val(item.code || item));
     }
 
     generateSkeleton() {
@@ -56,9 +54,9 @@ class ReportsPage {
         } catch (error) { this.app.showError(error.data || { error: error.message }); }
     }
 
-    openCreate() {
-        this.current = null; $('#reportForm')[0].reset(); $('#reportLanguage').val('EN'); $('#reportFormTitle').text('Novo report');
-        $('#reportName,#reportDescription,#reportPackage,#reportLanguage,#reportTransport').prop('readonly', false);
+    async openCreate() {
+        this.current = null; $('#reportForm')[0].reset(); $('#reportLanguage').val(await this.app.currentConnectionLanguage()).prop('readonly', true).addClass('readonly-field'); $('#reportFormTitle').text('Novo report');
+        $('#reportName,#reportDescription,#reportPackage,#reportTransport').prop('readonly', false);
         $('#reportsPage .value-help-button').prop('disabled', false); $('#reportCheckSyntax,#reportActivate').hide(); this.editor.setValue(''); this.modal('reportModal').show();
     }
 
@@ -70,15 +68,15 @@ class ReportsPage {
             const data = await this.execute('report_get', { name }); this.current = data.result; const item = data.result.report;
             $('#reportForm')[0].reset(); $('#reportFormTitle').text(`Report ${item.name}`); $('#reportName').val(item.name).prop('readonly', true);
             $('#reportDescription').val(item.description).prop('readonly', false); $('#reportPackage').val(item.packageName).prop('readonly', true);
-            $('#reportLanguage').val(item.language || 'EN').prop('readonly', true); $('#reportTransport').val(data.result.transport?.number || '').prop('readonly', true);
-            $('#reportsPage .value-help-button[data-value-help="package"],#reportsPage .value-help-button[data-value-help="language"],#reportsPage .value-help-button[data-value-help="request"]').prop('disabled', true);
+            $('#reportLanguage').val(await this.app.currentConnectionLanguage()).prop('readonly', true).addClass('readonly-field'); $('#reportTransport').val(data.result.transport?.number || '').prop('readonly', true);
+            $('#reportsPage .value-help-button[data-value-help="package"],#reportsPage .value-help-button[data-value-help="request"]').prop('disabled', true);
             this.editor.setValue(data.result.source.source || ''); $('#reportCheckSyntax,#reportActivate').show(); this.modal('reportModal').show();
         } catch (error) { this.app.showError(error.data || { error: error.message }); }
     }
 
     async save() {
         try {
-            const input = { name: $('#reportName').val().trim(), description: $('#reportDescription').val().trim(), packageName: $('#reportPackage').val().trim(), transport: $('#reportTransport').val().trim(), language: $('#reportLanguage').val().trim() || 'EN', source: this.editor.getValue() };
+            const input = { name: $('#reportName').val().trim(), description: $('#reportDescription').val().trim(), packageName: $('#reportPackage').val().trim(), transport: $('#reportTransport').val().trim(), language: $('#reportLanguage').val().trim(), source: this.editor.getValue() };
             if (this.current) await this.execute('report_update', { ...input, responsible: this.current.report?.responsible || '' }); else await this.execute('report_create', input);
             this.app.showToast('Sucesso', this.current ? 'Report atualizado.' : 'Report criado.'); await this.search();
         } catch (error) { this.app.showError(error.data || { error: error.message }); }

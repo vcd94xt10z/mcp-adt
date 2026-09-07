@@ -18,7 +18,6 @@ class ClassesPage {
         if (!window.ValueHelp) await $.getScript('/js/valuehelp/value-help.js');
         if (!window.packageValueHelp) await $.getScript('/js/valuehelp/package-value-help.js');
         if (!window.requestValueHelp) await $.getScript('/js/valuehelp/request-value-help.js');
-        if (!window.languageValueHelp) await $.getScript('/js/valuehelp/language-value-help.js');
         if (!window.AbapEditor) await $.getScript('/js/abap-editor.js');
         this.editor = new AbapEditor('#classSource');
         this.resourcesLoaded = true;
@@ -47,7 +46,6 @@ class ClassesPage {
         if (type === 'package') return window.packageValueHelp.open(item => $('#classPackage').val(item.name));
         if (type === 'request') return window.requestValueHelp.open(item => $('#classTransport').val(item.number));
         if (type === 'delete-request') return window.requestValueHelp.open(item => $('#classDeleteTransport').val(item.number));
-        if (type === 'language') return window.languageValueHelp.open(item => $('#classLanguage').val(item.code || item));
     }
 
     generateSkeleton() {
@@ -69,11 +67,12 @@ class ClassesPage {
         } catch (error) { this.app.showError(error.data || { error: error.message }); }
     }
 
-    openCreate() {
+    async openCreate() {
         this.current = null;
         $('#classForm')[0].reset();
+        $('#classLanguage').val(await this.app.currentConnectionLanguage()).prop('readonly', true).addClass('readonly-field');
         $('#classFormTitle').text('Nova classe');
-        $('#className,#classPackage,#classDescription,#classLanguage,#classTransport').prop('readonly', false);
+        $('#className,#classPackage,#classDescription,#classTransport').prop('readonly', false);
         $('#classVisibility').prop('disabled', false);
         $('.value-help-button').prop('disabled', false);
         $('#classCheckSyntax,#classActivate').hide();
@@ -95,10 +94,10 @@ class ClassesPage {
             $('#className').val(item.name).prop('readonly', true);
             $('#classDescription').val(item.description);
             $('#classPackage').val(item.packageName).prop('readonly', true);
-            $('#classLanguage').val(item.language || 'EN').prop('readonly', true);
+            $('#classLanguage').val(await this.app.currentConnectionLanguage()).prop('readonly', true).addClass('readonly-field');
             $('#classTransport').val(data.result.transport?.number || '').prop('readonly', true);
             $('#classVisibility').val(item.visibility || 'public').prop('disabled', true);
-            $('.value-help-button[data-value-help="package"],.value-help-button[data-value-help="language"],.value-help-button[data-value-help="request"]').prop('disabled', true);
+            $('.value-help-button[data-value-help="package"],.value-help-button[data-value-help="request"]').prop('disabled', true);
             this.editor.setValue(data.result.source.source || '');
             $('#classCheckSyntax,#classActivate').show();
             this.modal('classModal').show();
@@ -124,13 +123,13 @@ class ClassesPage {
                 description: $('#classDescription').val().trim(),
                 packageName: $('#classPackage').val().trim(),
                 transport,
-                language: $('#classLanguage').val().trim() || 'EN',
+                language: $('#classLanguage').val().trim(),
                 responsible: this.current.class?.responsible || '',
                 final: this.current.class?.final !== false,
                 visibility: this.current.class?.visibility || 'public',
                 source
             });
-            else await this.execute('class_create', { name, description: $('#classDescription').val().trim(), packageName: $('#classPackage').val().trim(), transport, language: $('#classLanguage').val().trim() || 'EN', visibility: $('#classVisibility').val(), source });
+            else await this.execute('class_create', { name, description: $('#classDescription').val().trim(), packageName: $('#classPackage').val().trim(), transport, language: $('#classLanguage').val().trim(), visibility: $('#classVisibility').val(), source });
             this.app.showToast('Sucesso', this.current ? 'Classe atualizada.' : 'Classe criada.');
             await this.search();
         } catch (error) { this.app.showError(error.data || { error: error.message }); }

@@ -27,6 +27,13 @@ export function createMcpServer(initialConnections) {
         }
         return current.client;
     }
+    async function connectionConfig(connection) {
+        const connections = await loadConnections();
+        const config = connections[connection];
+        if (!config) throw new Error(`Unknown SAP connection '${connection}'.`);
+        return config;
+    }
+    const connectionLanguage = config => String(config.language ?? "EN").trim().toUpperCase() || "EN";
     const connectionSchema = z.object({ connection: z.string().min(1) });
     server.registerTool("package_list", {
         title: "List SAP packages",
@@ -51,14 +58,13 @@ export function createMcpServer(initialConnections) {
             description: z.string(),
             superPackage: z.string().optional(),
             responsible: z.string().optional(),
-            language: z.string().optional(),
             packageType: z.enum(["development", "structure", "main"]).optional(),
             softwareComponent: z.string().optional(),
             transportLayer: z.string().optional(),
             transport: z.string().optional(),
             recordChanges: z.boolean().optional()
         })
-    }, async ({ connection, ...input }) => result(await new PackageApi(await client(connection)).create(input)));
+    }, async ({ connection, ...input }) => { const config = await connectionConfig(connection); return result(await new PackageApi(await client(connection)).create({ ...input, responsible: config.user, language: connectionLanguage(config) })); });
     server.registerTool("package_update", {
         title: "Update SAP package",
         description: "Update only the package description and transport layer through SAP ADT. Other package attributes are preserved.",
@@ -80,12 +86,12 @@ export function createMcpServer(initialConnections) {
     }, async ({ connection, name, version }) => { const api = new ClassApi(await client(connection)); if (version) return result({ class: await api.get(name, version), source: await api.getSource(name, version), version }); return result(await api.getForEdit(name)); });
     server.registerTool("class_create", {
         title: "Create ABAP class", description: "Create an ABAP class using the Eclipse ADT flow.",
-        inputSchema: connectionSchema.extend({ name: z.string().min(1), description: z.string(), packageName: z.string().min(1), transport: z.string().optional(), language: z.string().optional(), final: z.boolean().optional(), visibility: z.string().optional(), source: z.string().optional() })
-    }, async ({ connection, ...input }) => { const connections = await loadConnections(); return result(await new ClassApi(await client(connection)).create({ ...input, responsible: connections[connection]?.user })); });
+        inputSchema: connectionSchema.extend({ name: z.string().min(1), description: z.string(), packageName: z.string().min(1), transport: z.string().optional(), final: z.boolean().optional(), visibility: z.string().optional(), source: z.string().optional() })
+    }, async ({ connection, ...input }) => { const config = await connectionConfig(connection); return result(await new ClassApi(await client(connection)).create({ ...input, language: connectionLanguage(config), responsible: config.user })); });
     server.registerTool("class_update", {
         title: "Update ABAP class", description: "Update ABAP class metadata and source. Local package classes do not require a transport request.",
-        inputSchema: connectionSchema.extend({ name: z.string().min(1), description: z.string(), packageName: z.string().optional(), transport: z.string().optional(), language: z.string().optional(), responsible: z.string().optional(), final: z.boolean().optional(), visibility: z.string().optional(), source: z.string() })
-    }, async ({ connection, ...input }) => result(await new ClassApi(await client(connection)).update(input)));
+        inputSchema: connectionSchema.extend({ name: z.string().min(1), description: z.string(), packageName: z.string().optional(), transport: z.string().optional(), responsible: z.string().optional(), final: z.boolean().optional(), visibility: z.string().optional(), source: z.string() })
+    }, async ({ connection, ...input }) => { const config = await connectionConfig(connection); return result(await new ClassApi(await client(connection)).update({ ...input, language: connectionLanguage(config), responsible: config.user })); });
     server.registerTool("class_update_source", {
         title: "Update ABAP class source", description: "Update the main source of an ABAP class using lock, PUT and unlock. Local package classes do not require a transport request.",
         inputSchema: connectionSchema.extend({ name: z.string().min(1), source: z.string(), transport: z.string().optional(), packageName: z.string().optional() })
@@ -113,12 +119,12 @@ export function createMcpServer(initialConnections) {
     }, async ({ connection, name, version }) => { const api = new InterfaceApi(await client(connection)); if (version) return result({ class: await api.get(name, version), source: await api.getSource(name, version), version }); return result(await api.getForEdit(name)); });
     server.registerTool("interface_create", {
         title: "Create ABAP interface", description: "Create an ABAP interface using the Eclipse ADT flow.",
-        inputSchema: connectionSchema.extend({ name: z.string().min(1), description: z.string(), packageName: z.string().min(1), transport: z.string().optional(), language: z.string().optional(), final: z.boolean().optional(), visibility: z.string().optional(), source: z.string().optional() })
-    }, async ({ connection, ...input }) => { const connections = await loadConnections(); return result(await new InterfaceApi(await client(connection)).create({ ...input, responsible: connections[connection]?.user })); });
+        inputSchema: connectionSchema.extend({ name: z.string().min(1), description: z.string(), packageName: z.string().min(1), transport: z.string().optional(), final: z.boolean().optional(), visibility: z.string().optional(), source: z.string().optional() })
+    }, async ({ connection, ...input }) => { const config = await connectionConfig(connection); return result(await new InterfaceApi(await client(connection)).create({ ...input, language: connectionLanguage(config), responsible: config.user })); });
     server.registerTool("interface_update", {
         title: "Update ABAP interface", description: "Update the main source of an ABAP interface using the Eclipse ADT save flow. Local package interfaces do not require a transport request.",
-        inputSchema: connectionSchema.extend({ name: z.string().min(1), description: z.string(), packageName: z.string().optional(), transport: z.string().optional(), language: z.string().optional(), responsible: z.string().optional(), final: z.boolean().optional(), visibility: z.string().optional(), source: z.string() })
-    }, async ({ connection, ...input }) => result(await new InterfaceApi(await client(connection)).update(input)));
+        inputSchema: connectionSchema.extend({ name: z.string().min(1), description: z.string(), packageName: z.string().optional(), transport: z.string().optional(), responsible: z.string().optional(), final: z.boolean().optional(), visibility: z.string().optional(), source: z.string() })
+    }, async ({ connection, ...input }) => { const config = await connectionConfig(connection); return result(await new InterfaceApi(await client(connection)).update({ ...input, language: connectionLanguage(config), responsible: config.user })); });
     server.registerTool("interface_update_source", {
         title: "Update ABAP interface source", description: "Update the main source of an ABAP interface using lock, PUT and unlock. Local package interfaces do not require a transport request.",
         inputSchema: connectionSchema.extend({ name: z.string().min(1), source: z.string(), transport: z.string().optional(), packageName: z.string().optional() })
@@ -145,12 +151,12 @@ export function createMcpServer(initialConnections) {
     }, async ({ connection, name, version }) => { const api = new DomainApi(await client(connection)); const domain = await api.get(name, version); return result({ ...domain, transport: await api.getTransport(domain.name, domain.packageName).catch(() => ({ number: "" })) }); });
     server.registerTool("domain_create", {
         title: "Create DDIC domain", description: "Create a DDIC domain following the Eclipse ADT validation and transport flow.",
-        inputSchema: connectionSchema.extend({ name:z.string().min(1), description:z.string(), packageName:z.string().min(1), transport:z.string().optional(), language:z.string().optional(), datatype:z.string().optional(), length:z.number().optional(), decimals:z.number().optional(), outputLength:z.number().optional(), conversionExit:z.string().optional(), lowercase:z.boolean().optional(), signExists:z.boolean().optional(), valueTable:z.string().optional(), fixValues:z.array(z.object({low:z.string(),high:z.string().optional(),text:z.string()})).optional() })
-    }, async ({ connection, ...input }) => { const connections=await loadConnections(); return result(await new DomainApi(await client(connection)).create({...input,responsible:connections[connection]?.user})); });
+        inputSchema: connectionSchema.extend({ name:z.string().min(1), description:z.string(), packageName:z.string().min(1), transport:z.string().optional(), datatype:z.string().optional(), length:z.number().optional(), decimals:z.number().optional(), outputLength:z.number().optional(), conversionExit:z.string().optional(), lowercase:z.boolean().optional(), signExists:z.boolean().optional(), valueTable:z.string().optional(), fixValues:z.array(z.object({low:z.string(),high:z.string().optional(),text:z.string()})).optional() })
+    }, async ({ connection, ...input }) => { const config = await connectionConfig(connection); return result(await new DomainApi(await client(connection)).create({ ...input, language: connectionLanguage(config), responsible: config.user })); });
     server.registerTool("domain_update", {
         title: "Update DDIC domain", description: "Update DDIC domain definition using lock, PUT and unlock.",
-        inputSchema: connectionSchema.extend({ name:z.string().min(1), description:z.string(), packageName:z.string().optional(), transport:z.string().optional(), language:z.string().optional(), datatype:z.string(), length:z.number(), decimals:z.number().optional(), outputLength:z.number().optional(), conversionExit:z.string().optional(), lowercase:z.boolean().optional(), signExists:z.boolean().optional(), valueTable:z.string().optional(), fixValues:z.array(z.object({low:z.string(),high:z.string().optional(),text:z.string()})).optional() })
-    }, async ({ connection, ...input }) => result(await new DomainApi(await client(connection)).update(input)));
+        inputSchema: connectionSchema.extend({ name:z.string().min(1), description:z.string(), packageName:z.string().optional(), transport:z.string().optional(), datatype:z.string(), length:z.number(), decimals:z.number().optional(), outputLength:z.number().optional(), conversionExit:z.string().optional(), lowercase:z.boolean().optional(), signExists:z.boolean().optional(), valueTable:z.string().optional(), fixValues:z.array(z.object({low:z.string(),high:z.string().optional(),text:z.string()})).optional() })
+    }, async ({ connection, ...input }) => { const config = await connectionConfig(connection); return result(await new DomainApi(await client(connection)).update({ ...input, language: connectionLanguage(config), responsible: config.user })); });
     server.registerTool("domain_activate", {
         title: "Activate DDIC domain", description: "Activate a DDIC domain through SAP ADT.", inputSchema: connectionSchema.extend({ name:z.string().min(1) })
     }, async ({connection,name}) => { const n=name.trim().toUpperCase(); return result(await new ActivationApi(await client(connection)).activate({uri:`/sap/bc/adt/ddic/domains/${encodeURIComponent(n.toLowerCase())}`,name:n})); });
@@ -167,12 +173,12 @@ export function createMcpServer(initialConnections) {
     }, async ({ connection, name, version }) => { const api = new ReportApi(await client(connection)); const editData = version ? { report: await api.get(name, version), source: await api.getSource(name, version), version } : await api.getForEdit(name); return result({ ...editData, transport: await api.getTransport(name).catch(() => ({ number: "" })) }); });
     server.registerTool("report_create", {
         title: "Create ABAP report", description: "Create an executable ABAP report using the Eclipse ADT flow. Local packages do not require a transport request.",
-        inputSchema: connectionSchema.extend({ name: z.string().min(1), description: z.string(), packageName: z.string().min(1), transport: z.string().optional(), language: z.string().optional(), source: z.string().optional() })
-    }, async ({ connection, ...input }) => { const connections = await loadConnections(); return result(await new ReportApi(await client(connection)).create({ ...input, responsible: connections[connection]?.user })); });
+        inputSchema: connectionSchema.extend({ name: z.string().min(1), description: z.string(), packageName: z.string().min(1), transport: z.string().optional(), source: z.string().optional() })
+    }, async ({ connection, ...input }) => { const config = await connectionConfig(connection); return result(await new ReportApi(await client(connection)).create({ ...input, language: connectionLanguage(config), responsible: config.user })); });
     server.registerTool("report_update", {
         title: "Update ABAP report", description: "Update ABAP report metadata and source using lock, PUT and unlock. Local packages do not require a transport request.",
-        inputSchema: connectionSchema.extend({ name: z.string().min(1), description: z.string(), packageName: z.string().optional(), transport: z.string().optional(), language: z.string().optional(), responsible: z.string().optional(), source: z.string() })
-    }, async ({ connection, ...input }) => result(await new ReportApi(await client(connection)).update(input)));
+        inputSchema: connectionSchema.extend({ name: z.string().min(1), description: z.string(), packageName: z.string().optional(), transport: z.string().optional(), responsible: z.string().optional(), source: z.string() })
+    }, async ({ connection, ...input }) => { const config = await connectionConfig(connection); return result(await new ReportApi(await client(connection)).update({ ...input, language: connectionLanguage(config), responsible: config.user })); });
     server.registerTool("report_update_source", {
         title: "Update ABAP report source", description: "Update the main source of an ABAP report using lock, PUT and unlock.",
         inputSchema: connectionSchema.extend({ name: z.string().min(1), source: z.string(), transport: z.string().optional(), packageName: z.string().optional() })

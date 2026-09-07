@@ -18,7 +18,6 @@ class InterfacesPage {
         if (!window.ValueHelp) await $.getScript('/js/valuehelp/value-help.js');
         if (!window.packageValueHelp) await $.getScript('/js/valuehelp/package-value-help.js');
         if (!window.requestValueHelp) await $.getScript('/js/valuehelp/request-value-help.js');
-        if (!window.languageValueHelp) await $.getScript('/js/valuehelp/language-value-help.js');
         if (!window.AbapEditor) await $.getScript('/js/abap-editor.js');
         this.editor = new AbapEditor('#interfaceSource');
         this.resourcesLoaded = true;
@@ -47,7 +46,6 @@ class InterfacesPage {
         if (type === 'package') return window.packageValueHelp.open(item => $('#interfacePackage').val(item.name));
         if (type === 'request') return window.requestValueHelp.open(item => $('#interfaceTransport').val(item.number));
         if (type === 'delete-request') return window.requestValueHelp.open(item => $('#interfaceDeleteTransport').val(item.number));
-        if (type === 'language') return window.languageValueHelp.open(item => $('#interfaceLanguage').val(item.code || item));
     }
 
     generateSkeleton() {
@@ -69,11 +67,12 @@ class InterfacesPage {
         } catch (error) { this.app.showError(error.data || { error: error.message }); }
     }
 
-    openCreate() {
+    async openCreate() {
         this.current = null;
         $('#interfaceForm')[0].reset();
+        $('#interfaceLanguage').val(await this.app.currentConnectionLanguage()).prop('readonly', true).addClass('readonly-field');
         $('#interfaceFormTitle').text('Nova interface');
-        $('#interfaceName,#interfacePackage,#interfaceDescription,#interfaceLanguage,#interfaceTransport').prop('readonly', false);
+        $('#interfaceName,#interfacePackage,#interfaceDescription,#interfaceTransport').prop('readonly', false);
         $('#interfaceVisibility').prop('disabled', false);
         $('.value-help-button').prop('disabled', false);
         $('#interfaceCheckSyntax,#interfaceActivate').hide();
@@ -95,10 +94,10 @@ class InterfacesPage {
             $('#interfaceName').val(item.name).prop('readonly', true);
             $('#interfaceDescription').val(item.description);
             $('#interfacePackage').val(item.packageName).prop('readonly', true);
-            $('#interfaceLanguage').val(item.language || 'EN').prop('readonly', true);
+            $('#interfaceLanguage').val(await this.app.currentConnectionLanguage()).prop('readonly', true).addClass('readonly-field');
             $('#interfaceTransport').val(data.result.transport?.number || '').prop('readonly', true);
             $('#interfaceVisibility').val(item.visibility || 'public').prop('disabled', true);
-            $('.value-help-button[data-value-help="package"],.value-help-button[data-value-help="language"],.value-help-button[data-value-help="request"]').prop('disabled', true);
+            $('.value-help-button[data-value-help="package"],.value-help-button[data-value-help="request"]').prop('disabled', true);
             this.editor.setValue(data.result.source.source || '');
             $('#interfaceCheckSyntax,#interfaceActivate').show();
             this.modal('interfaceModal').show();
@@ -124,13 +123,13 @@ class InterfacesPage {
                 description: $('#interfaceDescription').val().trim(),
                 packageName: $('#interfacePackage').val().trim(),
                 transport,
-                language: $('#interfaceLanguage').val().trim() || 'EN',
+                language: $('#interfaceLanguage').val().trim(),
                 responsible: this.current.interface?.responsible || '',
                 final: this.current.interface?.final !== false,
                 visibility: this.current.interface?.visibility || 'public',
                 source
             });
-            else await this.execute('interface_create', { name, description: $('#interfaceDescription').val().trim(), packageName: $('#interfacePackage').val().trim(), transport, language: $('#interfaceLanguage').val().trim() || 'EN', visibility: $('#interfaceVisibility').val(), source });
+            else await this.execute('interface_create', { name, description: $('#interfaceDescription').val().trim(), packageName: $('#interfacePackage').val().trim(), transport, language: $('#interfaceLanguage').val().trim(), visibility: $('#interfaceVisibility').val(), source });
             this.app.showToast('Sucesso', this.current ? 'Interface atualizada.' : 'Interface criada.');
             await this.search();
         } catch (error) { this.app.showError(error.data || { error: error.message }); }

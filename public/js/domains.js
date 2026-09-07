@@ -21,7 +21,6 @@ class DomainsPage {
         if (!window.ValueHelp) await $.getScript('/js/valuehelp/value-help.js');
         if (!window.packageValueHelp) await $.getScript('/js/valuehelp/package-value-help.js');
         if (!window.requestValueHelp) await $.getScript('/js/valuehelp/request-value-help.js');
-        if (!window.languageValueHelp) await $.getScript('/js/valuehelp/language-value-help.js');
         if (!window.domainDataTypeValueHelp) await $.getScript('/js/valuehelp/domain-data-type-value-help.js');
         this.resourcesLoaded = true;
     }
@@ -66,19 +65,18 @@ class DomainsPage {
     openValueHelp(type) {
         if (type === 'package') return window.packageValueHelp.open(item => $('#domainPackage').val(item.name));
         if (type === 'request') return window.requestValueHelp.open(item => $('#domainTransport').val(item.number));
-        if (type === 'language') return window.languageValueHelp.open(item => $('#domainLanguage').val(item.code || item));
         if (type === 'datatype') return window.domainDataTypeValueHelp.open(item => $('#domainDatatype').val(item.code));
     }
 
     // Abre o formulário para criação e restaura todos os campos após uma visualização.
-    openCreate() {
+    async openCreate() {
         this.current = null;
         const form = $('#domainForm');
         form[0].reset();
         form.find('input, button, select, textarea').prop('disabled', false);
         form.find('input, select, textarea').prop('readonly', false);
         $('#domainFormTitle').text('Novo domínio');
-        $('#domainLanguage').val('EN');
+        $('#domainLanguage').val(await this.app.currentConnectionLanguage()).prop('readonly', true).addClass('readonly-field');
         $('#domainFixValues').empty();
         $('#domainActivate').hide();
         this.modal('domainModal').show();
@@ -98,14 +96,14 @@ class DomainsPage {
         try {
             const data = await this.execute('domain_get', { name });
             this.current = data.result;
-            this.fill(data.result, action === 'view');
+            await this.fill(data.result, action === 'view');
             this.modal('domainModal').show();
         } catch (error) {
             this.app.showError(error.data || { error: error.message });
         }
     }
 
-    fill(domain, view) {
+    async fill(domain, view) {
         $('#domainForm')[0].reset();
         $('#domainFormTitle').text(`Domínio ${domain.name}${view ? ' (Visualização)' : ''}`);
 
@@ -114,7 +112,7 @@ class DomainsPage {
             domainDescription: domain.description,
             domainPackage: domain.packageName,
             domainTransport: domain.transport?.number || domain.transport || '',
-            domainLanguage: domain.language || 'EN',
+            domainLanguage: await this.app.currentConnectionLanguage(),
             domainDatatype: domain.datatype,
             domainLength: domain.length,
             domainDecimals: domain.decimals,
@@ -128,14 +126,16 @@ class DomainsPage {
         $('#domainFixValues').empty();
         (domain.fixValues || []).forEach(value => this.addFix(value));
 
-        $('#domainName,#domainPackage,#domainLanguage,#domainTransport').prop('readonly', true);
+        $('#domainName,#domainPackage,#domainTransport').prop('readonly', true);
+        $('#domainLanguage').prop('readonly', true).addClass('readonly-field');
         if (view) {
             $('#domainForm').find('input,button,select,textarea').prop('disabled', true);
             $('#domainModal .btn-close,#domainForm [data-bs-dismiss]').prop('disabled', false);
         } else {
             $('#domainForm').find('input,button,select,textarea').prop('disabled', false);
-            $('#domainName,#domainPackage,#domainLanguage,#domainTransport').prop('readonly', true);
-            $('#domainForm .value-help-button[data-value-help="package"],#domainForm .value-help-button[data-value-help="language"],#domainForm .value-help-button[data-value-help="request"]').prop('disabled', true);
+            $('#domainName,#domainPackage,#domainTransport').prop('readonly', true);
+            $('#domainLanguage').prop('readonly', true).addClass('readonly-field');
+            $('#domainForm .value-help-button[data-value-help="package"],#domainForm .value-help-button[data-value-help="request"]').prop('disabled', true);
         }
         $('#domainActivate').toggle(!view);
     }
@@ -155,7 +155,7 @@ class DomainsPage {
                 description: $('#domainDescription').val().trim(),
                 packageName: $('#domainPackage').val().trim(),
                 transport: $('#domainTransport').val().trim(),
-                language: $('#domainLanguage').val().trim() || 'EN',
+                language: $('#domainLanguage').val().trim(),
                 datatype: $('#domainDatatype').val().trim().toUpperCase(),
                 length: Number($('#domainLength').val()),
                 decimals: Number($('#domainDecimals').val() || 0),
