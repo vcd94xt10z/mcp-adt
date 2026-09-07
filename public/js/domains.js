@@ -68,12 +68,15 @@ class DomainsPage {
         if (type === 'datatype') return window.domainDataTypeValueHelp.open(item => $('#domainDatatype').val(item.code));
     }
 
+    // Abre o formulário para criação e restaura todos os campos após uma visualização.
     openCreate() {
         this.current = null;
-        $('#domainForm')[0].reset();
+        const form = $('#domainForm');
+        form[0].reset();
+        form.find('input, button, select, textarea').prop('disabled', false);
+        form.find('input, select, textarea').prop('readonly', false);
         $('#domainFormTitle').text('Novo domínio');
-        $('#domainName,#domainDescription,#domainPackage,#domainLanguage,#domainTransport,#domainDatatype,#domainLength,#domainDecimals,#domainOutputLength,#domainConversionExit,#domainValueTable').prop('readonly', false);
-        $('#domainsPage .value-help-button').prop('disabled', false);
+        $('#domainLanguage').val('EN');
         $('#domainFixValues').empty();
         $('#domainActivate').hide();
         this.modal('domainModal').show();
@@ -209,6 +212,30 @@ class DomainsPage {
             this.modal('domainDeleteModal').hide();
             this.app.showToast('Sucesso', 'Domínio excluído.');
             await this.search();
+        } catch (error) {
+            this.app.showError(error.data || { error: error.message });
+        }
+    }
+
+    // Pesquisa domínios usando o padrão e o máximo informados no formulário.
+    async search() {
+        try {
+            const query = ($('#domainSearchQuery').val() || '*').trim() || '*';
+            const maxResults = Math.max(1, Number($('#domainSearchMax').val()) || 100);
+            const data = await this.execute('domain_list', { query, maxResults });
+            const items = data.result?.items || [];
+            const rows = items.map(item => `<tr>
+                <td>${this.esc(item.name)}</td>
+                <td>${this.esc(item.description || '')}</td>
+                <td>${this.esc(item.packageName || '')}</td>
+                <td class="text-nowrap">
+                    <button type="button" class="btn btn-sm btn-outline-secondary" data-action="view" data-name="${this.attr(item.name)}">Visualizar</button>
+                    <button type="button" class="btn btn-sm btn-outline-primary" data-action="edit" data-name="${this.attr(item.name)}">Editar</button>
+                    <button type="button" class="btn btn-sm btn-outline-success" data-action="activate" data-name="${this.attr(item.name)}">Ativar</button>
+                    <button type="button" class="btn btn-sm btn-outline-danger" data-action="delete" data-name="${this.attr(item.name)}">Excluir</button>
+                </td>
+            </tr>`).join('');
+            $('#domainResults').html(`<table class="table table-hover align-middle mb-0"><thead><tr><th>Nome</th><th>Descrição</th><th>Pacote</th><th>Ações</th></tr></thead><tbody>${rows || '<tr><td colspan="4" class="text-center text-secondary">Nenhum domínio encontrado.</td></tr>'}</tbody></table>`);
         } catch (error) {
             this.app.showError(error.data || { error: error.message });
         }

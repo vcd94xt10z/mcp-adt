@@ -46,8 +46,71 @@ export class DomainApi {
     async get(name, version) { const domainName=normalizeDomainName(name); const response=await this.http.request(`${DOMAINS_URL}/${encodeURIComponent(domainName.toLowerCase())}`,{query:version?{version}:undefined,headers:{Accept:DOMAIN_ACCEPT,"Cache-Control":"no-cache"}}); return {...parseDomain(response.body),status:response.status,durationMs:response.durationMs}; }
     async validateName(input) { const name=normalizeDomainName(input.name); const response=await this.http.write(`${DOMAINS_URL}/validation`,{query:{objtype:"domadd",objname:name,description:String(input.description??"")},headers:{Accept:"application/vnd.sap.as+xml"}}); return {name,valid:/<CHECK_RESULT>\s*X\s*<\/CHECK_RESULT>/i.test(response.body),raw:response.body}; }
     async checkTransport(packageName,name) { const uri=`${DOMAINS_URL}/${encodeURIComponent(normalizeDomainName(name).toLowerCase())}`; const body=`<?xml version="1.0" encoding="UTF-8" ?><asx:abap version="1.0" xmlns:asx="http://www.sap.com/abapxml"><asx:values><DATA><PGMID></PGMID><OBJECT></OBJECT><OBJECTNAME></OBJECTNAME><DEVCLASS>${xmlEscape(packageName)}</DEVCLASS><SUPER_PACKAGE></SUPER_PACKAGE><RECORD_CHANGES></RECORD_CHANGES><OPERATION>I</OPERATION><URI>${xmlEscape(uri)}</URI></DATA></asx:values></asx:abap>`; return this.http.write("/sap/bc/adt/cts/transportchecks",{headers:{"Content-Type":"application/vnd.sap.as+xml; charset=UTF-8; dataname=com.sap.adt.transport.service.checkData",Accept:"application/vnd.sap.as+xml;charset=UTF-8;dataname=com.sap.adt.transport.service.checkData"},body}); }
-    async create(input) { const name=normalizeDomainName(input.name); const packageName=String(input.packageName??"").trim().toUpperCase(); if(!packageName) throw new Error("Package name is required."); const transport=String(input.transport??"").trim(); if(!localPackage(packageName)&&!transport) throw new Error(`A Workbench transport request is required for domain '${name}'.`); const validation=await this.validateName({...input,name}); if(!validation.valid) throw new Error(`SAP rejected the domain name '${name}'.`); await this.checkTransport(packageName,name); const initial=`<?xml version="1.0" encoding="UTF-8"?>\n<doma:domain xmlns:adtcore="http://www.sap.com/adt/core" xmlns:doma="http://www.sap.com/dictionary/domain" adtcore:description="${xmlEscape(input.description??"")}" adtcore:language="${xmlEscape(input.language??"EN")}" adtcore:name="${xmlEscape(name)}" adtcore:type="DOMA/DD" adtcore:masterLanguage="${xmlEscape(input.language??"EN")}" adtcore:masterSystem="${xmlEscape(input.masterSystem??"")}" adtcore:responsible="${xmlEscape(input.responsible??"")}"><adtcore:packageRef adtcore:name="${xmlEscape(packageName)}"/></doma:domain>`; const response=await this.http.write(DOMAINS_URL,{query:transport?{corrNr:transport}:undefined,headers:{"Content-Type":DOMAIN_CONTENT_TYPE,Accept:DOMAIN_ACCEPT},body:initial}); if(input.datatype) await this.update({...input,name,packageName}); return {name,packageName,status:response.status,durationMs:response.durationMs,raw:response.body}; }
-    async lock(name) { const domainName=normalizeDomainName(name); const response=await this.http.write(`${DOMAINS_URL}/${encodeURIComponent(domainName.toLowerCase())}`,{query:{_action:"LOCK",accessMode:"MODIFY"}}); const lock=parseLockHandle(response.body); if(!lock.lockHandle) throw new Error(`SAP did not return a lock handle for domain '${domainName}'.`); return lock; }
+    // Obtém o identificador do sistema SAP para preencher masterSystem como o Eclipse.
+    async getMasterSystem(packageName) {
+        if (String(packageName).startsWith('$')) return '';
+        const uri = `/sap/bc/adt/packages/${encodeURIComponent(String(packageName).toLowerCase())}`;
+        try {
+            const response = await this.http.request('/sap/bc/adt/repository/informationsystem/objectproperties/values', {
+                query: { uri },
+                headers: { Accept: 'application/vnd.sap.adt.repository.objproperties.result.v1+xml' }
+            });
+            const match = String(response.body).match(/<[^>]*property\b[^>]*facet=["']SYSTEM["'][^>]*\bname=["']([^"']+)/i);
+            return match?.[1]?.trim() || '';
+        } catch {
+            return '';
+        }
+    }
+
+    // Cria primeiro o domínio com os metadados mínimos e depois grava as propriedades DDIC.
+    async create(input) {
+        const name = normalizeDomainName(input.name);
+        const packageName = String(input.packageName ?? '').trim().toUpperCase();
+        if (!packageName) throw new Error('Package name is required.');
+        const transport = String(input.transport ?? '').trim();
+        if (!localPackage(packageName) && !transport) throw new Error(`A Workbench transport request is required for domain '${name}'.`);
+
+        const validation = await this.validateName({ ...input, name });
+        if (!validation.valid) throw new Error(`SAP rejected the domain name '${name}'.`);
+        await this.checkTransport(packageName, name);
+
+        const language = String(input.language ?? 'EN').trim().toUpperCase() || 'EN';
+        const responsible = String(input.responsible ?? this.http.config?.user ?? '').trim();
+        const masterSystem = String(input.masterSystem ?? '').trim() || await this.getMasterSystem(packageName);
+        const attributes = [
+            `adtcore:description="${xmlEscape(input.description ?? '')}"`,
+            `adtcore:language="${xmlEscape(language)}"`,
+            `adtcore:name="${xmlEscape(name)}"`,
+            'adtcore:type="DOMA/DD"',
+            `adtcore:masterLanguage="${xmlEscape(language)}"`,
+            ...(masterSystem ? [`adtcore:masterSystem="${xmlEscape(masterSystem)}"`] : []),
+            ...(responsible ? [`adtcore:responsible="${xmlEscape(responsible)}"`] : [])
+        ].join(' ');
+        const initial = `<?xml version="1.0" encoding="UTF-8"?>\n<doma:domain xmlns:adtcore="http://www.sap.com/adt/core" xmlns:doma="http://www.sap.com/dictionary/domain" ${attributes}>\n  <adtcore:packageRef adtcore:name="${xmlEscape(packageName)}"/>\n</doma:domain>`;
+
+        const response = await this.http.write(DOMAINS_URL, {
+            query: transport ? { corrNr: transport } : undefined,
+            headers: { 'Content-Type': DOMAIN_CONTENT_TYPE, Accept: DOMAIN_ACCEPT },
+            body: initial
+        });
+
+        if (input.datatype) await this.update({ ...input, name, packageName, language, responsible });
+        return { name, packageName, masterSystem, status: response.status, durationMs: response.durationMs, raw: response.body };
+    }
+
+    // Bloqueia o domínio para alteração seguindo exatamente o Accept usado pelo Eclipse.
+    async lock(name) {
+        const domainName = normalizeDomainName(name);
+        const response = await this.http.write(`${DOMAINS_URL}/${encodeURIComponent(domainName.toLowerCase())}`, {
+            query: { _action: "LOCK", accessMode: "MODIFY" },
+            headers: {
+                Accept: "application/vnd.sap.as+xml;charset=UTF-8;dataname=com.sap.adt.lock.result;q=0.8, application/vnd.sap.as+xml;charset=UTF-8;dataname=com.sap.adt.lock.result2;q=0.9"
+            }
+        });
+        const lock = parseLockHandle(response.body);
+        if (!lock.lockHandle) throw new Error(`SAP did not return a lock handle for domain '${domainName}'.`);
+        return { ...lock, status: response.status, durationMs: response.durationMs, raw: response.body };
+    }
     async unlock(name,lockHandle) { return this.http.write(`${DOMAINS_URL}/${encodeURIComponent(normalizeDomainName(name).toLowerCase())}`,{query:{_action:"UNLOCK",lockHandle}}); }
     async update(input) { const name=normalizeDomainName(input.name); const current=await this.get(name,"inactive").catch(()=>this.get(name,"workingArea")); const packageName=String(input.packageName??current.packageName??"").trim().toUpperCase(); const transport=String(input.transport??"").trim(); if(!localPackage(packageName)&&!transport) throw new Error(`A Workbench transport request is required to update domain '${name}'.`); const lock=await this.lock(name); let failure; try { const token=await this.http.fetchCsrfToken(); const response=await this.http.request(`${DOMAINS_URL}/${encodeURIComponent(name.toLowerCase())}`,{method:"PUT",query:{lockHandle:lock.lockHandle,...(transport?{corrNr:transport}:{})},headers:{"Content-Type":`${DOMAIN_CONTENT_TYPE}; charset=utf-8`,Accept:DOMAIN_ACCEPT,"X-CSRF-Token":token},body:buildDomainXml({...input,name,packageName},current)}); return {name,status:response.status,durationMs:response.durationMs,raw:response.body}; } catch(e){failure=e;throw e;} finally { try{await this.unlock(name,lock.lockHandle);}catch(e){if(!failure)throw e;} } }
     async checkDelete(name) { const domainName=normalizeDomainName(name); const uri=`${DOMAINS_URL}/${encodeURIComponent(domainName.toLowerCase())}`; const body=`<?xml version="1.0" encoding="UTF-8"?><del:checkRequest xmlns:adtcore="http://www.sap.com/adt/core" xmlns:del="http://www.sap.com/adt/deletion"><del:object adtcore:uri="${xmlEscape(uri)}"/></del:checkRequest>`; const response=await this.http.write("/sap/bc/adt/deletion/check",{headers:{"Content-Type":"application/vnd.sap.adt.deletion.check.request.v1+xml",Accept:"application/vnd.sap.adt.deletion.check.response.v1+xml"},body}); const transport=response.body.match(/<del:trkorr>\s*([^<]+)/i)?.[1]?.trim()??""; return {name:domainName,uri,isDeletable:/isDeletable=["']true/i.test(response.body),transport,raw:response.body}; }
