@@ -1,0 +1,36 @@
+#dataelementsPage input[readonly],
+#dataelementsPage select[readonly],
+#dataelementsPage .readonly-field {
+    background-color: var(--bs-secondary-bg) !important;
+}
+
+#dataelementsPage .form-control:focus,
+#dataelementsPage .form-select:focus {
+    background-color: #fff3cd;
+    border-color: #ffc107;
+    box-shadow: 0 0 0 .25rem rgba(255, 193, 7, .25);
+}
+
+#dataelementsPage .dataelement-block {
+    border: 1px solid var(--bs-border-color);
+    border-radius: var(--bs-border-radius);
+    background: var(--bs-body-bg);
+}
+
+#dataelementsPage .dataelement-block-title {
+    padding: .5rem .75rem;
+    font-weight: 600;
+    background: var(--bs-secondary-bg);
+    border-bottom: 1px solid var(--bs-border-color);
+}
+
+#dataelementResultsCard .table-actions {
+    white-space: nowrap;
+}
+
+.resizable-modal {
+    resize: both;
+    overflow: auto;
+    min-width: 320px;
+    min-height: 280px;
+}

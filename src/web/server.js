@@ -7,6 +7,7 @@ import { RequestApi } from "../adt/requests.js";
 import { ClassApi } from "../adt/classes.js";
 import { InterfaceApi } from "../adt/interfaces.js";
 import { DomainApi } from "../adt/domains.js";
+import { DataElementApi } from "../adt/dataelements.js";
 import { ReportApi } from "../adt/reports.js";
 import { ActivationApi } from "../adt/activation.js";
 import { CheckRunApi } from "../adt/checkrun.js";
@@ -299,6 +300,13 @@ async function execute(res, connections, clients, payload) {
         case "interface_delete":
             result = await new InterfaceApi(client).delete(required(input, "name"), optional(input, "transport"));
             break;
+        case "dataelement_list": result = await new DataElementApi(client).list({ query: optional(input,"query") ?? "Z*", maxResults:Number(input.maxResults)||100 }); break;
+        case "dataelement_get": { const api=new DataElementApi(client); const data=await api.get(required(input,"name"),optional(input,"version")); result={...data,transport:await api.getTransport(data.name,data.packageName).catch(()=>({number:""}))}; break; }
+        case "dataelement_create": result=await new DataElementApi(client).create({...input,language:normalizeLanguage(config.language),responsible:config.user}); break;
+        case "dataelement_update": result=await new DataElementApi(client).update({...input,language:normalizeLanguage(config.language),responsible:config.user}); break;
+        case "dataelement_activate": { const name=required(input,"name").toUpperCase(); result=await new ActivationApi(client).activate({uri:`/sap/bc/adt/ddic/dataelements/${encodeURIComponent(name.toLowerCase())}`,name}); break; }
+        case "dataelement_delete_check": result=await new DataElementApi(client).checkDelete(required(input,"name")); break;
+        case "dataelement_delete": result=await new DataElementApi(client).delete(required(input,"name"),optional(input,"transport")); break;
         case "domain_list":
             result = await new DomainApi(client).list({ query: optional(input, "query") ?? "Z*", maxResults: Number(input.maxResults) || 100 });
             break;

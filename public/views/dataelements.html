@@ -1,0 +1,83 @@
+<section id="dataelementsPage" class="app-page d-none">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <div>
+            <h2 class="h4 mb-1">Elementos de Dados</h2>
+            <p class="text-secondary mb-0">Crie e mantenha elementos de dados do Dicionário ABAP.</p>
+        </div>
+        <button id="dataelementCreate" type="button" class="btn btn-primary">Novo elemento</button>
+    </div>
+
+    <div class="card mb-3">
+        <div class="card-body">
+            <form id="dataelementSearchForm" class="row g-2">
+                <div class="col-md-9">
+                    <label class="form-label">Padrão</label>
+                    <input id="dataelementSearch" class="form-control" aria-label="Pesquisar elementos de dados" value="Z*">
+                </div>
+                <div class="col-md-3 d-flex align-items-end">
+                    <button type="submit" class="btn btn-primary w-100">Pesquisar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="dataelementResultsCard" class="card card-body">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead><tr><th>Nome</th><th>Descrição</th><th>Pacote</th><th>Ações</th></tr></thead>
+                <tbody id="dataelementResults"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="modal fade" id="dataelementModal" tabindex="-1">
+        <div class="modal-dialog modal-xl modal-dialog-centered resizable-modal">
+            <div class="modal-content">
+                <form id="dataelementForm">
+                    <div class="modal-header">
+                        <h5 id="dataelementFormTitle">Elemento de Dados</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-4"><label class="form-label">Nome *</label><input class="form-control" id="dataelementName" name="name" required></div>
+                            <div class="col-md-5"><label class="form-label">Descrição *</label><input class="form-control" id="dataelementDescription" name="description" required></div>
+                            <div class="col-md-3"><label class="form-label">Idioma</label><input class="form-control readonly-field" id="dataelementLanguage" name="language" readonly></div>
+                            <div class="col-md-8"><label class="form-label">Pacote *</label><div class="input-group"><input class="form-control" id="dataelementPackageName" name="packageName" required><button type="button" class="btn btn-outline-secondary value-help-button" data-value-help="package">Selecionar</button></div></div>
+                            <div class="col-md-4"><label class="form-label">Request Workbench</label><div class="input-group"><input class="form-control" id="dataelementTransport" name="transport"><button type="button" class="btn btn-outline-secondary value-help-button" data-value-help="request">Selecionar</button></div></div>
+                        </div>
+
+                        <div class="row g-3">
+                            <div class="col-lg-6">
+                                <div class="dataelement-block h-100">
+                                    <div class="dataelement-block-title">Informações do Tipo de Dados</div>
+                                    <div class="p-3 row g-3">
+                                        <div class="col-12"><label class="form-label">Tipo *</label><select class="form-select" id="dataelementTypeKind" name="typeKind" required><option value="domain">Domínio</option><option value="predefined">Predefined</option></select></div>
+                                        <div class="col-12"><label class="form-label">Nome do Tipo/Domínio <span id="dataelementTypeNameRequired">*</span></label><input class="form-control" id="dataelementTypeName" name="typeName" required></div>
+                                        <div class="col-md-6"><label class="form-label">Tipo ABAP</label><div class="input-group"><input class="form-control" id="dataelementDataType" name="dataType"><button type="button" class="btn btn-outline-secondary value-help-button" data-value-help="datatype">Selecionar</button></div></div>
+                                        <div class="col-md-3"><label class="form-label">Comprimento</label><input type="number" min="0" step="1" inputmode="numeric" class="form-control" id="dataelementDataTypeLength" name="dataTypeLength"></div>
+                                        <div class="col-md-3"><label class="form-label">Decimais</label><input type="number" min="0" step="1" inputmode="numeric" class="form-control" id="dataelementDataTypeDecimals" name="dataTypeDecimals"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="dataelement-block h-100">
+                                    <div class="dataelement-block-title">Rótulos dos Campos</div>
+                                    <div class="p-3 row g-2 align-items-end">
+                                        <div class="col-md-9"><label class="form-label">Texto curto</label><input class="form-control" id="dataelementShortFieldLabel" name="shortFieldLabel"></div><div class="col-md-3"><label class="form-label">Tam.</label><input type="number" min="0" step="1" inputmode="numeric" class="form-control" id="dataelementShortFieldLength" name="shortFieldLength"></div>
+                                        <div class="col-md-9"><label class="form-label">Texto médio</label><input class="form-control" id="dataelementMediumFieldLabel" name="mediumFieldLabel"></div><div class="col-md-3"><label class="form-label">Tam.</label><input type="number" min="0" step="1" inputmode="numeric" class="form-control" id="dataelementMediumFieldLength" name="mediumFieldLength"></div>
+                                        <div class="col-md-9"><label class="form-label">Texto longo</label><input class="form-control" id="dataelementLongFieldLabel" name="longFieldLabel"></div><div class="col-md-3"><label class="form-label">Tam.</label><input type="number" min="0" step="1" inputmode="numeric" class="form-control" id="dataelementLongFieldLength" name="longFieldLength"></div>
+                                        <div class="col-md-9"><label class="form-label">Cabeçalho</label><input class="form-control" id="dataelementHeadingFieldLabel" name="headingFieldLabel"></div><div class="col-md-3"><label class="form-label">Tam.</label><input type="number" min="0" step="1" inputmode="numeric" class="form-control" id="dataelementHeadingFieldLength" name="headingFieldLength"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer"><button type="button" id="dataelementActivate" class="btn btn-success">Ativar</button><button type="submit" id="dataelementSave" class="btn btn-primary">Salvar</button><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button></div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="dataelementDeleteModal" tabindex="-1"><div class="modal-dialog modal-dialog-centered"><div class="modal-content"><div class="modal-header"><h5>Confirmar exclusão</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><p id="dataelementDeleteText"></p></div><div class="modal-footer"><button id="dataelementDeleteConfirm" type="button" class="btn btn-danger">Excluir</button><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button></div></div></div></div>
+</section>
